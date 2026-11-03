@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "lessonId": "f32f082e-70d5-4041-a33c-75edae409487",
+  "noteId": "1b4bdbd1-3345-43a4-9b06-958f37cbdac6",
+  "questionId": "8aabe99a-2eba-46fc-8317-444fb1d662c5",
+  "checks": [
+    "Student saved a private timestamped note through the player",
+    "Saved note persisted after reload and its timestamp seeks the recording",
+    "A different account cannot read the student private note",
+    "Student posted a timestamped question and cannot see mentor answer controls",
+    "Server rejects a student attempting to answer as mentor",
+    "Owning mentor posted an answer through the actual player form",
+    "Student reads the persisted mentor reply after refreshing the Q&A tab",
+    "Four tabs support roving focus and End keyboard navigation"
+  ],
+  "errors": [],
+  "warnings": []
+}

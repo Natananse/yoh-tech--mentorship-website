@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": [
+    "Certificate creation disabled until every published lesson is complete",
+    "Completion alone does not issue a certificate",
+    "Student explicitly issued a certificate after completing the published course",
+    "Anonymous verification shows the real name, course, issue date, lesson count and ID without private account data",
+    "Invalid certificate ID returns a proper 404"
+  ],
+  "widths": [
+    {
+      "page": "workspace",
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "page": "workspace",
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "page": "workspace",
+      "viewport": 1440,
+      "scroll": 1440
+    },
+    {
+      "page": "verification",
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "page": "verification",
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "page": "verification",
+      "viewport": 1440,
+      "scroll": 1440
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "certificateId": "58680835-286f-45a5-8106-07f1163c799d",
+  "pdfRequested": false
+}

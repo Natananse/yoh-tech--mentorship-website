@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "timestamped notes remain private to their owner",
+    "authenticated Q&A omits emails",
+    "only lesson mentor/admin can answer",
+    "certificate requires all published lessons and at least one lesson",
+    "certificate issuance is idempotent per user/course",
+    "public UUID verification returns only record fields",
+    "PDF download restricted to owner/admin",
+    "one-page landscape PDF preserves mixed Ethiopic/Latin recipient text"
+  ],
+  "pdfPath": "/tmp/yoh-p3-certificate.pdf",
+  "certificateId": "a984f0a7-0756-445e-a398-86d2cd2b5069",
+  "bytes": 243695
+}

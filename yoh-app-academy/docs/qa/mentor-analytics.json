@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "checks": [
+    "Mentor analytics reflects actual P1 student viewer/completion",
+    "Per-lesson table matches authenticated analytics API",
+    "Refresh button fetches current activity",
+    "Positive-only statistics and genuine empty mentor state",
+    "No overflow390/768/1440"
+  ],
+  "metrics": {
+    "uniqueViewers": 1,
+    "completions": 1,
+    "enrollments": 4,
+    "publishedLessons": 1
+  },
+  "widths": [
+    {
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "viewport": 1440,
+      "scroll": 1440
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

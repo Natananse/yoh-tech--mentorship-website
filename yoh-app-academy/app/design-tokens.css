@@ -1,0 +1,32 @@
+:root {
+  --paper: #fafaf7;
+  --surface: #ffffff;
+  --ink: #0e0f13;
+  --muted: #5b5f6a;
+  --border: #e4e4df;
+  --cobalt: #2b50ff;
+  --cobalt-hover: #193dde;
+  --highlight: #ffe45c;
+  --success: #12a150;
+  --danger: #d92d20;
+  --on-dark: #f2f2ee;
+  --font-heading: 'Bricolage Grotesque', Arial, sans-serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --radius: 10px;
+  --orange: var(--cobalt);
+  --orange-hover: var(--cobalt-hover);
+  --canvas: var(--paper);
+  --peach: var(--highlight);
+  --blue: var(--cobalt);
+  --green: var(--success);
+}

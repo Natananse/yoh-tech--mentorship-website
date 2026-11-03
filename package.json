@@ -3,12 +3,14 @@
   "private": true,
   "packageManager": "pnpm@11.20.0",
   "engines": {
-    "node": ">=22.13.0",
+    "node": ">=24.13.0",
     "pnpm": ">=11.20.0 <12"
   },
   "scripts": {
     "dev": "pnpm --dir yoh-app-academy dev",
     "build": "pnpm --dir yoh-app-academy build",
-    "typecheck": "pnpm --dir yoh-app-academy typecheck"
+    "typecheck": "pnpm --dir yoh-app-academy typecheck",
+    "start": "pnpm --dir yoh-app-academy start",
+    "setup-admin": "pnpm --dir yoh-app-academy setup-admin"
   }
 }

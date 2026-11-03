@@ -1,0 +1,71 @@
+{
+  "http": 200,
+  "sections": [
+    {
+      "id": "home",
+      "top": 93,
+      "height": 871
+    },
+    {
+      "id": "courses",
+      "top": 1058,
+      "height": 1920
+    },
+    {
+      "id": "sample-lesson",
+      "top": 2978,
+      "height": 1313
+    },
+    {
+      "id": "testimonials",
+      "top": 4291,
+      "height": 893
+    },
+    {
+      "id": "mentors",
+      "top": 5184,
+      "height": 1226
+    },
+    {
+      "id": "faq",
+      "top": 6410,
+      "height": 1049
+    },
+    {
+      "id": "",
+      "top": 7460,
+      "height": 754
+    }
+  ],
+  "widths": [
+    {
+      "viewport": 320,
+      "scroll": 320
+    },
+    {
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "viewport": 1440,
+      "scroll": 1440
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "technology filter",
+    "search empty/reset",
+    "course details and Escape focus return",
+    "FAQ accordion",
+    "video playback, speed and chapter seeking",
+    "lesson transcript",
+    "completion persists into workspace",
+    "mentor draft persists after reload",
+    "mobile menu and section navigation",
+    "no horizontal overflow at320/390/768/1440"
+  ]
+}

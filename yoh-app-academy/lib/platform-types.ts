@@ -1,0 +1,19 @@
+export type Role = 'student' | 'mentor' | 'admin';
+export type User = { id: string; name: string; email: string; role: Role };
+export type LessonChapter = { title: string; time: number; code?: string; screen?: string };
+export type LessonResource = { id: string; name: string; url: string; size: number; mime: string };
+export type Lesson = {
+  id: string; title: string; description: string; courseId: string;
+  mentorId: string; mentorName: string; videoUrl: string | null;
+  duration: number; published: boolean; resources: LessonResource[];
+  chapters: LessonChapter[]; createdAt: string; updatedAt: string;
+};
+export type Progress = { lessonId: string; position: number; duration: number; completed: boolean; updatedAt: string };
+export type PlatformStats = { publishedLessons: number; enrolledStudents: number; completedLessons: number };
+export type LessonAnalytics = { id: string; title: string; courseId: string; mentorName: string; published: boolean; uniqueViewers: number; completions: number; enrollments: number };
+export type MentorAnalytics = { metrics: { uniqueViewers: number; completions: number; enrollments: number; publishedLessons: number }; lessons: LessonAnalytics[] };
+export type PublicMentor = { id: string; name: string; role: string; teaches: string[]; yearsExperience: number | null; teachingStyle: string | null; portraitUrl: string | null };
+export type LessonNote = { id: string; lessonId: string; userId: string; position: number; body: string; createdAt: string };
+export type LessonQuestion = { id: string; lessonId: string; authorId: string; authorName: string; position: number | null; body: string; answer: string | null; answeredByName: string | null; answeredAt: string | null; createdAt: string };
+export type Certificate = { id: string; courseId: string; courseTitle: string; recipientName: string; completedLessonCount: number; issuedAt: string; verifyUrl: string; pdfUrl: string };
+export type CertificateEligibility = { courseId: string; courseTitle: string; publishedLessons: number; completedLessons: number; eligible: boolean };

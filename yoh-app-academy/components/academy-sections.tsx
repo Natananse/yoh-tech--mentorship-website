@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -95,64 +95,49 @@ const mentors = [
   },
 ];
 
+type MentorProfile = { id: string; name: string; role: string; teaches: string[]; yearsExperience: number | null; teachingStyle: string | null; portraitUrl: string | null };
+
 export function AcademyMentors() {
-  return (
-    <section className="academy-section academy-mentors" id="mentors" aria-labelledby="academy-mentors-title">
-      <div className="academy-container">
-        <div className="academy-section-heading">
-          <span className="academy-kicker">GUIDANCE THAT GOES BEYOND THE TUTORIAL</span>
-          <h2 id="academy-mentors-title">MEET YOUR<br /><span className="academy-accent">APP-BUILDING GUIDES.</span></h2>
-          <p>Clear explanations. Practical projects.<br />People who help you understand the why behind the code.</p>
-        </div>
-        <div className="academy-mentor-grid">
-          {mentors.map((mentor, index) => (
-            <article className="academy-mentor-card" key={mentor.name}>
-              <div className={`academy-mentor-photo academy-mentor-photo-${index}`} role="img" aria-label={`AI-generated placeholder portrait for sample mentor ${mentor.name}`}>
-                <span className="academy-photo-label">ILLUSTRATIVE PORTRAIT</span>
-              </div>
-              <div className="academy-mentor-body">
-                <span className="academy-sample-label">SAMPLE MENTOR PROFILE</span>
-                <h3>{mentor.name}</h3>
-                <span className="academy-mentor-role">{mentor.role}</span>
-                <p>{mentor.bio}</p>
-                <h4>TEACHES</h4>
-                <ul className="academy-mentor-tags">{mentor.specialties.map((specialty) => <li key={specialty}>{specialty}</li>)}</ul>
-                <div className="academy-mentor-project"><BookOpen size={17} aria-hidden="true" /><span>PROJECT FOCUS<strong>{mentor.project}</strong></span></div>
-              </div>
-            </article>
-          ))}
-        </div>
-        <p className="academy-note">Meet the teaching approach through these sample profiles. Team details will be confirmed before enrollment opens.</p>
-      </div>
-    </section>
-  );
+  const [profiles, setProfiles] = useState<MentorProfile[]>([]);
+  const [active, setActive] = useState(0);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let live = true;
+    fetch('/api/mentors').then(r => r.ok ? r.json() : { mentors: [] }).then(data => { if (live) setProfiles(data.mentors || []); }).catch(() => {}).finally(() => { if (live) setLoading(false); });
+    return () => { live = false; };
+  }, []);
+  const mentor = profiles[active];
+  return <section className="academy-section academy-mentor-feature" id="mentors" aria-labelledby="academy-mentors-title"><div className="academy-container">
+    <div className="academy-section-heading"><div><span className="academy-kicker">A person, not a playlist</span><h2 id="academy-mentors-title">Learn the why.<br />Then <mark>try it.</mark></h2></div><p>See who teaches the course and what they help you build. Mentor details are confirmed before a course opens.</p></div>
+    {loading ? <div className="academy-mentor-skeleton" role="status" aria-label="Loading mentor profiles" /> : <>
+      {profiles.length > 1 && <div className="academy-mentor-selector" role="group" aria-label="Choose a mentor">{profiles.map((profile, index) => <button aria-pressed={active === index} key={profile.id} onClick={() => setActive(index)}>{profile.name}</button>)}</div>}
+      <article className="academy-mentor-editorial"><div className="academy-mentor-portrait">{mentor?.portraitUrl ? <img decoding="async" src={mentor.portraitUrl} alt={mentor.name} width={600} height={600} loading="lazy" /> : <><img decoding="async" className="academy-placeholder-portrait" src="/media/mentor-triptych.webp" alt="Placeholder mentor portrait; the approved team photo has not been supplied." width={1500} height={500} loading="lazy" /><span>Placeholder portrait</span></>}</div><div className="academy-mentor-editorial-copy"><span className="academy-kicker">{mentor ? 'Your course mentor' : 'Profile placeholder'}</span><h3>{mentor?.name || 'Mentor name to be supplied'}</h3><p className="academy-mentor-editorial-role">{mentor?.role || 'App development mentor'}</p><p className="academy-mentor-editorial-quote">{mentor?.teachingStyle || 'The mentor’s teaching approach and professional biography are being confirmed.'}</p><div className="academy-mentor-facts"><div><span>Teaches</span><p>{mentor?.teaches.length ? mentor.teaches.join(' · ') : 'Planned: React Native · Expo · JavaScript'}</p></div><div><span>Experience</span><p>{mentor?.yearsExperience != null ? `${mentor.yearsExperience} years` : 'Years of experience to be supplied'}</p></div></div><a href="#courses">Explore the courses <ArrowUpRight size={18} /></a></div></article>
+      <p className="academy-note">Portraits, experience and biographies marked as placeholders need the team’s approved content.</p>
+    </>}
+  </div></section>;
+}
+
+export function AcademyHowItWorks() {
+  const steps = [
+    ['Watch one idea', 'A short explanation gives you the next piece. Pause at the line you want to try.'],
+    ['Run it on your phone', 'Write the component. Change the props. See what happens on a real screen.'],
+    ['Make the project yours', 'Work through the chapters, add your own feature and save your progress.'],
+  ];
+  return <section className="academy-section academy-process" id="approach" aria-labelledby="academy-process-title"><div className="academy-container academy-process-grid"><div><span className="academy-kicker">How it works</span><h2 id="academy-process-title">One idea.<br />One <mark>useful step.</mark></h2><p>You do not need every answer before you begin. Work through one small build at a time.</p><a className="academy-text-link" href="#sample-lesson">Try the classroom <ArrowRight size={18} /></a></div><ol className="academy-timeline">{steps.map(([title, description], index) => <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol></div></section>;
+}
+
+export function AcademyProjects() {
+  const projects = [{title:'Daylight planner',description:'A small place for the three things you want to do today.',image:0},{title:'Fieldnotes journal',description:'Save a photo and the story you want to remember.',image:1},{title:'Pocket Notes',description:'Keep a useful thought and find it when you need it.',image:4}];
+  return <section className="academy-section academy-projects" id="student-projects" aria-labelledby="academy-projects-title"><div className="academy-container"><div className="academy-section-heading"><div><span className="academy-kicker">A place for your work</span><h2 id="academy-projects-title">Small apps.<br /><mark>Personal ideas.</mark></h2></div><p>These are example app concepts. Student names, cities and approved project screenshots will go here.</p></div><div className="academy-project-masonry">{projects.map((project, index) => <article className={`academy-project-tile academy-project-tile-${index}`} key={project.title}><div className="academy-project-image"><img decoding="async" src={`/media/course-${project.image}.webp`} alt={`Placeholder concept image for ${project.title}, not a verified student submission.`} width={640} height={360} loading="lazy" /></div><div className="academy-project-copy"><span className="academy-kicker">Placeholder project</span><h3>{project.title}</h3><p>{project.description}</p><span className="academy-project-person">First name pending <span>·</span> City pending</span></div></article>)}</div></div></section>;
 }
 
 const questions = [
-  {
-    question: 'Do I need to know how to code?',
-    answer: 'You can begin with JavaScript fundamentals, then move into React Native and Expo. Beginner courses explain the basics as you build. Intermediate courses assume you are comfortable with components, props and state.',
-  },
-  {
-    question: 'What do I need to get started?',
-    answer: 'A laptop or desktop computer, a code editor and an internet connection. A phone with Expo Go is useful for previewing compatible projects. Each course explains its setup before you start building.',
-  },
-  {
-    question: 'What will I actually build?',
-    answer: 'Each course has a practical project: a daily planner, photo journal, habit tracker, polished mobile interface, connected notes app or app release checklist. The goal is working code you can understand and make your own.',
-  },
-  {
-    question: 'How long are the courses?',
-    answer: 'The proposed courses span two to four weeks, with 10–24 hours of lessons each. Plan extra time for exercises, debugging and adding your own ideas. The course details show the planned duration and syllabus.',
-  },
-  {
-    question: 'Can I try a lesson before joining?',
-    answer: 'Yes. The free classroom on this page includes a 48-second captioned lesson about a reusable task card. You can explore its chapters, practice task and transcript without creating an account.',
-  },
-  {
-    question: 'How much does it cost, and is enrollment open?',
-    answer: 'The catalog shows proposed one-time prices in ETB. This is a frontend preview: enrollment and payments are not connected. Final course availability, mentor details and refund terms will be confirmed before payment opens.',
-  },
+  { question: 'Do I need to know how to code?', answer: 'Start with JavaScript fundamentals if coding is new to you. Beginner courses explain components, props and state as you build. Intermediate courses list the skills you need first.' },
+  { question: 'What do I need to get started?', answer: 'A computer, a code editor and an internet connection. A phone with Expo Go helps you preview compatible projects. Each course covers its setup.' },
+  { question: 'Can I try a lesson first?', answer: 'Yes. The free classroom includes a clearly marked interactive sample. Mentor-uploaded recordings appear in the lesson library when published.' },
+  { question: 'Will my progress be saved?', answer: 'Yes. Sign in to save your place and completion in your account. You can resume a published lesson after logging out or using another device. The anonymous sample is only a preview.' },
+  { question: 'How do mentor uploads work?', answer: 'Invited mentors can save a lesson draft, upload an MP4 or WebM recording, attach a PDF or ZIP, then publish the lesson. Students can watch and download published resources.' },
+  { question: 'How much do courses cost?', answer: 'Catalog prices are proposed and need confirmation from YOH Tech LLC. This version does not take payments. Course availability and refund terms will be supplied before checkout opens.' },
 ];
 
 export function AcademyFAQ() {
@@ -162,9 +147,9 @@ export function AcademyFAQ() {
     <section className="academy-section academy-faq" id="faq" aria-labelledby="academy-faq-title">
       <div className="academy-container">
         <div className="academy-section-heading">
-          <span className="academy-kicker">A LITTLE CLARITY BEFORE YOU START</span>
-          <h2 id="academy-faq-title">GOOD QUESTIONS.<br /><span className="academy-accent">CLEAR ANSWERS.</span></h2>
-          <p>Everything you need to take your next step with confidence.</p>
+          <span className="academy-kicker">Before you begin</span>
+          <h2 id="academy-faq-title">Good questions.<br /><span className="academy-accent">Clear answers.</span></h2>
+          <p>A few practical answers about the classroom.</p>
         </div>
         <div className="academy-faq-list">
           {questions.map((item, index) => (
@@ -201,18 +186,13 @@ export function AcademyClosing({ onExplore, onTryLesson }: ClosingProps) {
     <section className="academy-section academy-closing" aria-labelledby="academy-closing-title">
       <div className="academy-container">
         <span className="academy-kicker">YOUR NEXT CHAPTER STARTS WITH A FIRST SCREEN</span>
-        <h2 id="academy-closing-title">STOP JUST SCROLLING.<br /><span className="academy-accent">START BUILDING.</span></h2>
+        <h2 id="academy-closing-title">Start with one screen.<br /><span className="academy-accent">Keep going.</span></h2>
         <p>You already have the idea. Let’s give it a place on your phone.<br />Find your starting point and take it one useful step at a time.</p>
         <div className="academy-closing-actions">
           <button className="academy-button academy-button-primary" type="button" onClick={onExplore}>Explore the courses <ArrowUpRight size={18} aria-hidden="true" /></button>
           <button className="academy-button academy-button-outline" type="button" onClick={onTryLesson}><Play size={16} aria-hidden="true" /> Try a free lesson</button>
         </div>
-        <div className="academy-closing-benefits">
-          {benefits.map(({ icon: Icon, title, label }) => (
-            <div key={title}><Icon size={22} aria-hidden="true" /><strong>{title}</strong><span>{label}</span></div>
-          ))}
-        </div>
-        <span className="academy-note">Planned curriculum. Start with the working free sample.</span>
+        <span className="academy-note">The interactive sample is free. Recorded lessons appear when a mentor publishes them.</span>
       </div>
     </section>
   );
@@ -233,7 +213,7 @@ export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: Fo
           <div className="academy-footer-brand">
             <a className="academy-brand" href="#" aria-label="YOH App Academy, back to top"><span className="academy-brand-icon"><Code2 size={25} aria-hidden="true" /></span><span>yoh<span className="academy-brand-dot">.</span><small>APP ACADEMY</small></span></a>
             <p>A place to turn “I have an idea” into “I built an app.” Learn the tools. Understand the code. Make it yours.</p>
-            <span className="academy-footer-location"><Check size={14} aria-hidden="true" /> BUILT AROUND LEARNING BY DOING</span>
+            <span className="academy-footer-location">YOH Tech LLC</span>{process.env.NEXT_PUBLIC_CONTACT_EMAIL ? <a className="academy-footer-contact" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a> : <span className="academy-footer-contact-placeholder">Contact email to be supplied</span>}
           </div>
           <div className="academy-footer-column">
             <h3>LEARNING PATHS</h3>
@@ -256,7 +236,7 @@ export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: Fo
             <button type="button" onClick={onLesson}>Take the free lesson <ArrowRight size={17} aria-hidden="true" /></button>
           </div>
         </div>
-        <div className="academy-footer-bottom"><span>© {new Date().getFullYear()} YOH App Academy.</span><span>Frontend preview · Enrollment is not open.</span><a href="#">BACK TO TOP <ArrowUpRight size={13} aria-hidden="true" /></a></div>
+        <div className="academy-footer-bottom"><span>© {new Date().getFullYear()} YOH Tech LLC.</span><span>Learn by building. YOH App Academy.</span><a href="#">BACK TO TOP <ArrowUpRight size={13} aria-hidden="true" /></a></div>
       </div>
     </footer>
   );

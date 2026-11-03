@@ -1,22 +1,16 @@
-# Revision checks
+# Verification — 3 November 2026
 
-## pnpm setup verification — 3 November 2026
+The final production build follows the supplied paper/cobalt/yellow restyling brief. See [the design and delivery report](../design-qa.md) for screenshots and machine-readable evidence.
 
-- Added a workspace manifest and forwarding commands so the outer source folder and the app folder both support pnpm.
-- Migrated dependencies to the root `pnpm-lock.yaml` and removed the npm lockfile.
-- Installed the workspace with `pnpm install --frozen-lockfile --network-concurrency=1` using Node.js 24.18.0 and pnpm 11.20.0. The single connection allowed the large compiler download to finish on this connection.
-- `pnpm typecheck` and `pnpm build` passed from the outer source folder; the static export includes `yoh-app-academy/out/index.html`.
-- `pnpm dev --hostname 127.0.0.1` started successfully. The homepage returned HTTP 200 with the expected academy title and content. Stopped the test server afterward.
+- `pnpm typecheck`, `pnpm build` and `git diff --check` passed. Production build output and final browser checks contained no warnings or errors.
+- Full production browser flow passed: mentor registration, actual MP4 and ZIP uploads with progress, publishing, student registration, playback, seek, logout/reload/login resume, persisted completion and logout.
+- Homepage, mentor studio, student workspace and certificate verification fit 390, 768 and 1440px without horizontal overflow.
+- Notes persist privately per account, timestamps seek playback, Q&A supports real student questions and owning-mentor/admin answers, and role restrictions were checked.
+- Certificates require all currently published lessons in a course to be complete and an explicit issue action. Owner/admin PDF access, public verification without email/account IDs, invalid-ID 404s and Unicode PDF rendering passed.
+- Saved earlier browser drafts can be imported without a server write or changing the original localStorage copy.
+- Supplied footer contact is present. A fresh database hides zero statistics. Hero typing, the mobile drawer and reduced-motion behavior passed.
+- Final default mobile Lighthouse performance score: **94/100**, LCP 1.1s, TBT 240ms, CLS 0. [Report](qa/lighthouse-summary.json).
+- Standalone production packaging includes public files and both web/PDF fonts. `pnpm dev` defaults to port 3002. Root workspace commands use pnpm.
+- Docker Compose configuration validation passed; Docker image execution and public deployment were not verified because no Docker engine or connected persistent Node host was available.
 
-## Existing website checks
-
-- Next.js production build and TypeScript validation passed.
-- Rendered at 1440px and 390px viewport widths using a responsive iframe harness. No horizontal page overflow in either; mobile student workspace also fits.
-- Verified Expo filter settles to the two Expo courses after the grid animation.
-- Verified mobile menu opening/closing and navigation to the free lesson and dashboard.
-- Verified video playback reports a 48-second duration, readyState 4 and advancing currentTime.
-- Verified transcript panel content and lesson-complete pressed state; the completion state reappears in the student workspace.
-- All six course preview clips are 3-second muted local videos. Media assets total under 1 MB, with WebP stills, deferred video loading and a roughly 155 kB first-load JS bundle.
-- Reviewed the actual classroom screenshot, six unique course images and generated sample mentor portraits.
-- Reduced-motion safeguards are implemented in MotionConfig, animation hooks and CSS; no formal emulated reduced-motion or Lighthouse run was performed.
-- Enrollment, payments, real mentor messaging and production upload/auth services are not connected. Sample people, prices, curriculum and feedback are labelled.
+The current local production preview is http://127.0.0.1:3014. QA accounts and media were kept in temporary storage, separate from the owner’s persistent project data. See [required content](../TODO_CONTENT.md) and [deployment instructions](../README.md).

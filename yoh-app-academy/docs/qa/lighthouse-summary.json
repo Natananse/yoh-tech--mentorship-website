@@ -1,0 +1,13 @@
+{
+  "score": 94,
+  "fetchTime": "2026-11-03T17:49:33.668Z",
+  "lighthouseVersion": "13.6.0",
+  "mode": "Default mobile Lighthouse performance audit against the packaged production server",
+  "metrics": {
+    "first-contentful-paint": "1.1\u00a0s",
+    "largest-contentful-paint": "1.1\u00a0s",
+    "total-blocking-time": "240\u00a0ms",
+    "cumulative-layout-shift": "0",
+    "speed-index": "3.7\u00a0s"
+  }
+}

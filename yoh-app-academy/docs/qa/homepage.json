@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "widths": [
+    {
+      "viewport": 1440,
+      "scroll": 1440
+    },
+    {
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "viewport": 390,
+      "scroll": 390
+    }
+  ],
+  "checks": [
+    "Supplied footer contact is present",
+    "Fresh database hides all zero statistics",
+    "Mobile drawer opens and Escape restores navigation",
+    "Hero types code with normal motion",
+    "Reduced-motion page renders without warnings"
+  ],
+  "errors": [],
+  "warnings": []
+}

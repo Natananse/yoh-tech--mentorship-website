@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "Earlier browser draft imports without saving, publishing or modifying the browser copy",
+    "Packaged production server downloads an authenticated PDF with bundled certificate fonts",
+    "Production verification route renders the issued record without private account data"
+  ],
+  "errors": [],
+  "warnings": []
+}

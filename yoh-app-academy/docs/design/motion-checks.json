@@ -1,0 +1,33 @@
+{
+  "checks": [
+    "canvas changes between normal-motion frames",
+    "library icons float",
+    "offscreen animations pause",
+    "closing section animates when visible",
+    "reduced-motion canvas remains static",
+    "reduced-motion icons have no CSS animation",
+    "hero CTA and course filters clickable",
+    "mobile menu and Escape close",
+    "no overflow320/390/768/1440"
+  ],
+  "errors": [],
+  "widths": [
+    {
+      "viewport": 320,
+      "scroll": 320
+    },
+    {
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "viewport": 1440,
+      "scroll": 1440
+    }
+  ],
+  "environment": "Production static export at http://127.0.0.1:3001"
+}
