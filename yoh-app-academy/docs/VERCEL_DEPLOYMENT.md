@@ -1,8 +1,8 @@
 # Deploy YO Tech Academy to Vercel with Convex
 
-Updated 3 November 2026. The selected hosted backend is **Convex database and file storage**. Configuration and application adapters are prepared; a successful cloud deployment and its browser checks must be recorded before claiming publication. Local SQLite remains available for development without a Convex URL, even when a private server secret has been prepared. Vercel always requires a working Convex configuration.
+Updated 3 November 2026. The app is live at https://yo-tech-academy.netlify.app using **Convex database and file storage**. Its production backend is `proficient-squirrel-944`; the full development-cloud content flow and live Netlify API/admin/browser checks passed. A Vercel deployment has not been verified. Local SQLite remains available for development without a Convex URL; Vercel requires complete Convex configuration.
 
-Current handoff: the owner requires a **$0 budget** and has selected **Netlify Free + Convex Free** instead of a Vercel commercial launch. Use [the Netlify deployment guide](NETLIFY_DEPLOYMENT.md) for the current target; this document retains the optional Vercel configuration. No plan upgrades or paid services are authorized. Vercel CLI sign-in was rechecked successfully, but the active team remains Hobby and no academy project exists there. Cloud deployment is not yet verified. Administrator-approved program enrollment has now been implemented in both backends; hosted upload/playback and approval checks remain launch requirements.
+The owner requires a **$0 budget** and selected **Netlify Free + Convex Free**. Use [the Netlify deployment guide](NETLIFY_DEPLOYMENT.md) for the current host. This document prepares an optional Vercel migration; no plan upgrades or paid services are authorized. The Vercel team was last checked on Hobby. Vercel restricts Hobby to non-commercial personal use, so this paid academy requires a suitable paid plan before a Vercel commercial launch. [Vercel policy](https://vercel.com/docs/limits/fair-use-guidelines).
 
 ## Project settings
 
@@ -23,30 +23,32 @@ Keep the root `pnpm-lock.yaml` and `pnpm-workspace.yaml`. Enable access outside 
 The app's `vercel.json` supplies this build command:
 
 ```bash
-corepack pnpm exec convex deploy --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL --cmd 'corepack pnpm run build'
+corepack pnpm run build
 ```
 
-This publishes matching Convex functions and frontend code on subsequent Git deployments. It needs a deploy key; the configuration file does not provision one. [Official Convex/Vercel workflow](https://docs.convex.dev/production/hosting/vercel).
+This builds the frontend against the existing Convex production backend. Backend changes are deployed separately through the authenticated local Convex CLI. No Convex deploy key or account token is required or granted to Vercel by this workflow.
 
 ## Connect accounts and set environment values
 
-1. Confirm Convex project/deployment access and the intended Vercel team/project. Vercel sign-in is already verified on this computer. Before a commercial launch, use a suitable Vercel plan; the connected team currently uses Hobby, whose policy limits it to personal, non-commercial projects. The owner deferred publication rather than changing plans. [Hobby policy](https://vercel.com/docs/plans/hobby).
-2. Create the Convex production deployment. Generate a production deploy key with `deployment:deploy` permission, then add it to Vercel as **`CONVEX_DEPLOY_KEY`**, scoped only to Production.
+1. Confirm access to the intended Vercel team/project and a suitable commercial hosting plan. The current $0 instruction does not authorize a paid upgrade. [Hobby policy](https://vercel.com/docs/plans/hobby).
+2. Reuse the existing Convex production deployment at `https://proficient-squirrel-944.eu-west-1.convex.cloud`. Keep its matching runtime bridge/invitation values; do not create another backend or a deploy key for this migration.
 3. Set these values in the indicated environment dashboards:
 
 | Variable | Vercel | Convex |
 | --- | --- | --- |
+| `CONVEX_URL` | Existing production deployment URL | Existing public URL |
+| `NEXT_PUBLIC_CONVEX_URL` | Same production URL | Existing public URL |
 | `YOH_CONVEX_SERVER_SECRET` | Private random value of at least 32 characters | Exactly the same value |
 | `YOH_MENTOR_INVITE` | Private production mentor invitation | Exactly the same value; required by Convex mentor registration |
 | `YOH_APP_URL` | Exact public HTTPS origin | Not required |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Supplied public company contact | Not required |
 | `ENABLE_EXPERIMENTAL_COREPACK` | `1` | Not required |
 
-The build command supplies `NEXT_PUBLIC_CONVEX_URL`. For manual/local hosted-backend runs, configure `CONVEX_URL` or `NEXT_PUBLIC_CONVEX_URL` to the intended deployment URL. Avoid a production `CONVEX_URL` override in Preview: it takes precedence over the URL generated for that preview.
+Set both Convex URL variables explicitly to the same intended backend; the build does not inject them. `CONVEX_URL` takes precedence. Production must use the existing production deployment, while previews must use an isolated test deployment.
 
 Keep `YOH_BUILD_DIR` unset on Vercel. `YOH_DATA_DIR` cannot persist records there. Enter private credentials through the provider dashboards or protected CLI input, never source files or chat. Do not give private keys a `NEXT_PUBLIC_` prefix.
 
-Preview needs its own Convex Preview deploy key, matching default bridge/invitation variables and test data. Do not copy a production-only `YOH_APP_URL` into a different preview hostname without testing the origin guard. [Convex previews](https://docs.convex.dev/production/hosting/vercel#preview-deployments).
+Leave automatic previews disabled until an isolated test backend and its matching runtime variables are configured. Deploy that backend locally rather than granting Vercel a backend deploy credential. Set each preview's exact trusted `YOH_APP_URL`; do not copy the production origin into a different preview hostname.
 
 ## Upload and access behavior
 

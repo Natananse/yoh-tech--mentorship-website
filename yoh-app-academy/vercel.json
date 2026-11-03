@@ -2,5 +2,5 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "installCommand": "corepack pnpm install --frozen-lockfile",
-  "buildCommand": "corepack pnpm exec convex deploy --cmd-url-env-var-name NEXT_PUBLIC_CONVEX_URL --cmd 'corepack pnpm run build'"
+  "buildCommand": "corepack pnpm run build"
 }
