@@ -1,10 +1,39 @@
 import { ArrowRight, Phone } from 'lucide-react';
 import { academyTeacher } from '../lib/academy-profile';
 import { formatFee, mentorshipPackage, mentorshipTotal } from '../lib/academy-offer';
+import styles from './academy-package.module.css';
 
 export function AcademyPackage() {
-  return <section className="academy-package" id="mentorship-package" aria-labelledby="academy-package-title">
-    <div className="academy-package-intro"><span className="academy-kicker">The mentorship package</span><h2 id="academy-package-title">Two semesters.<br />One mentorship.</h2><p>One program, split into {mentorshipPackage.semesterCount} semesters. The fee is {formatFee(mentorshipPackage.feePerSemester)} for each semester.</p><a className="academy-button academy-button-primary" href={academyTeacher.phoneHref}><Phone size={18} />Ask about enrollment</a><a className="academy-text-link" href="#sample-lesson">Try a free lesson <ArrowRight size={18} /></a></div>
-    <div className="academy-package-breakdown"><ol aria-label="Semester fees">{Array.from({ length: mentorshipPackage.semesterCount }, (_, index) => <li key={index}><span>Semester {index + 1}</span><strong>{formatFee(mentorshipPackage.feePerSemester)}</strong></li>)}</ol><dl><div><dt>Full program total</dt><dd>{formatFee(mentorshipTotal)}</dd></div></dl><p>Semester dates and the topic plan will be confirmed before enrollment.</p></div>
-  </section>;
+  return (
+    <section className={styles.package} id="mentorship-package" aria-labelledby="academy-package-title">
+      <div className={styles.intro}>
+        <span className="academy-kicker">THE MENTORSHIP PACKAGE</span>
+        <h2 className={styles.title} id="academy-package-title">Two semesters.<br />One mentorship.</h2>
+        <p className={styles.description}>One program, split into {mentorshipPackage.semesterCount} semesters. The fee is {formatFee(mentorshipPackage.feePerSemester)} for each semester.</p>
+      </div>
+
+      <dl className={styles.pricing} aria-label="Mentorship package fees">
+        {Array.from({ length: mentorshipPackage.semesterCount }, (_, index) => (
+          <div className={styles.card} key={index}>
+            <dt className={styles.cardLabel}>Semester {index + 1}</dt>
+            <dd className={styles.amount}>{formatFee(mentorshipPackage.feePerSemester)}</dd>
+          </div>
+        ))}
+        <div className={`${styles.card} ${styles.totalCard}`}>
+          <dt className={styles.cardLabel}>Full program total</dt>
+          <dd className={styles.amount}>{formatFee(mentorshipTotal)}</dd>
+        </div>
+      </dl>
+
+      <div className={styles.actions}>
+        <a className={`academy-button academy-button-primary ${styles.action}`} href={academyTeacher.phoneHref}>
+          <Phone size={18} aria-hidden="true" />Ask about enrollment
+        </a>
+        <a className={`academy-button ${styles.action}`} href="#sample-lesson">
+          Try a free lesson <ArrowRight size={18} aria-hidden="true" />
+        </a>
+      </div>
+      <p className={styles.note}>Semester dates and the topic plan will be confirmed before enrollment.</p>
+    </section>
+  );
 }

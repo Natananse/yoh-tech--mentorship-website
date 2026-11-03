@@ -1,0 +1,104 @@
+.package {
+  /* The existing academy-container supplies the shared max-width and gutters. */
+  width: 100%;
+  min-width: 0;
+  padding-block: var(--space-16);
+  color: var(--ink);
+}
+
+.intro {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  max-width: 24ch;
+  margin: 0;
+  font-size: clamp(2rem, 3.75vw, 3rem);
+  line-height: 1.12;
+}
+
+.description {
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.pricing {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+}
+
+.card {
+  min-width: 0;
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cardLabel {
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.amount {
+  margin: var(--space-3) 0 0;
+  color: var(--ink);
+  font: 700 clamp(1.75rem, 3.2vw, 2.5rem)/1.12 var(--font-heading);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.totalCard {
+  border: 2px solid var(--cobalt);
+}
+
+.totalCard .amount {
+  color: var(--cobalt);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+.action {
+  max-width: 100%;
+  text-align: center;
+}
+
+.note {
+  max-width: 60ch;
+  margin-top: var(--space-4);
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+  .pricing {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+}
+
+@media (max-width: 767px) {
+  .package {
+    padding-block: 40px;
+  }
+
+  .action {
+    width: 100%;
+  }
+}
