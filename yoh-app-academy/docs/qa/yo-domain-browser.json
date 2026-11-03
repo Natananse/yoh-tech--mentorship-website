@@ -1,0 +1,84 @@
+{
+  "passed": true,
+  "capturedAt": "2026-11-03T21:27:30.784Z",
+  "readOnly": true,
+  "scope": "New and legacy Vercel root URLs navigate to Netlify;390px YO logos and structured contact rows",
+  "navigations": [
+    {
+      "source": "https://yo-app-academy.vercel.app/",
+      "finalURL": "https://yo-tech-academy.netlify.app/",
+      "redirectChain": [
+        {
+          "url": "https://yo-app-academy.vercel.app/",
+          "status": 307
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/",
+          "status": 200
+        }
+      ],
+      "viewport": 390,
+      "documentWidth": 390,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "href": "mailto:yohansforex@gmail.com",
+          "height": 76,
+          "gap": "12px"
+        },
+        {
+          "label": "PHONE",
+          "value": "0911701858",
+          "href": "tel:+251911701858",
+          "height": 76,
+          "gap": "12px"
+        }
+      ]
+    },
+    {
+      "source": "https://yoh-app-academy.vercel.app/",
+      "finalURL": "https://yo-tech-academy.netlify.app/",
+      "redirectChain": [
+        {
+          "url": "https://yoh-app-academy.vercel.app/",
+          "status": 307
+        },
+        {
+          "url": "https://yo-app-academy.vercel.app/",
+          "status": 307
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/",
+          "status": 200
+        }
+      ],
+      "viewport": 390,
+      "documentWidth": 390,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "href": "mailto:yohansforex@gmail.com",
+          "height": 76,
+          "gap": "12px"
+        },
+        {
+          "label": "PHONE",
+          "value": "0911701858",
+          "href": "tel:+251911701858",
+          "height": 76,
+          "gap": "12px"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "writes": [],
+  "screenshot": "yo-domain-footer-390.png",
+  "limits": "Root URLs only; HTTP deep-link/path/query forwarding checked separately by parent."
+}

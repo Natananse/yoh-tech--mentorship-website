@@ -797,6 +797,9 @@ mark {
 .academy-footer .academy-brand {
   color: var(--on-dark);
 }
+.academy-footer-brand {
+  min-width: 0;
+}
 .academy-footer .academy-brand > span:last-child {
   font: 700 34px/1 var(--font-heading);
 }
@@ -1411,12 +1414,56 @@ mark {
 .academy-faq .academy-section-heading > p {
   max-width: 350px;
 }
+.academy-footer-contacts {
+  display: grid;
+  margin-top: 20px;
+  font-style: normal;
+}
 .academy-footer-contact {
-  display: inline-block;
-  min-height: 44px;
-  padding-top: 12px;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 76px;
+  padding-block: 12px;
+  border-top: 1px solid #34353d;
+  color: var(--on-dark);
+  text-decoration: none;
+}
+.academy-footer-contact:last-child {
+  border-bottom: 1px solid #34353d;
+}
+.academy-footer-contact-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #ffffff0a;
   color: var(--highlight);
-  font-size: 16px;
+}
+.academy-footer-contact-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.academy-footer-contact-label {
+  color: #bfc1c9;
+  font: 11px/1.5 var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.academy-footer-contact-value {
+  font-size: 15px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.academy-footer-phone .academy-footer-contact-value {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.academy-footer-contact:hover .academy-footer-contact-value {
+  color: var(--highlight);
 }
 .academy-footer-contact-placeholder {
   display: block;

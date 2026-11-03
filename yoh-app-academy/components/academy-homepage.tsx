@@ -90,7 +90,7 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
   return <div className="academy-site">
     <a className="academy-skip-link" href="#academy-main">Skip to content</a>
     <header className="academy-header"><div className="academy-container academy-header-inner">
-      <a className="academy-brand" href="#home" aria-label="YO Tech Academy home"><span className="academy-brand-mark"><Code2 size={26} /></span><span><b>yo<span>.</span></b><small>App Academy</small></span></a>
+      <a className="academy-brand" href="#home" aria-label="YO Tech Academy home"><span className="academy-brand-mark"><Code2 size={26} /></span><span><b>YO<span>.</span></b><small>App Academy</small></span></a>
       <nav className="academy-nav" aria-label="Main navigation">{nav()}</nav>
       <div className="academy-header-actions">{user ? <><button className="academy-login-link" onClick={onWorkspace}>My learning <ArrowUpRight size={16} /></button><button className="academy-logout" onClick={onLogout} aria-label="Log out"><LogOut size={19} /></button></> : <button className="academy-login-link" onClick={onAuth}>Log in <ArrowUpRight size={17} /></button>}<button ref={menuButton} className="academy-menu-toggle" aria-expanded={menuOpen} aria-controls="academy-mobile-menu" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X /> : <Menu />}</button></div>
     </div></header>

@@ -1,0 +1,13 @@
+{
+  "build_passed": true,
+  "revision": "uppercase-yo-mobile-footer",
+  "api_modules": 22,
+  "certificate_fonts": 4,
+  "obsolete_classroom_removed": true,
+  "private_files": 0,
+  "zip_sha256": "ac2104ba728ae0cf1148acfba2f879aa4d05b3855cbbe99e9c004a3b9019e23c",
+  "published": true,
+  "public_build_environment_only": true,
+  "deploy_id": "6aea501477ef1c66f67c0f47",
+  "site_url": "https://yo-tech-academy.netlify.app"
+}

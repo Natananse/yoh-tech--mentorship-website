@@ -68,7 +68,7 @@ export async function createCertificatePdf(certificate:Certificate,origin:string
  page.drawRectangle({x:0,y:0,width,height,color:paper});
  page.drawRectangle({x:22,y:22,width:width-44,height:height-44,borderColor:hairline,borderWidth:1});
  page.drawRectangle({x:22,y:height-28,width:width-44,height:6,color:cobalt});
- paintText(page,'yo.',margin,height-72,29,fonts.heading,fonts,ink);
+ paintText(page,'YO.',margin,height-72,29,fonts.heading,fonts,ink);
  paintText(page,'APP ACADEMY',margin+89,height-65,10,fonts.mono,fonts,muted);
  paintText(page,'YO Tech LLC',width-margin-105,height-65,12,fonts.body,fonts,muted);
  page.drawRectangle({x:margin-2,y:height-132,width:196,height:17,color:yellow});

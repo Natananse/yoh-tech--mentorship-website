@@ -362,7 +362,7 @@ export function AccountHeader({
             <Code2 size={24} />
           </span>
           <b>
-            yo<em>.</em>
+            YO<em>.</em>
             <small>APP ACADEMY</small>
           </b>
         </button>

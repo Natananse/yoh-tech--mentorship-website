@@ -1,0 +1,37 @@
+{
+  "passed": true,
+  "deployId": "6aea501477ef1c66f67c0f47",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "newFooter": true,
+      "lightOnly": true
+    },
+    {
+      "path": "/media/task-card-lesson.mp4",
+      "status": 200,
+      "sha256": "9c922e4b91db293d48b4d30055e9122efad2ad1166da75ca456426522992a5df",
+      "bytes": 225303
+    },
+    {
+      "path": "/media/lesson-poster.webp",
+      "status": 200,
+      "sha256": "222e45c23ba248dfa13ea495de4773b4253788d05840704690f8cab06c28ce5c",
+      "bytes": 38216
+    },
+    {
+      "path": "/media/classroom.webp",
+      "status": 404,
+      "obsoleteAssetRemoved": true
+    },
+    {
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "path": "/api/stats",
+      "status": 200
+    }
+  ]
+}

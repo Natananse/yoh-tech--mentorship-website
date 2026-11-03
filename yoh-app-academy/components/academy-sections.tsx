@@ -10,6 +10,7 @@ import {
   Code2,
   Laptop,
   Layers3,
+  Mail,
   Phone,
   Play,
   Quote,
@@ -244,11 +245,19 @@ export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: Fo
       <div className="academy-container">
         <div className="academy-footer-grid">
           <div className="academy-footer-brand">
-            <a className="academy-brand" href="#" aria-label="YO Tech Academy, back to top"><span className="academy-brand-icon"><Code2 size={25} aria-hidden="true" /></span><span>yo<span className="academy-brand-dot">.</span><small>APP ACADEMY</small></span></a>
+            <a className="academy-brand" href="#" aria-label="YO Tech Academy, back to top"><span className="academy-brand-icon"><Code2 size={25} aria-hidden="true" /></span><span>YO<span className="academy-brand-dot">.</span><small>APP ACADEMY</small></span></a>
             <p>A place to turn “I have an idea” into “I built an app.” Learn the tools. Understand the code. Make it yours.</p>
             <span className="academy-footer-location">YO Tech LLC</span>
-            <a className="academy-footer-contact" href={`mailto:${contactEmail}`}>{contactEmail}</a>
-            <a className="academy-footer-contact academy-footer-phone" href={academyTeacher.phoneHref} aria-label={`Call ${academyTeacher.name} at ${academyTeacher.phone}`}><Phone size={17} strokeWidth={1.5} aria-hidden="true" /><span>{academyTeacher.phone}</span></a>
+            <address className="academy-footer-contacts" aria-label="Contact YO Tech Academy">
+              <a className="academy-footer-contact" href={`mailto:${contactEmail}`}>
+                <span className="academy-footer-contact-icon"><Mail size={18} strokeWidth={1.5} aria-hidden="true" /></span>
+                <span className="academy-footer-contact-copy"><span className="academy-footer-contact-label">Email</span><span className="academy-footer-contact-value">{contactEmail}</span></span>
+              </a>
+              <a className="academy-footer-contact academy-footer-phone" href={academyTeacher.phoneHref} aria-label={`Call ${academyTeacher.name} at ${academyTeacher.phone}`}>
+                <span className="academy-footer-contact-icon"><Phone size={18} strokeWidth={1.5} aria-hidden="true" /></span>
+                <span className="academy-footer-contact-copy"><span className="academy-footer-contact-label">Phone</span><span className="academy-footer-contact-value">{academyTeacher.phone}</span></span>
+              </a>
+            </address>
           </div>
           <div className="academy-footer-column">
             <h3>LEARNING PATHS</h3>

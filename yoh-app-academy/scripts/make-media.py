@@ -1,9 +1,13 @@
 from PIL import Image,ImageDraw,ImageFont
 from pathlib import Path
-import subprocess
-root=Path(__file__).resolve().parents[1];media=root/'public/media';tmp=Path('/workspace/scratch/yoh-video-frames');tmp.mkdir(exist_ok=True)
-for i in range(6):
- subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-i',str(media/f'course-{i}.webp'),'-vf',"zoompan=z='1+0.00035*on':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=72:s=640x360:fps=24",'-t','3','-c:v','libx264','-preset','fast','-crf','27','-pix_fmt','yuv420p','-an','-movflags','+faststart',str(media/f'course-{i}.mp4')],check=True)
+import argparse,subprocess,tempfile
+parser=argparse.ArgumentParser(description='Generate the academy sample lesson and optional course loops.')
+parser.add_argument('--lesson-only',action='store_true',help='Preserve course loops and regenerate only the sample lesson, poster and captions.')
+options=parser.parse_args()
+root=Path(__file__).resolve().parents[1];media=root/'public/media';scratch=tempfile.TemporaryDirectory(prefix='yo-video-frames-');tmp=Path(scratch.name)
+if not options.lesson_only:
+ for i in range(6):
+  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-loop','1','-i',str(media/f'course-{i}.webp'),'-vf',"zoompan=z='1+0.00035*on':x='iw/2-iw/zoom/2':y='ih/2-ih/zoom/2':d=72:s=640x360:fps=24",'-t','3','-c:v','libx264','-preset','fast','-crf','27','-pix_fmt','yuv420p','-an','-movflags','+faststart',str(media/f'course-{i}.mp4')],check=True)
 font='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';bold='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf';mono='/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf'
 def f(n,b=False):return ImageFont.truetype(bold if b else font,n)
 steps=[('01 / START WITH A COMPONENT','Import View and Text from React Native. A component is a function that returns UI.'),('02 / GIVE IT A JOB','TaskCard receives a title prop. Reuse the same component with different text.'),('03 / GROUP THE CONTENT','View groups the content. Add padding and a background to make a readable card.'),('04 / SHOW THE TITLE','Text renders the title. Braces insert a JavaScript value into the JSX.'),('05 / REUSE THE CARD','Render TaskCard twice with different titles. One component, two tasks.'),('06 / TRY IT YOURSELF','Add a third TaskCard. Change its title, then adjust the padding and background.')]
@@ -31,4 +35,4 @@ Image.open(tmp/'slide-4.png').save(media/'lesson-poster.webp',quality=90)
 with open(media/'lesson-captions.vtt','w') as o:
  o.write('WEBVTT\n\n')
  for i,(t,c) in enumerate(steps):o.write(f'{i+1}\n00:00:{i*8:02}.000 --> 00:00:{(i+1)*8:02}.000\n{c}\n\n')
-print('Created six 3-second loops and the 48-second sample lesson.')
+print('Created the 48-second sample lesson, poster and captions.' if options.lesson_only else 'Created six 3-second loops and the 48-second sample lesson.')

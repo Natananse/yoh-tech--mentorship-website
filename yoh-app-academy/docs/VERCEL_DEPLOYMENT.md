@@ -4,6 +4,10 @@ Updated 3 November 2026. The app is live at https://yo-tech-academy.netlify.app 
 
 The owner requires a **$0 budget** and selected **Netlify Free + Convex Free**. Use [the Netlify deployment guide](NETLIFY_DEPLOYMENT.md) for the current host. This document prepares an optional Vercel migration; no plan upgrades or paid services are authorized. The Vercel team was last checked on Hobby. Vercel restricts Hobby to non-commercial personal use, so this paid academy requires a suitable paid plan before a Vercel commercial launch. [Vercel policy](https://vercel.com/docs/limits/fair-use-guidelines).
 
+## Current address forwarding
+
+The existing project is now named `yo-app-academy`, with public address https://yo-app-academy.vercel.app. Its persistent project-level routing rule forwards all paths on this hostname to the selected Netlify host; the former address redirects to it. No application secrets were transferred to Vercel. These routing settings persist across Git deployments. A future direct Vercel hosting migration would need an explicit decision to replace the forwarding setup, a suitable plan, and approved runtime configuration. [Domain evidence](qa/yo-domain-forwarding.json).
+
 ## Project settings
 
 Import `Natananse/yoh-tech--mentorship-website`, production branch `main`:

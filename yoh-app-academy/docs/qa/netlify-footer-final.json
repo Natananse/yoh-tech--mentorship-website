@@ -1,0 +1,574 @@
+{
+  "passed": true,
+  "url": "https://yo-tech-academy.netlify.app",
+  "deployId": "6aea501477ef1c66f67c0f47",
+  "capturedAt": "2026-11-03T21:22:05.242Z",
+  "scope": "Contact layout and uppercase YO logos; existing authorized admin login/logout only, no new accounts or data records",
+  "checks": [
+    "Separate labeled contact rows at320/390/768/1440, aligned icons,12px gaps,44px minimum hit areas, exact mailto/tel links and no overflow",
+    "Uppercase YO public header/footer logos; OSdark and saved dark preference retain single light theme",
+    "Existing administrator session only: account and studio uppercase YO headers fit390/1440; mobile navigation sign-out works. Header identity redacted in screenshots; no credentials captured.",
+    "Certificate not-found header uppercase YO and single light appearance fit390/1440; expected404 recorded separately"
+  ],
+  "states": [
+    {
+      "screen": "footer",
+      "width": 320,
+      "viewport": 320,
+      "documentWidth": 320,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "href": "mailto:yohansforex@gmail.com",
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "row": {
+            "x": 20,
+            "y": 501.125,
+            "width": 280,
+            "height": 76,
+            "right": 300,
+            "bottom": 577.125,
+            "centerY": 539.125
+          },
+          "icon": {
+            "x": 20,
+            "y": 521.625,
+            "width": 36,
+            "height": 36,
+            "right": 56,
+            "bottom": 557.625,
+            "centerY": 539.625
+          },
+          "copy": {
+            "x": 68,
+            "y": 518.125,
+            "width": 232,
+            "height": 43,
+            "right": 300,
+            "bottom": 561.125,
+            "centerY": 539.625
+          },
+          "valueRect": {
+            "x": 68,
+            "y": 538.625,
+            "width": 232,
+            "height": 22.5,
+            "right": 300,
+            "bottom": 561.125,
+            "centerY": 549.875
+          },
+          "display": "grid",
+          "gap": "12px"
+        },
+        {
+          "href": "tel:+251911701858",
+          "label": "PHONE",
+          "value": "0911701858",
+          "row": {
+            "x": 20,
+            "y": 577.125,
+            "width": 280,
+            "height": 76,
+            "right": 300,
+            "bottom": 653.125,
+            "centerY": 615.125
+          },
+          "icon": {
+            "x": 20,
+            "y": 597.125,
+            "width": 36,
+            "height": 36,
+            "right": 56,
+            "bottom": 633.125,
+            "centerY": 615.125
+          },
+          "copy": {
+            "x": 68,
+            "y": 593.625,
+            "width": 232,
+            "height": 43,
+            "right": 300,
+            "bottom": 636.625,
+            "centerY": 615.125
+          },
+          "valueRect": {
+            "x": 68,
+            "y": 614.125,
+            "width": 232,
+            "height": 22.5,
+            "right": 300,
+            "bottom": 636.625,
+            "centerY": 625.375
+          },
+          "display": "grid",
+          "gap": "12px"
+        }
+      ]
+    },
+    {
+      "screen": "footer",
+      "width": 390,
+      "viewport": 390,
+      "documentWidth": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "href": "mailto:yohansforex@gmail.com",
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "row": {
+            "x": 20,
+            "y": 500.984375,
+            "width": 350,
+            "height": 76,
+            "right": 370,
+            "bottom": 576.984375,
+            "centerY": 538.984375
+          },
+          "icon": {
+            "x": 20,
+            "y": 521.484375,
+            "width": 36,
+            "height": 36,
+            "right": 56,
+            "bottom": 557.484375,
+            "centerY": 539.484375
+          },
+          "copy": {
+            "x": 68,
+            "y": 517.984375,
+            "width": 302,
+            "height": 43,
+            "right": 370,
+            "bottom": 560.984375,
+            "centerY": 539.484375
+          },
+          "valueRect": {
+            "x": 68,
+            "y": 538.484375,
+            "width": 302,
+            "height": 22.5,
+            "right": 370,
+            "bottom": 560.984375,
+            "centerY": 549.734375
+          },
+          "display": "grid",
+          "gap": "12px"
+        },
+        {
+          "href": "tel:+251911701858",
+          "label": "PHONE",
+          "value": "0911701858",
+          "row": {
+            "x": 20,
+            "y": 576.984375,
+            "width": 350,
+            "height": 76,
+            "right": 370,
+            "bottom": 652.984375,
+            "centerY": 614.984375
+          },
+          "icon": {
+            "x": 20,
+            "y": 596.984375,
+            "width": 36,
+            "height": 36,
+            "right": 56,
+            "bottom": 632.984375,
+            "centerY": 614.984375
+          },
+          "copy": {
+            "x": 68,
+            "y": 593.484375,
+            "width": 302,
+            "height": 43,
+            "right": 370,
+            "bottom": 636.484375,
+            "centerY": 614.984375
+          },
+          "valueRect": {
+            "x": 68,
+            "y": 613.984375,
+            "width": 302,
+            "height": 22.5,
+            "right": 370,
+            "bottom": 636.484375,
+            "centerY": 625.234375
+          },
+          "display": "grid",
+          "gap": "12px"
+        }
+      ]
+    },
+    {
+      "screen": "footer",
+      "width": 768,
+      "viewport": 768,
+      "documentWidth": 768,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "href": "mailto:yohansforex@gmail.com",
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "row": {
+            "x": 32,
+            "y": 580.140625,
+            "width": 332,
+            "height": 76,
+            "right": 364,
+            "bottom": 656.140625,
+            "centerY": 618.140625
+          },
+          "icon": {
+            "x": 32,
+            "y": 600.640625,
+            "width": 36,
+            "height": 36,
+            "right": 68,
+            "bottom": 636.640625,
+            "centerY": 618.640625
+          },
+          "copy": {
+            "x": 80,
+            "y": 597.140625,
+            "width": 284,
+            "height": 43,
+            "right": 364,
+            "bottom": 640.140625,
+            "centerY": 618.640625
+          },
+          "valueRect": {
+            "x": 80,
+            "y": 617.640625,
+            "width": 284,
+            "height": 22.5,
+            "right": 364,
+            "bottom": 640.140625,
+            "centerY": 628.890625
+          },
+          "display": "grid",
+          "gap": "12px"
+        },
+        {
+          "href": "tel:+251911701858",
+          "label": "PHONE",
+          "value": "0911701858",
+          "row": {
+            "x": 32,
+            "y": 656.140625,
+            "width": 332,
+            "height": 76,
+            "right": 364,
+            "bottom": 732.140625,
+            "centerY": 694.140625
+          },
+          "icon": {
+            "x": 32,
+            "y": 676.140625,
+            "width": 36,
+            "height": 36,
+            "right": 68,
+            "bottom": 712.140625,
+            "centerY": 694.140625
+          },
+          "copy": {
+            "x": 80,
+            "y": 672.640625,
+            "width": 284,
+            "height": 43,
+            "right": 364,
+            "bottom": 715.640625,
+            "centerY": 694.140625
+          },
+          "valueRect": {
+            "x": 80,
+            "y": 693.140625,
+            "width": 284,
+            "height": 22.5,
+            "right": 364,
+            "bottom": 715.640625,
+            "centerY": 704.390625
+          },
+          "display": "grid",
+          "gap": "12px"
+        }
+      ]
+    },
+    {
+      "screen": "footer",
+      "width": 1440,
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "headerBrand": "YO.\nApp Academy",
+      "footerBrand": "YO.\nAPP ACADEMY",
+      "contacts": [
+        {
+          "href": "mailto:yohansforex@gmail.com",
+          "label": "EMAIL",
+          "value": "yohansforex@gmail.com",
+          "row": {
+            "x": 88,
+            "y": 683.046875,
+            "width": 345.859375,
+            "height": 76,
+            "right": 433.859375,
+            "bottom": 759.046875,
+            "centerY": 721.046875
+          },
+          "icon": {
+            "x": 88,
+            "y": 703.546875,
+            "width": 36,
+            "height": 36,
+            "right": 124,
+            "bottom": 739.546875,
+            "centerY": 721.546875
+          },
+          "copy": {
+            "x": 136,
+            "y": 700.046875,
+            "width": 297.859375,
+            "height": 43,
+            "right": 433.859375,
+            "bottom": 743.046875,
+            "centerY": 721.546875
+          },
+          "valueRect": {
+            "x": 136,
+            "y": 720.546875,
+            "width": 297.859375,
+            "height": 22.5,
+            "right": 433.859375,
+            "bottom": 743.046875,
+            "centerY": 731.796875
+          },
+          "display": "grid",
+          "gap": "12px"
+        },
+        {
+          "href": "tel:+251911701858",
+          "label": "PHONE",
+          "value": "0911701858",
+          "row": {
+            "x": 88,
+            "y": 759.046875,
+            "width": 345.859375,
+            "height": 76,
+            "right": 433.859375,
+            "bottom": 835.046875,
+            "centerY": 797.046875
+          },
+          "icon": {
+            "x": 88,
+            "y": 779.046875,
+            "width": 36,
+            "height": 36,
+            "right": 124,
+            "bottom": 815.046875,
+            "centerY": 797.046875
+          },
+          "copy": {
+            "x": 136,
+            "y": 775.546875,
+            "width": 297.859375,
+            "height": 43,
+            "right": 433.859375,
+            "bottom": 818.546875,
+            "centerY": 797.046875
+          },
+          "valueRect": {
+            "x": 136,
+            "y": 796.046875,
+            "width": 297.859375,
+            "height": 22.5,
+            "right": 433.859375,
+            "bottom": 818.546875,
+            "centerY": 807.296875
+          },
+          "display": "grid",
+          "gap": "12px"
+        }
+      ]
+    },
+    {
+      "screen": "account-header",
+      "width": 390,
+      "viewport": 390,
+      "documentWidth": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    },
+    {
+      "screen": "account-header",
+      "width": 1440,
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    },
+    {
+      "screen": "studio-header",
+      "width": 1440,
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    },
+    {
+      "screen": "studio-header",
+      "width": 390,
+      "viewport": 390,
+      "documentWidth": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    },
+    {
+      "screen": "certificate-not-found",
+      "width": 390,
+      "viewport": 390,
+      "documentWidth": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    },
+    {
+      "screen": "certificate-not-found",
+      "width": 1440,
+      "viewport": 1440,
+      "documentWidth": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "themeBootstrap": 0,
+      "brand": "YO.\nAPP ACADEMY"
+    }
+  ],
+  "captures": [
+    "netlify-footer-final-contacts-320.png",
+    "netlify-footer-final-header-320.png",
+    "netlify-footer-final-contacts-390.png",
+    "netlify-footer-final-header-390.png",
+    "netlify-footer-final-contacts-768.png",
+    "netlify-footer-final-header-768.png",
+    "netlify-footer-final-contacts-1440.png",
+    "netlify-footer-final-header-1440.png",
+    "netlify-footer-final-account-header-390.png",
+    "netlify-footer-final-account-header-1440.png",
+    "netlify-footer-final-studio-header-1440.png",
+    "netlify-footer-final-studio-header-390.png",
+    "netlify-footer-final-certificate-header-390.png",
+    "netlify-footer-final-certificate-header-1440.png"
+  ],
+  "errors": [],
+  "knownWarnings": [
+    "The resource https://yo-tech-academy.netlify.app/fonts/bricolage-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource https://yo-tech-academy.netlify.app/fonts/inter-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "unexpectedWarnings": [],
+  "expectedNotFound": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "sessionRequests": [
+    {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "transport": "Playwright API request context"
+    },
+    {
+      "method": "POST",
+      "path": "/api/auth/logout"
+    }
+  ],
+  "appDataWrites": [],
+  "credentialHandling": "Existing private fixture read only in memory. Credentials omitted from report/screenshots; identity redacted in header captures.",
+  "limits": "Mail and phone destinations checked as native anchor hrefs; no external email client or dialer launched. No new certificate issued.",
+  "sessionChecks": {
+    "existingAdminLoginStatus": 200,
+    "mobileSignOutCompleted": true,
+    "credentialsCaptured": false
+  },
+  "contentReadOnly": true,
+  "passCriteria": {
+    "footerWidths": [
+      320,
+      390,
+      768,
+      1440
+    ],
+    "contactRowHeightPx": 76,
+    "contactIconTextGapPx": 12,
+    "uppercaseYOLogos": true,
+    "lightOnlyStates": 10,
+    "noJavaScriptErrors": true,
+    "knownBaselineWarnings": 2,
+    "noUnexpectedWarnings": true,
+    "noContentDataWrites": true,
+    "existingSessionClosed": true
+  },
+  "screenshotReview": "All 14 saved screenshots inspected: contact groups and visible headers are clear, correctly framed and legible; private account identity is masked."
+}

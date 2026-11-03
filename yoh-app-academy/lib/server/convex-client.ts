@@ -8,7 +8,7 @@ import { isHostedEnvironment } from './origin';
 export function convexEnabled():boolean{
  const url=process.env.CONVEX_URL||process.env.NEXT_PUBLIC_CONVEX_URL;const secret=process.env.YOH_CONVEX_SERVER_SECRET;
  if(url&&secret&&secret.length>=32)return true;
- if(url||isHostedEnvironment())throw new ApiError(503,'Configure a Convex deployment URL and a matching private YOH_CONVEX_SERVER_SECRET before using the hosted academy.');
+ if(url||isHostedEnvironment())throw new ApiError(503,'The academy service is not ready yet. Please contact YO Tech Academy.');
  return false;
 }
 export function requestSessionHash(request?:Request):string|undefined{

@@ -2,7 +2,9 @@
 
 The YO Tech LLC academy application uses Next.js 15, React 19, TypeScript and pnpm. It includes the academy page, a chapter-based player, mentor uploads, saved progress, private timestamped notes, lesson Q&A and verifiable completion certificates. Convex stores production account and learning records and uploaded files. Local development without a Convex URL retains the existing SQLite and disk storage. The current design uses Bricolage Grotesque, Inter and JetBrains Mono with cobalt actions, paper surfaces and limited yellow highlights.
 
-The site uses one light theme across the homepage, account screens and certificate pages. Device dark-mode settings and saved preferences from the earlier theme switcher do not change the appearance. Video/code panels and other intentionally dark sections keep their fixed design colors.
+The site uses one light theme across the homepage, account screens and certificate pages. Device dark-mode settings and saved preferences from the earlier theme switcher do not change the appearance. Video/code panels and other intentionally dark sections keep their fixed design colors. Public, account and certificate logos use the uppercase **YO** mark. Footer email and phone contacts have separate labeled rows with aligned icons and native email/call links. [Live footer and brand checks](docs/qa/netlify-footer-final.json).
+
+Public address: **https://yo-app-academy.vercel.app** forwards to the current site at **https://yo-tech-academy.netlify.app**. The Vercel project is named `yo-app-academy`; its persistent redirect keeps visitors on the Netlify-hosted academy. [Domain verification](docs/qa/yo-domain-forwarding.json).
 
 ## Requirements and local setup
 

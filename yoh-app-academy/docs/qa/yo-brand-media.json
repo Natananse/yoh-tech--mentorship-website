@@ -1,0 +1,82 @@
+{
+  "scope": "Completed local source media and PDF branding checks; no production data mutations.",
+  "video": {
+    "path": "public/media/task-card-lesson.mp4",
+    "durationSeconds": 48,
+    "width": 1280,
+    "height": 720,
+    "codec": "h264",
+    "framesPerSecond": 24,
+    "chapterCount": 6,
+    "chapterDurationSeconds": 8,
+    "headerVisualCheck": {
+      "inspectedFrames": 6,
+      "expectedText": "YO TECH ACADEMY / FREE MICRO LESSON",
+      "allPassed": true,
+      "oldYohBrandingFound": false,
+      "evidence": "docs/qa/yo-brand-chapters.png"
+    }
+  },
+  "poster": {
+    "path": "public/media/lesson-poster.webp",
+    "visualCheck": "YO TECH ACADEMY header confirmed."
+  },
+  "preservationChecks": {
+    "method": "SHA-256 before/after comparison during regeneration.",
+    "allPassed": true,
+    "fileCount": 9,
+    "unchangedFiles": [
+      {
+        "path": "public/media/course-0.mp4",
+        "sha256": "02f6c98971fab672d4982af022d7d2719af352f257c7e818513f4bcbd19d9d9f"
+      },
+      {
+        "path": "public/media/course-1.mp4",
+        "sha256": "fc754800bd4b58ce8017f9e67648693f4cfefc7600387d7553fa3a094eecc37a"
+      },
+      {
+        "path": "public/media/course-2.mp4",
+        "sha256": "76c87d6acd062747ae55ff5d00e03b6940045ceb524085944d4e978516e8db05"
+      },
+      {
+        "path": "public/media/course-3.mp4",
+        "sha256": "d2098c1433da60550b49c7e6631e019c28b4dead947a462ef4d0c9aa241f3562"
+      },
+      {
+        "path": "public/media/course-4.mp4",
+        "sha256": "f718e0aae8a83c92bebfff7eed64c92bc25476d4ff41b0f269fdd422158bf5b6"
+      },
+      {
+        "path": "public/media/course-5.mp4",
+        "sha256": "5d7cb8ded7e2b8d126753c2baa649f239644b0df0002096c336d958457c35d2c"
+      },
+      {
+        "path": "public/media/lesson-captions.vtt",
+        "sha256": "a4882e6697001e7ab81657b1c7b3cff9511a1200b47549df7b363a6970032020"
+      },
+      {
+        "path": "public/media/mentor-triptych.webp",
+        "sha256": "1872397e3a1bb5dc3663c4d999b5592c3d9b14930c40dd09c0d719c072c6d497"
+      },
+      {
+        "path": "public/media/teacher-portrait.png",
+        "sha256": "3868a8239b204304cd840a436b78a7ebd39b02f1901269579f02a2701a4da775"
+      }
+    ]
+  },
+  "pdfLogo": {
+    "source": "lib/server/certificate-pdf.ts",
+    "text": "YO.",
+    "font": "public/fonts/bricolage-certificate.ttf",
+    "fontSizePoints": 29,
+    "measuredWidthPoints": 44.92,
+    "availableWidthPoints": 89,
+    "fits": true,
+    "method": "Measured using the actual embedded font via fontkit; no new PDF generated."
+  },
+  "obsoleteScreenshot": {
+    "removedPath": "public/media/classroom.webp",
+    "replacementPath": "public/media/lesson-poster.webp",
+    "reference": "ProductSection export retained; no repository consumers found."
+  }
+}

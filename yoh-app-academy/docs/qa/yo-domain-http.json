@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "host": "yo-app-academy.vercel.app",
+      "probe": "/",
+      "chain": [
+        {
+          "url": "https://yo-app-academy.vercel.app/",
+          "status": 307,
+          "location": "https://yo-tech-academy.netlify.app/"
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "host": "yo-app-academy.vercel.app",
+      "probe": "/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+      "chain": [
+        {
+          "url": "https://yo-app-academy.vercel.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+          "status": 307,
+          "location": "https://yo-tech-academy.netlify.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared"
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+          "status": 404
+        }
+      ]
+    },
+    {
+      "host": "yoh-app-academy.vercel.app",
+      "probe": "/",
+      "chain": [
+        {
+          "url": "https://yoh-app-academy.vercel.app/",
+          "status": 307,
+          "location": "https://yo-app-academy.vercel.app/"
+        },
+        {
+          "url": "https://yo-app-academy.vercel.app/",
+          "status": 307,
+          "location": "https://yo-tech-academy.netlify.app/"
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/",
+          "status": 200
+        }
+      ]
+    },
+    {
+      "host": "yoh-app-academy.vercel.app",
+      "probe": "/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+      "chain": [
+        {
+          "url": "https://yoh-app-academy.vercel.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+          "status": 307,
+          "location": "https://yo-app-academy.vercel.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared"
+        },
+        {
+          "url": "https://yo-app-academy.vercel.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+          "status": 307,
+          "location": "https://yo-tech-academy.netlify.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared"
+        },
+        {
+          "url": "https://yo-tech-academy.netlify.app/verify/not-a-real-certificate?yo_link_check=1&source=old%2Fshared",
+          "status": 404
+        }
+      ]
+    }
+  ],
+  "appDataWrites": 0
+}

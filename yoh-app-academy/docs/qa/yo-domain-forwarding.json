@@ -1,0 +1,40 @@
+{
+  "mode": "apply",
+  "projectId": "prj_o4WHtCa9Q41m2du8TBJPNTDmhlky",
+  "oldProjectName": "yoh-app-academy",
+  "newProjectName": "yo-app-academy",
+  "newHostname": "yo-app-academy.vercel.app",
+  "oldHostname": "yoh-app-academy.vercel.app",
+  "destination": "yo-tech-academy.netlify.app",
+  "readyDeployment": "dpl_4FbRWX8m8vxsh9HM1QP3oFkTpiev",
+  "availability": "unassigned_404_not_reserved",
+  "existingRuleCount": 0,
+  "stagedVersionPresent": false,
+  "desiredRule": {
+    "name": "Forward YO address to Netlify",
+    "enabled": true,
+    "srcSyntax": "regex",
+    "route": {
+      "src": "^/(.*)$",
+      "dest": "https://yo-tech-academy.netlify.app/$1",
+      "status": 307,
+      "has": [
+        {
+          "type": "host",
+          "value": "^yo-app-academy\\.vercel\\.app$"
+        }
+      ]
+    }
+  },
+  "oldAliasWillBeRetained": true,
+  "appEnvironmentWillBeTouched": false,
+  "newDeploymentWillBeCreated": false,
+  "billingOrProtectionWillBeChanged": false,
+  "status": "RENAME_AND_FORWARD_VERIFIED",
+  "projectName": "yo-app-academy",
+  "routeVersion": "890d8470-bef3-4c39-9304-204a4b78a4c5",
+  "pathAndQueryPreserved": true,
+  "finalNetlify200": true,
+  "oldAliasRetained": true,
+  "privateValuesTransferred": false
+}
