@@ -1,0 +1,27 @@
+{
+  "site_id": "cb462df0-39d2-4330-9884-8adade779ce6",
+  "site_name": "yo-tech-academy",
+  "deploy_id": "6aea45d8c3b16e2ee0800818",
+  "deploy_url": "https://6aea45d8c3b16e2ee0800818--yo-tech-academy.netlify.app",
+  "url": "https://yo-tech-academy.netlify.app",
+  "logs": "https://app.netlify.com/projects/yo-tech-academy/deploys/6aea45d8c3b16e2ee0800818",
+  "siteId": "cb462df0-39d2-4330-9884-8adade779ce6",
+  "productionUrl": "https://yo-tech-academy.netlify.app",
+  "commandCompleted": true,
+  "status": {
+    "id": "6aea45d8c3b16e2ee0800818",
+    "site_id": "cb462df0-39d2-4330-9884-8adade779ce6",
+    "state": "ready",
+    "url": "http://yo-tech-academy.netlify.app",
+    "ssl_url": "https://yo-tech-academy.netlify.app",
+    "deploy_url": "http://6aea45d8c3b16e2ee0800818--yo-tech-academy.netlify.app",
+    "deploy_ssl_url": "https://6aea45d8c3b16e2ee0800818--yo-tech-academy.netlify.app",
+    "created_at": "2026-11-03T20:36:40.883Z",
+    "published_at": "2026-11-03T20:37:22.903Z"
+  },
+  "publicRuntimeCheck": "passed",
+  "runtimeEvidence": "netlify-hosted-check.json",
+  "publicVisualCheck": "passed",
+  "visualEvidence": "netlify-public.json",
+  "contrastEvidence": "netlify-contrast.json"
+}

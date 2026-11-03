@@ -1,6 +1,6 @@
 {
   "staging_root": "/tmp/yo-netlify-source",
-  "published": false,
+  "published": true,
   "public_build_env_only": true,
   "adapter": "@netlify/plugin-nextjs@5.16.5",
   "build_completed": true,
@@ -33,7 +33,7 @@
     ]
   },
   "private_environment_or_credential_files": [],
-  "handler_uncompressed_bytes": 66184167,
+  "handler_uncompressed_bytes": 66185295,
   "functions_manifest_exists": true,
   "functions_manifest_top_level_keys": [
     "functions",
@@ -45,11 +45,11 @@
     {
       "name": "___netlify-server-handler",
       "runtime": "js",
+      "runtimeVersion": "nodejs24.x",
       "mainFile": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions-internal/___netlify-server-handler/___netlify-server-handler.mjs",
       "path": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions/___netlify-server-handler.zip",
       "displayName": "Next.js Server Handler",
-      "generator": "@netlify/plugin-nextjs@5.16.5",
-      "runtimeVersion": "nodejs24.x"
+      "generator": "@netlify/plugin-nextjs@5.16.5"
     }
   ],
   "passed": true,
@@ -59,8 +59,7 @@
     "pnpm-lock.yaml"
   ],
   "zip": {
-    "path": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions/___netlify-server-handler.zip",
-    "compressed_bytes": 24431693,
+    "compressed_bytes": 24432119,
     "entry_count": 2103,
     "api_route_modules": 22,
     "font_files": [
@@ -71,7 +70,7 @@
     ],
     "private_environment_files": []
   },
-  "build_warnings": [
-    "Pinned adapter 5.16.5 builds successfully; fetched plugin list reports latest 5.16.6."
-  ]
+  "hosting_compatibility_bootstrap": true,
+  "theme_contrast_corrections": true,
+  "deployId": "6aea45d8c3b16e2ee0800818"
 }

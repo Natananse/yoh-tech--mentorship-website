@@ -16,7 +16,7 @@
   left: 16px;
   padding: 12px 20px;
   background: var(--highlight);
-  color: var(--ink);
+  color: var(--on-highlight);
   transform: translateY(-160%);
 }
 .academy-skip-link:focus {
@@ -57,7 +57,7 @@
   place-items: center;
   border-radius: 8px;
   background: var(--cobalt);
-  color: #fff;
+  color: var(--on-accent);
 }
 .academy-brand > span:last-child > b {
   font: 700 36px/1 var(--font-heading);
@@ -245,7 +245,7 @@
 .academy-button-primary {
   background: var(--cobalt);
   border-color: var(--cobalt);
-  color: #fff;
+  color: var(--on-accent);
 }
 .academy-button-primary:hover {
   background: var(--cobalt-hover);
@@ -459,15 +459,15 @@ mark {
 }
 .academy-art-cobalt {
   background: var(--cobalt);
-  color: #fff;
+  color: var(--on-accent);
 }
 .academy-art-ink {
-  background: var(--ink);
+  background: var(--dark-surface);
   color: var(--on-dark);
 }
 .academy-art-yellow {
   background: var(--highlight);
-  color: var(--ink);
+  color: var(--on-highlight);
 }
 .academy-course-body {
   padding: 28px;
@@ -750,7 +750,12 @@ mark {
 }
 .academy-closing {
   background: var(--highlight);
+  color: var(--on-highlight);
   text-align: left;
+}
+.academy-closing .academy-kicker,
+.academy-closing .academy-note {
+  color: var(--on-highlight);
 }
 .academy-closing h2 {
   margin-top: 20px;
@@ -759,7 +764,7 @@ mark {
 .academy-closing p {
   margin-top: 24px;
   max-width: 640px;
-  color: var(--ink);
+  color: var(--on-highlight);
 }
 .academy-closing-actions {
   display: flex;
@@ -780,7 +785,7 @@ mark {
   margin: 0;
   padding: 0;
   border: 0;
-  background: var(--ink);
+  background: var(--dark-surface);
   color: var(--on-dark);
 }
 .academy-footer-grid {
@@ -1160,7 +1165,7 @@ mark {
 }
 /* P2: editorial sections and varied page rhythm. */
 .academy-mentor-feature {
-  background: var(--ink);
+  background: var(--dark-surface);
   color: var(--on-dark);
 }
 .academy-mentor-feature .academy-kicker,
@@ -1246,6 +1251,9 @@ mark {
   font-size: 20px;
   line-height: 1.5;
   max-width: 540px;
+}
+.academy-mentor-editorial-bio {
+  color: #d9dbe2;
 }
 .academy-mentor-facts {
   display: grid;

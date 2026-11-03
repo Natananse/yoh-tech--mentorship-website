@@ -1,0 +1,1545 @@
+{
+  "passed": true,
+  "url": "https://yo-tech-academy.netlify.app",
+  "deployId": "6aea45d8c3b16e2ee0800818",
+  "readOnly": true,
+  "checks": [
+    "Self-hosted heading, body and monospace fonts load on the deployed page",
+    "Supplied teacher portrait loads with natural dimensions",
+    "Homepage fits desktop1440 and mobile390 in light and dark themes",
+    "Sticky glass header retains translucent theme tint and16px blur while scrolling",
+    "Mobile drawer opens and navigates to the mentors section",
+    "Lazy-loaded auth dialog and register form fit mobile; no credentials entered or submitted"
+  ],
+  "fonts": {
+    "body": "Inter, Arial, sans-serif",
+    "heading": "\"Bricolage Grotesque\", Arial, sans-serif",
+    "bricolage": true,
+    "inter": true,
+    "mono": true
+  },
+  "portrait": {
+    "src": "/media/teacher-portrait.png",
+    "alt": "Yohanes Damtae",
+    "width": 1254,
+    "height": 1254,
+    "loaded": true
+  },
+  "viewports": [
+    {
+      "width": 1440,
+      "document": 1440,
+      "theme": "light"
+    },
+    {
+      "width": 1440,
+      "document": 1440,
+      "theme": "dark"
+    },
+    {
+      "width": 390,
+      "document": 390,
+      "theme": "light"
+    },
+    {
+      "width": 390,
+      "document": 390,
+      "theme": "dark"
+    }
+  ],
+  "glass": [
+    {
+      "theme": "light",
+      "background": "color(srgb 0.980392 0.980392 0.968627 / 0.84)",
+      "backdropFilter": "blur(16px) saturate(1.15)",
+      "position": "sticky",
+      "zIndex": "50"
+    },
+    {
+      "theme": "dark",
+      "background": "color(srgb 0.0627451 0.0745098 0.101961 / 0.84)",
+      "backdropFilter": "blur(16px) saturate(1.15)",
+      "position": "sticky",
+      "zIndex": "50"
+    }
+  ],
+  "contrast": [
+    {
+      "width": 1440,
+      "theme": "light",
+      "pairs": [
+        {
+          "selector": ".academy-hero-copy h1",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            250,
+            250,
+            247
+          ],
+          "fontSize": 88,
+          "weight": 700,
+          "ratio": 18.32,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-hero .academy-mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            250,
+            250,
+            247
+          ],
+          "fontSize": 88,
+          "weight": 700,
+          "ratio": 18.32,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-button-primary",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(43, 80, 255)",
+          "composedBackground": [
+            43,
+            80,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-cobalt",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(43, 80, 255)",
+          "composedBackground": [
+            43,
+            80,
+            255
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-yellow",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-ink",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgb(14, 15, 19)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-courses mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-lesson-section mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-process mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-projects mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-mentor-feature h2",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-copy h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 42,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-role",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-quote",
+          "foreground": "rgb(217, 219, 226)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 20,
+          "weight": 400,
+          "ratio": 13.85,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-facts p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 12,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-brand > p",
+          "foreground": "rgb(191, 193, 201)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 10.66,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-contact",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-heading h3",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            255,
+            255
+          ],
+          "fontSize": 26,
+          "weight": 700,
+          "ratio": 19.15,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-caption-bar p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 15,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-tabs [aria-selected=true]",
+          "foreground": "rgb(43, 80, 255)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            255,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "pairs": [
+        {
+          "selector": ".academy-hero-copy h1",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            16,
+            19,
+            26
+          ],
+          "fontSize": 88,
+          "weight": 700,
+          "ratio": 16.56,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-hero .academy-mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 88,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-button-primary",
+          "foreground": "rgb(16, 23, 40)",
+          "background": "rgb(140, 165, 255)",
+          "composedBackground": [
+            140,
+            165,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 7.61,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-cobalt",
+          "foreground": "rgb(16, 23, 40)",
+          "background": "rgb(140, 165, 255)",
+          "composedBackground": [
+            140,
+            165,
+            255
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 7.61,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-yellow",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-ink",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgb(14, 15, 19)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-courses mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-lesson-section mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-process mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-projects mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-feature h2",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 54,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-copy h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 42,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-role",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-quote",
+          "foreground": "rgb(217, 219, 226)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 20,
+          "weight": 400,
+          "ratio": 13.85,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-facts p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 12,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-brand > p",
+          "foreground": "rgb(191, 193, 201)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 10.66,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-contact",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-heading h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 26,
+          "weight": 700,
+          "ratio": 14.88,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-caption-bar p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 15,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-tabs [aria-selected=true]",
+          "foreground": "rgb(140, 165, 255)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 7.11,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "pairs": [
+        {
+          "selector": ".academy-hero-copy h1",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            250,
+            250,
+            247
+          ],
+          "fontSize": 64,
+          "weight": 700,
+          "ratio": 18.32,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-hero .academy-mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            250,
+            250,
+            247
+          ],
+          "fontSize": 64,
+          "weight": 700,
+          "ratio": 18.32,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-button-primary",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(43, 80, 255)",
+          "composedBackground": [
+            43,
+            80,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-cobalt",
+          "foreground": "rgb(255, 255, 255)",
+          "background": "rgb(43, 80, 255)",
+          "composedBackground": [
+            43,
+            80,
+            255
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-yellow",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-ink",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgb(14, 15, 19)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-courses mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-lesson-section mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-process mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 44,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-projects mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": true
+        },
+        {
+          "selector": ".academy-mentor-feature h2",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-copy h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 38,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-role",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-quote",
+          "foreground": "rgb(217, 219, 226)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 18,
+          "weight": 400,
+          "ratio": 13.85,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-facts p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 12,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-brand > p",
+          "foreground": "rgb(191, 193, 201)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 10.66,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-contact",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-heading h3",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            255,
+            255
+          ],
+          "fontSize": 25,
+          "weight": 700,
+          "ratio": 19.15,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-caption-bar p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 15,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-tabs [aria-selected=true]",
+          "foreground": "rgb(43, 80, 255)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            255,
+            255,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 5.68,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "pairs": [
+        {
+          "selector": ".academy-hero-copy h1",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            16,
+            19,
+            26
+          ],
+          "fontSize": 64,
+          "weight": 700,
+          "ratio": 16.56,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-hero .academy-mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 64,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-button-primary",
+          "foreground": "rgb(16, 23, 40)",
+          "background": "rgb(140, 165, 255)",
+          "composedBackground": [
+            140,
+            165,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 7.61,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-cobalt",
+          "foreground": "rgb(16, 23, 40)",
+          "background": "rgb(140, 165, 255)",
+          "composedBackground": [
+            140,
+            165,
+            255
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 7.61,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-yellow",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-art-ink",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgb(14, 15, 19)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-courses mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-lesson-section mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-process mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 44,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-projects mark",
+          "foreground": "rgb(14, 15, 19)",
+          "background": "rgb(255, 228, 92)",
+          "composedBackground": [
+            255,
+            228,
+            92
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 15.05,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-feature h2",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 40,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-copy h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 38,
+          "weight": 700,
+          "ratio": 17.07,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-role",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 17,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-editorial-quote",
+          "foreground": "rgb(217, 219, 226)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 18,
+          "weight": 400,
+          "ratio": 13.85,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-mentor-facts p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 12,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-brand > p",
+          "foreground": "rgb(191, 193, 201)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 10.66,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".academy-footer-contact",
+          "foreground": "rgb(255, 228, 92)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 15.05,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-heading h3",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 25,
+          "weight": 700,
+          "ratio": 14.88,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-caption-bar p",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            14,
+            15,
+            19
+          ],
+          "fontSize": 15,
+          "weight": 400,
+          "ratio": 17.07,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".lp-tabs [aria-selected=true]",
+          "foreground": "rgb(140, 165, 255)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 7.11,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "theme": "dark-auth",
+      "pairs": [
+        {
+          "selector": ".ac-auth-dialog h2",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 32,
+          "weight": 700,
+          "ratio": 14.88,
+          "minimum": 3,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".ac-auth-dialog .ac-button-primary",
+          "foreground": "rgb(16, 23, 40)",
+          "background": "rgb(140, 165, 255)",
+          "composedBackground": [
+            140,
+            165,
+            255
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 7.61,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".ac-auth-dialog .ac-field",
+          "foreground": "rgb(242, 242, 238)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 16,
+          "weight": 500,
+          "ratio": 14.88,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        },
+        {
+          "selector": ".ac-auth-dialog p",
+          "foreground": "rgb(183, 191, 206)",
+          "background": "rgba(0, 0, 0, 0)",
+          "composedBackground": [
+            25,
+            30,
+            40
+          ],
+          "fontSize": 16,
+          "weight": 400,
+          "ratio": 9.03,
+          "minimum": 4.5,
+          "passes": true,
+          "gradient": false
+        }
+      ]
+    }
+  ],
+  "motionChecks": [
+    {
+      "motion": "normal",
+      "freshContext": true,
+      "codeChanges": true
+    },
+    {
+      "motion": "normal",
+      "theme": "dark"
+    },
+    {
+      "motion": "reduce",
+      "freshContext": true,
+      "variants": 4
+    }
+  ],
+  "platformMarkup": {
+    "commentPreserved": true,
+    "hudPreserved": true
+  },
+  "captures": [
+    "netlify-home-1440-light.png",
+    "netlify-full-1440-light.png",
+    "netlify-home-1440-dark.png",
+    "netlify-full-1440-dark.png",
+    "netlify-home-390-light.png",
+    "netlify-full-390-light.png",
+    "netlify-home-390-dark.png",
+    "netlify-full-390-dark.png",
+    "netlify-glass-header-light-1440.png",
+    "netlify-glass-header-dark-1440.png",
+    "netlify-mobile-navigation-dark-390.png",
+    "netlify-auth-dialog-dark-390.png",
+    "netlify-register-dialog-dark-390.png"
+  ],
+  "errors": [],
+  "warnings": [],
+  "failedResponses": [],
+  "blockedWrites": []
+}

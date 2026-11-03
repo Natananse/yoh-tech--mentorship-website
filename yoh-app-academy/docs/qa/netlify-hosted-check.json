@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "productionUrl": "https://yo-tech-academy.netlify.app",
+  "checks": {
+    "/": {
+      "status": 200,
+      "type": "text/html; charset=utf-8"
+    },
+    "/api/auth/me": {
+      "status": 200,
+      "type": "application/json"
+    },
+    "/api/stats": {
+      "status": 200,
+      "type": "application/json"
+    },
+    "/api/lessons": {
+      "status": 200,
+      "type": "application/json"
+    },
+    "/api/enrollment": {
+      "status": 200,
+      "type": "application/json"
+    },
+    "/media/teacher-portrait.png": {
+      "status": 200,
+      "type": "image/png"
+    }
+  },
+  "loginStatus": 200,
+  "role": "admin",
+  "cookie": {
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "Lax"
+  },
+  "lessonCount": 0,
+  "enrollmentRequests": 0,
+  "syntheticProductionUsersCreated": 0,
+  "syntheticProductionLessonsCreated": 0,
+  "logoutStatus": 200,
+  "oldSessionRejected": true
+}

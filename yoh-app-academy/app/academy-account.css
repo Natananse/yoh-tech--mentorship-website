@@ -91,7 +91,7 @@
   transform: scale(0.98);
 }
 .ac-button-primary {
-  color: #fff;
+  color: var(--on-accent);
   background: var(--cobalt);
 }
 .ac-button-primary:hover {
@@ -159,7 +159,7 @@
   width: 43px;
   height: 43px;
   background: var(--cobalt);
-  color: white;
+  color: var(--on-accent);
   border-radius: 10px;
 }
 .ac-brand > b {
@@ -810,7 +810,7 @@
   font: 500 12px/1.5 var(--font-mono);
 }
 .ac-status-published {
-  color: var(--ink);
+  color: var(--on-highlight);
   background: var(--highlight);
   border-color: var(--highlight);
 }
@@ -1193,7 +1193,7 @@
   font-size: clamp(36px, 5vw, 62px);
 }
 .ac-verify-site mark {
-  color: var(--ink);
+  color: var(--on-highlight);
   background: var(--highlight);
 }
 .ac-verify-site p {

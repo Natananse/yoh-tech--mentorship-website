@@ -1,6 +1,6 @@
 # Verification — 3 November 2026
 
-Current result: the local preview at http://localhost:3014 is connected to the deployed Convex production backend. The owner selected **Netlify Free + Convex Free** within a strict **$0 budget**, with administrator-approved program enrollment. The public Netlify website is not yet deployed.
+Current result: the local preview at http://localhost:3014 is connected to the deployed Convex production backend. The owner selected **Netlify Free + Convex Free** within a strict **$0 budget**, with administrator-approved program enrollment. The website is published at **https://yo-tech-academy.netlify.app**, with real hosted API/admin checks passed. Production content is intentionally empty and ready for the owner’s recordings.
 
 ## Confirmed teacher profile
 
@@ -22,15 +22,15 @@ The selected cloud backend is Convex database plus file storage. Named queries/m
 
 All **15 Convex domain/storage tests passed**, covering role/session guards, private drafts/notes, concurrency, progress, Q&A, certificate eligibility/idempotency, upload ownership/finalization and bounded signature reads. [Test results](qa/convex-tests.json).
 
-Convex cloud functions have not been deployed or exercised against a connected real deployment. Hosted upload CORS, video seeking, cloud resume and certificate generation remain launch checks. Without a Convex URL, local development continues using SQLite even when a private bridge secret has been prepared; Vercel requires complete Convex configuration.
+Development and production Convex functions are now deployed. Actual development-cloud upload CORS, seeking, resume and certificate checks passed; see the verified cloud backend section below. Without a Convex URL, local development continues using SQLite; both Netlify and Vercel require complete Convex configuration.
 
 ## Performance and hosting
 
 Earlier Lighthouse default mobile performance score: **91/100**. LCP 0.9s, total blocking time 390ms, CLS 0.001. This local lab run predates the enrollment UI; performance has not been remeasured after that addition. [Summary](qa/lighthouse-summary.json), [full report](qa/lighthouse.json).
 
-The owner requires $0 and chose Netlify Free instead of Vercel Hobby. Convex direct terminal sign-in is now verified for team natenael-ermias/project yoh-app-academy. Its subscription is null in the official billing endpoint, which the official dashboard maps to Free. The existing development backend is zealous-weasel-162; a separate Free production backend proficient-squirrel-944 was created and its schema/functions were deployed. No paid plans, auto recharge or purchased domains were enabled. Netlify still reports no CLI account token; its ticket remains pending, and direct terminal sign-in/status was requested.
+The owner requires $0 and chose Netlify Free instead of Vercel Hobby. Convex direct terminal sign-in is now verified for team natenael-ermias/project yoh-app-academy. Its subscription is null in the official billing endpoint, which the official dashboard maps to Free. The existing development backend is zealous-weasel-162; a separate Free production backend proficient-squirrel-944 was created and its schema/functions were deployed. No paid plans, auto recharge or purchased domains were enabled. Netlify CLI sign-in is verified. The selected team is API-identified as Free with 300 credits, matching the official $0 Free plan policy. The site is yo-tech-academy.netlify.app; only application runtime configuration was imported.
 
-[Convex/Vercel setup](VERCEL_DEPLOYMENT.md) records the required environment and hosted verification steps. [TODO_CONTENT.md](../TODO_CONTENT.md) tracks recordings, resources, approved prices and student projects. Docker configuration remains an alternative and has not been executed here.
+[Netlify setup](NETLIFY_DEPLOYMENT.md) records the selected local build and artifact upload workflow; [Vercel setup](VERCEL_DEPLOYMENT.md) remains an alternative. [TODO_CONTENT.md](../TODO_CONTENT.md) tracks recordings, resources, approved prices and student projects. Docker configuration remains an alternative and has not been executed here.
 
 ## YO Tech branding
 
@@ -58,11 +58,11 @@ The sticky public header uses an 84% theme-colored background with a 16px backdr
 
 The owner selected admin approval for access to the mentorship program. Convex now stores program enrollment separately from per-course activity. Students can request access; only admins can approve or revoke it. Public lesson metadata remains available, with video URLs, resources and chapters withheld from guests and unapproved students. Protected file, progress, notes and Q&A operations recheck approval. Certificate eligibility and new issuance require approval; previously issued certificates remain verifiable and downloadable by their owner.
 
-All 20 Convex domain, storage and enrollment tests pass, including concurrent requests, approval-only access, direct file checks, revocation, timestamp idempotency and admin-only decisions. TypeScript checking passed. These are isolated in-memory Convex checks; no deployment or owner data was changed, and hosted behavior remains to be verified.
+All 20 Convex domain, storage and enrollment tests pass, including concurrent requests, approval-only access, direct file checks, revocation, timestamp idempotency and admin-only decisions. TypeScript checking passed. These initial checks used isolated in-memory Convex fixtures; actual cloud verification is recorded below.
 
 The combined suite passes **37 tests across six files**, covering Convex, local API behavior, row-preserving SQLite migration and hosted origin/configuration guards. The production build passes. Isolated browser QA passes request → pending → admin approval → student refresh/play → revocation → locked access, with zero protected requests before approval and direct file/progress denial after revocation. Both themes fit 390/1440px without unexpected browser errors or warnings. New enrollment buttons have 7.61:1 dark-theme contrast and 48px targets. [Tests](qa/enrollment-tests.json), [browser flow](qa/enrollment-browser.json), [contrast](qa/enrollment-contrast.json), [student mobile](qa/enrollment-request-mobile.png), [admin dark mobile](qa/enrollment-admin-dark-mobile.png).
 
-Netlify configuration retains the pnpm workspace lockfile, Node 24, automatic Next.js adapter and all four certificate fonts. Missing cloud configuration fails closed on Vercel or Netlify. [Current free-hosting setup](NETLIFY_DEPLOYMENT.md), [mentor upload guide](MENTOR_UPLOADS.md).
+Netlify configuration retains the pnpm workspace lockfile, Node 24, explicitly pinned Next.js adapter 5.16.5 and all four certificate fonts. Missing cloud configuration fails closed on Vercel or Netlify. [Current free-hosting setup](NETLIFY_DEPLOYMENT.md), [mentor upload guide](MENTOR_UPLOADS.md).
 
 The Convex storage adapter returns reusable bearer file URLs after a successful access check. Revoking enrollment blocks subsequent application/API requests and discovery of file URLs, but does not invalidate a raw storage URL already disclosed to a previously approved student. Previously downloaded copies also remain outside the application's control. Expiring media delivery or a separate authenticated media service has not been implemented; do not describe these approval guards as invalidating previously issued media URLs.
 
@@ -76,4 +76,18 @@ The production administrator email is yohansforex@gmail.com. Its generated login
 
 The local preview on port 3014 uses the production bridge. The ordinary `pnpm dev` environment remains attached to the separate development backend.
 
-Automatic approval review rejected creation/grant of a production Convex deploy key to Netlify without specific credential-grant approval. No deploy key was created. The selected safer workflow deploys Convex through the existing authenticated local CLI and uploads locally built frontend/function artifacts; Netlify does not receive a Convex management/deploy credential or account token. Its application runtime will still require the private app bridge and configured production URL. The actual Netlify adapter build/public deployment remains unverified until the account connection is available.
+Automatic approval review rejected creation/grant of a production Convex deploy key to Netlify without specific credential-grant approval. No deploy key was created. The selected safer workflow deploys Convex through the existing authenticated local CLI and uploads locally built frontend/function artifacts; Netlify does not receive a Convex management/deploy credential or account token. Its application runtime will still require the private app bridge and configured production URL. The real Netlify adapter build passed with Node 24, 22 API modules and all four certificate fonts in its server function. The archive was checked for private environment/credential files and contained none. Public runtime verification passed after upload. [Adapter build](qa/netlify-build.json), [hosted checks](qa/netlify-hosted-check.json).
+
+## Public Netlify launch
+
+Netlify production deployment `6aea45d8c3b16e2ee0800818` is **ready**, published 3 November 2026 at https://yo-tech-academy.netlify.app. The new-team default initially required Netlify team login. Using the official Make Public behavior, this site now protects only nonproduction deploys; team defaults and application enrollment guards were unchanged. [Deployment](qa/netlify-deployment.json), [visibility](qa/netlify-public-access.json).
+
+The actual HTTPS homepage, teacher portrait, authentication/status, stats, public lesson list and enrollment snapshot return 200. The production administrator signs in successfully, accesses its dashboard and enrollment requests, and logs out with the old session rejected. Its cookie is Secure, HttpOnly and SameSite=Lax. Anonymous dashboard/admin enrollment requests return 401, anonymous enrollment submission returns 401, and a cross-origin enrollment submission returns 403; responses are not cached. [Anonymous guards](qa/netlify-anonymous-guards.json). Production has zero lessons and enrollment requests; no synthetic production users or lessons were created. [Hosted checks](qa/netlify-hosted-check.json).
+
+The first owner recording has not been uploaded to production. The full upload/playback/approval/resource/certificate flow was verified against the separate development cloud deployment as recorded above. Public recording uploads should not be described as already tested. Uploading lesson content through Mentor Studio does not require another deployment.
+
+## Hosted rendering and dark-theme corrections
+
+The first public visual run caught a React 418 hydration recovery caused by a newline Netlify inserts immediately before its hosting comment in `<head>`. Browser isolation showed that removing only this whitespace fixes hydration; removing the HUD or hosting comment while retaining the whitespace does not. The compatibility bootstrap removes only that adjacent blank text node before hydration and preserves both the hosting comment and badge. Fresh normal/reduced-motion diagnostic contexts passed without errors or font warnings. [Diagnosis](qa/netlify-hydration-diagnosis.json).
+
+Public fixed-dark sections now use the fixed dark-surface token rather than the theme's text color. Yellow/cobalt surfaces use their matching foreground tokens; dark headings use an ink-on-yellow marker. Account primary buttons, published badges and certificate highlights follow the same semantics. Light-mode contrast is retained. Final live checks on deployment `6aea45d8c3b16e2ee0800818` passed at 390/1440px in light and dark themes, with no overflow, browser errors, warnings or failed responses. Fresh normal/reduced-motion contexts are clean and the promotion comment/HUD remain present. Important course-art, mentor, footer and dark auth control contrast pairs passed; the dark auth primary is 7.61:1. [Public browser checks](qa/netlify-public.json), [contrast](qa/netlify-contrast.json), [dark mobile](qa/netlify-home-390-dark.png).

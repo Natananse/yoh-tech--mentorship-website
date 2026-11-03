@@ -1,0 +1,16 @@
+{
+  "siteId": "cb462df0-39d2-4330-9884-8adade779ce6",
+  "productionUrl": "https://yo-tech-academy.netlify.app",
+  "before": {
+    "sso_login": true,
+    "sso_login_context": "all"
+  },
+  "after": {
+    "sso_login": true,
+    "sso_login_context": "non_production"
+  },
+  "productionVisibility": "public",
+  "previewVisibility": "team_login",
+  "accountDefaultsChanged": false,
+  "applicationEnrollmentGuardsChanged": false
+}

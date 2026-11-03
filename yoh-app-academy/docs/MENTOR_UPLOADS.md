@@ -2,9 +2,11 @@
 
 Videos are uploaded one lesson at a time into the academy’s existing courses. The current studio does not create new course catalog entries or import an entire course folder.
 
+The website is live at **https://yo-tech-academy.netlify.app**, using **Netlify Free + Convex Free**. The development-cloud upload flow and actual hosted production API/admin checks passed. Production recording uploads have not yet been verified; the first real recording remains an owner upload through the studio.
+
 ## Sign in as a mentor
 
-Open **Log in** and sign in with your mentor or administrator account. For first-time mentor registration, choose **Create account**, select **Mentor**, and enter the private mentor invitation code. The academy administrator configures that code as `YOH_MENTOR_INVITE`; do not publish it or share it with students. In local development it is configured in `.env.local`. Hosted registration must use the invitation configured for the hosted backend.
+Open **Log in** and sign in with your mentor or administrator account. For first-time mentor registration, choose **Create account**, select **Mentor**, and enter the private mentor invitation code. The academy administrator configures that code as `YOH_MENTOR_INVITE`; do not publish it or share it with students. In local development it is configured in `.env.local`. Hosted registration uses the matching invitation configured in the app runtime and Convex deployment.
 
 Student accounts cannot upload videos. An existing student account needs an administrator to change its role; registering again with the same email will not promote it.
 
@@ -27,9 +29,11 @@ Student accounts cannot upload videos. An existing student account needs an admi
 
 Up to 20 resource files can be attached to one lesson. A normal browser-compatible MP4 is a useful choice for playback across devices. Split long recordings into separate lessons when necessary.
 
-With Convex configured, file bytes upload directly to Convex storage and survive Vercel redeployments. The current uploader does not resume an interrupted transfer; choose the file again after a failure. Convex’s upload request has a two-minute timeout, and total storage/bandwidth depend on the account plan. [Convex upload documentation](https://docs.convex.dev/file-storage/upload-files), [Convex usage limits](https://docs.convex.dev/production/state/limits).
+With Convex configured, file bytes upload directly to Convex storage and survive Netlify redeployments. Uploading and publishing a lesson does not require rebuilding the website. The current uploader does not resume an interrupted transfer; choose the file again after a failure. Convex’s upload request has a two-minute timeout, and the Free plan has storage/bandwidth limits. [Convex upload documentation](https://docs.convex.dev/file-storage/upload-files), [Convex usage limits](https://docs.convex.dev/production/state/limits).
 
 Without a Convex URL, the local preview stores accounts and uploads on this computer. Local uploads are not automatically copied to a future Convex deployment.
+
+Website/backend updates use the [manual local-build and artifact-upload workflow](NETLIFY_DEPLOYMENT.md). Netlify receives the production Convex URL, private runtime bridge secret and mentor invitation. No Convex deploy key is required or granted to Netlify; backend deployment credentials stay with the authenticated local CLI.
 
 ## Approve students
 

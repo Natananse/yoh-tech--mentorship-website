@@ -6,7 +6,7 @@ Use the sun/moon button in the header to switch between light and dark themes. T
 
 ## Requirements and local setup
 
-- Node.js **24.13 or newer**. The server uses the built-in `node:sqlite` module.
+- Node.js **24.13 or newer within major 24**. Local storage uses the built-in `node:sqlite` module.
 - pnpm **11.20.0**, selected by the `packageManager` field.
 - A writable storage directory. An internet connection is needed for the first dependency installation.
 
@@ -21,9 +21,11 @@ pnpm dev
 
 When running from this app folder, use `cp -n .env.example .env.local` instead. These commands preserve an existing environment file; do not overwrite the configured local invitation or other private settings. Open http://localhost:3002. Press Ctrl+C to stop the development server. If using another port or hostname, update `YOH_APP_URL` to match the browser's exact origin before starting.
 
-Convex is the selected production backend. Without a Convex URL, local development uses SQLite even when a server secret has been prepared. Vercel requires a configured Convex URL and matching private server secret; local SQLite is disabled there. See [Convex and Vercel setup](docs/VERCEL_DEPLOYMENT.md).
+Convex is the production backend. Without a Convex URL, local development uses SQLite even when a server secret has been prepared. Netlify and Vercel require a configured Convex URL and matching private server secret; local SQLite is disabled on those hosts.
 
-The current hosting choice is **Netlify Free + Convex Free**, within a strict $0 budget. No paid plan or automatic recharge is authorized. Follow [Netlify deployment](docs/NETLIFY_DEPLOYMENT.md); the free plans have usage limits, and a cloud deployment must still be verified. Hosted Netlify execution also requires Convex and disables the local SQLite fallback.
+The hosting choice is **Netlify Free + Convex Free**, within a strict $0 budget. No paid plan or automatic recharge is authorized. Backend deployment uses the authenticated local Convex CLI; the frontend is built locally with Netlify's Next.js adapter and its completed artifacts are uploaded manually. **No Convex deploy key is required or granted to Netlify.** Follow [Netlify deployment](docs/NETLIFY_DEPLOYMENT.md) for the exact sequence and free-plan limits.
+
+The website is live at **https://yo-tech-academy.netlify.app**. The full development-cloud flow and actual hosted production API/admin checks passed. Production is ready for the owner’s first recording; a production recording upload has not yet been verified.
 
 ## Environment variables
 
@@ -32,11 +34,10 @@ Create `.env.local` from `.env.example` only if it does not already exist, then 
 | Variable | Purpose |
 | --- | --- |
 | `YOH_APP_URL` | Canonical browser origin, such as `http://localhost:3002` locally or `https://academy.example.com` in production. Mutating API requests validate this origin. |
-| `CONVEX_URL` / `NEXT_PUBLIC_CONVEX_URL` | Convex deployment URL. The public URL is safe to expose; server RPC calls use the private bridge secret. The Convex CLI sets `NEXT_PUBLIC_CONVEX_URL` during Vercel builds. |
+| `CONVEX_URL` / `NEXT_PUBLIC_CONVEX_URL` | Set both explicitly to the same intended Convex deployment URL. The URL is public; server calls also require the private bridge secret. This manual Netlify workflow does not inject a URL through a build wrapper. |
 | `YOH_CONVEX_SERVER_SECRET` | Private random server secret, at least 32 characters. Set the same value in Next.js and its matching Convex deployment. Never use `NEXT_PUBLIC_` for this value. |
-| `CONVEX_DEPLOY_KEY` | Production- or Preview-scoped CI deploy key, stored privately in Vercel. The build wrapper deploys matching backend functions before publication. |
-| `YOH_DATA_DIR` | Persistent directory containing `academy.sqlite` and `uploads/`. Defaults to `.data` in the app. Relative paths resolve from the app directory; use an absolute persistent path in production. |
-| `YOH_MENTOR_INVITE` | A private, long invitation code required to register a mentor account. Leave empty to disable new mentor registrations. Student registration remains available. |
+| `YOH_DATA_DIR` | Local/Docker directory containing `academy.sqlite` and `uploads/`. Defaults to `.data` in the app. Relative paths resolve from the app directory. It is not hosted persistence on Netlify. |
+| `YOH_MENTOR_INVITE` | Private invitation for mentor registration; set the same value in the app runtime and matching Convex deployment. Leave empty to disable new mentor registrations. Student registration remains available. |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | Public company contact address. Use the supplied `yohansforex@gmail.com`. Embedded in the client at build time; set it before `pnpm build` and rebuild when changing it. |
 | `YOH_ADMIN_EMAIL` | Email used by the one-time admin setup command. An existing account with this email is promoted; otherwise a new admin account is created. |
 | `YOH_ADMIN_NAME` | Name for a new admin account. |
@@ -51,7 +52,7 @@ Generate an invitation value locally if needed:
 node -e "console.log(require('node:crypto').randomBytes(24).toString('hex'))"
 ```
 
-Keep `.env.local`, the database and uploaded files outside source control. Only the public contact address uses a `NEXT_PUBLIC_` variable.
+Keep `.env.local`, the database and uploaded files outside source control. The contact address and Convex deployment URL may use `NEXT_PUBLIC_` variables; bridge secrets, invitations and admin credentials must not. Keep Convex CLI account credentials local; Netlify receives the application's runtime configuration, not permission to deploy the backend.
 
 ## Accounts and the learning flow
 
@@ -67,9 +68,9 @@ The mentor studio also shows real unique student viewers and lesson completions.
 
 ## Notes, questions and certificates
 
-- **Notes:** signed-in learners can save private notes at the current video timestamp. Clicking a note’s timestamp seeks to that point. Notes persist in the account database.
-- **Q&A:** signed-in learners can post a lesson question, optionally with a timestamp. The lesson’s mentor or an admin can reply. Questions and replies are stored with the lesson and visible to signed-in learners who can access it.
-- **Certificates:** the student workspace enables **Create certificate** only after every currently published video lesson in that course is complete. Creation requires an explicit click; completion alone never issues a certificate.
+- **Notes:** approved learners can save private notes at the current video timestamp. Clicking a note’s timestamp seeks to that point. Notes persist in the account database.
+- **Q&A:** approved learners can post a lesson question, optionally with a timestamp. The lesson’s mentor or an admin can reply. Questions and replies are stored with the lesson and visible to learners who can access it.
+- **Certificates:** approved students can choose **Create certificate** after every currently published video lesson in that course is complete. Creation requires an explicit click; completion alone never issues a certificate. Existing issued records remain available after access is revoked.
 - **PDF and verification:** the recipient or an admin can download the generated PDF. Anyone with the verification ID can open `/verify/[id]` to see the recipient name, course, issue date and published-lesson count. The public page does not expose email or account IDs, and invalid certificate IDs return HTTP 404.
 
 A certificate records the published lesson count when it was issued. It is a YO Tech Academy course-completion record, not a claim of external accreditation. Set `YOH_APP_URL` correctly so PDF verification links point to the deployed application. Certificate font files are included with the packaged server; no external PDF service is required.
@@ -86,9 +87,9 @@ The command loads the app's `.env.local` and `.env` itself. It preserves values 
 
 - Video: **MP4 or WebM, up to 250 MB per file**.
 - Resources: **PDF or ZIP, up to 25 MB per file**, with up to 20 resources per lesson.
-- Both the client and server validate type and size. Convex mode uses a short-lived direct upload URL, browser upload progress and a server-verified upload intent. Actual storage metadata, checksum, file signature and ownership are checked before attachment. Large files never pass through a Vercel Function. Local mode retains multipart uploads.
+- Both the client and server validate type and size. Convex mode uses a short-lived direct upload URL, browser upload progress and a server-verified upload intent. Actual storage metadata, checksum, file signature and ownership are checked before attachment. Large files go directly to Convex, bypassing frontend hosting functions. Local mode retains multipart uploads.
 - Convex video access checks run before redirecting to storage. Published recordings require approved student enrollment or a mentor/admin account; drafts remain restricted to their owner/admin. Shared storage URLs grant bearer access once released, so revocation blocks fresh application requests but cannot invalidate a copied raw storage URL. Resources download in the browser with their original filenames. Hosted playback, range support and download CORS must be verified against the selected deployment.
-- Convex keeps cloud data across Vercel redeployments. For the local/Docker alternative, upload bytes and SQLite data must survive process/container restarts; do not use an ephemeral data directory.
+- Convex keeps cloud data across Netlify redeployments. Uploading or publishing lessons through Mentor Studio does not require a new website deployment. For the local/Docker alternative, upload bytes and SQLite data must survive process/container restarts; do not use an ephemeral data directory.
 - Convex direct uploads have a two-minute request timeout and are not resumable in this implementation. For the local/Docker alternative, allow multipart overhead in the proxy and provision enough memory for the bounded upload parser.
 
 The supplied free lesson and example course/mentor content are explicitly marked where appropriate. Upload your recorded lessons through the studio. See [TODO_CONTENT.md](TODO_CONTENT.md) for every content item still required; sample material must not be presented as verified student or mentor claims.
@@ -105,9 +106,9 @@ The build creates a Next.js standalone server and packages `public/` and static 
 
 Stop the development server before building into the same `.next` directory. For independent test builds, set `YOH_BUILD_DIR` to a different directory for both build and start.
 
-For the selected free launch, follow [NETLIFY_DEPLOYMENT.md](docs/NETLIFY_DEPLOYMENT.md) and configure Convex before deploying. [VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) retains the optional Vercel settings. Account authorization and hosted end-to-end verification are required; a successful local build alone does not establish a public deployment.
+For the selected free launch, follow [NETLIFY_DEPLOYMENT.md](docs/NETLIFY_DEPLOYMENT.md): deploy backend changes with the authenticated local Convex CLI, build an isolated workspace using `netlify build --context production --filter yoh-academy`, then upload those same completed artifacts using `netlify deploy --no-build --prod --context production --filter yoh-academy`. The artifacts must include the adapter-generated functions and certificate fonts. This workflow does not use a Convex deploy key or automated backend CI deployment. [VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) retains optional Vercel settings. Hosted verification is required; a successful local build alone does not establish a public deployment.
 
-For the alternative persistent Node/Docker deployment, deploy the Node server behind an HTTPS reverse proxy. Configure `YOH_APP_URL` to the HTTPS origin and attach a persistent disk for `YOH_DATA_DIR`. Run one application instance against this local SQLite/storage directory. This implementation is not suitable for a static host or an ephemeral/serverless filesystem; a distributed deployment needs a shared database and object-storage adapter first.
+For the alternative persistent Node/Docker deployment using local SQLite, deploy the Node server behind an HTTPS reverse proxy. Configure `YOH_APP_URL` to the HTTPS origin and attach a persistent disk for `YOH_DATA_DIR`. Run one application instance against this local SQLite/storage directory. The SQLite mode requires persistent disk; hosted serverless deployments use the implemented Convex database/storage adapter.
 
 ## Docker deployment
 

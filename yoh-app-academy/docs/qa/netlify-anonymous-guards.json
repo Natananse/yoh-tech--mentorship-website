@@ -1,0 +1,34 @@
+{
+  "productionUrl": "https://yo-tech-academy.netlify.app",
+  "checks": [
+    {
+      "path": "/api/dashboard",
+      "method": "GET",
+      "trustedOrigin": true,
+      "status": 401,
+      "cacheControl": "no-store"
+    },
+    {
+      "path": "/api/enrollments",
+      "method": "GET",
+      "trustedOrigin": true,
+      "status": 401,
+      "cacheControl": "no-store"
+    },
+    {
+      "path": "/api/enrollment",
+      "method": "POST",
+      "trustedOrigin": true,
+      "status": 401,
+      "cacheControl": "no-store"
+    },
+    {
+      "path": "/api/enrollment",
+      "method": "POST",
+      "trustedOrigin": false,
+      "status": 403,
+      "cacheControl": "no-store"
+    }
+  ],
+  "passed": true
+}
