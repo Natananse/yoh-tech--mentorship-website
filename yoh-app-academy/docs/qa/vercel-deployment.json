@@ -1,0 +1,160 @@
+{
+  "checkedAt": "2026-11-03T22:11:12.557Z",
+  "readOnly": true,
+  "project": {
+    "id": "prj_o4WHtCa9Q41m2du8TBJPNTDmhlky",
+    "name": "yo-app-academy",
+    "nodeVersion": "24.x",
+    "rootDirectory": "yoh-app-academy",
+    "framework": "nextjs"
+  },
+  "teamPlan": "hobby",
+  "latestDeployment": {
+    "id": "dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7",
+    "url": "yo-app-academy-fofkcxlbz-natananses-projects.vercel.app",
+    "source": "cli",
+    "state": "READY",
+    "target": "production",
+    "nodeVersion": "24.x",
+    "created": 1793743805633,
+    "errorCode": null,
+    "gitSha": null
+  },
+  "deployments": [
+    {
+      "id": "dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7",
+      "url": "yo-app-academy-fofkcxlbz-natananses-projects.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "source": "cli",
+      "created": 1793743805633
+    },
+    {
+      "id": "dpl_2doprxg9rBubxdA4b8JU17pPD2R2",
+      "url": "yo-app-academy-1c5qfffp1-natananses-projects.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "source": "git",
+      "created": 1793742847941
+    },
+    {
+      "id": "dpl_4QYHAwjhEYaq4kiXixuhgZyhqZtt",
+      "url": "yo-app-academy-2t9o9cvzp-natananses-projects.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "source": "git",
+      "created": 1793741312446
+    },
+    {
+      "id": "dpl_4FbRWX8m8vxsh9HM1QP3oFkTpiev",
+      "url": "yoh-app-academy-7zmuqt0mo-natananses-projects.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "source": "git",
+      "created": 1793740125047
+    },
+    {
+      "id": "dpl_An98uogMYCwjv7YDYcGoG79vqguD",
+      "url": "yoh-app-academy-35fj5erkm-natananses-projects.vercel.app",
+      "state": "READY",
+      "target": "production",
+      "source": "git",
+      "created": 1793739294079
+    }
+  ],
+  "productionTarget": {
+    "id": "dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7",
+    "url": "yo-app-academy-fofkcxlbz-natananses-projects.vercel.app",
+    "state": "READY"
+  },
+  "domains": [
+    {
+      "name": "yo-app-academy.vercel.app",
+      "verified": true,
+      "redirect": null,
+      "redirectStatusCode": null
+    },
+    {
+      "name": "yoh-app-academy.vercel.app",
+      "verified": true,
+      "redirect": "yo-app-academy.vercel.app",
+      "redirectStatusCode": 307
+    }
+  ],
+  "routes": [
+    {
+      "id": "558a81b0-6791-44a7-a7e6-28445f9f5c53",
+      "name": "Forward YO address to Netlify",
+      "enabled": false,
+      "staged": false
+    }
+  ],
+  "routeVersions": [
+    {
+      "id": "902de7ae-37b6-457f-8645-2613225046f6",
+      "isLive": true,
+      "isStaging": false,
+      "ruleCount": 1
+    },
+    {
+      "id": "890d8470-bef3-4c39-9304-204a4b78a4c5",
+      "isLive": false,
+      "isStaging": false,
+      "ruleCount": 1
+    }
+  ],
+  "environment": [
+    {
+      "key": "YOH_CONVEX_SERVER_SECRET",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "YOH_MENTOR_INVITE",
+      "type": "sensitive",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "CONVEX_URL",
+      "type": "plain",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "NEXT_PUBLIC_CONVEX_URL",
+      "type": "plain",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "NEXT_PUBLIC_CONTACT_EMAIL",
+      "type": "plain",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "YOH_APP_URL",
+      "type": "plain",
+      "target": [
+        "production"
+      ]
+    },
+    {
+      "key": "ENABLE_EXPERIMENTAL_COREPACK",
+      "type": "plain",
+      "target": [
+        "production"
+      ]
+    }
+  ],
+  "environmentValuesPrinted": false,
+  "appSecretFilesRead": false,
+  "mutations": 0
+}

@@ -1,0 +1,24 @@
+# Keep credentials, local records and provider caches out of Vercel uploads.
+.git/
+.aws/
+.agents/
+.codex/
+.claude/
+**/.env*
+**/node_modules/
+**/.next/
+**/.next-*/
+**/.netlify/
+**/.vercel/
+**/.data/
+**/out/
+**/*.sqlite*
+**/*.tsbuildinfo
+**/*.log
+**/*.tar.gz
+
+# Documentation captures are not runtime assets.
+yoh-app-academy/docs/design/
+yoh-app-academy/docs/qa/
+
+# public/media/ and public/fonts/ are required by the application.

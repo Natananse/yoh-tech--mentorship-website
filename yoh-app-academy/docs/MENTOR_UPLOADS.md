@@ -2,7 +2,7 @@
 
 Videos are uploaded one lesson at a time into the academy’s existing courses. The current studio does not create new course catalog entries or import an entire course folder.
 
-The website is live at **https://yo-tech-academy.netlify.app**, using **Netlify Free + Convex Free**. The development-cloud upload flow and actual hosted production API/admin checks passed. Production recording uploads have not yet been verified; the first real recording remains an owner upload through the studio.
+The current website address is **https://yo-app-academy.vercel.app**, served directly by **Vercel** with the existing **Convex production database and file storage**. The owner deleted the Netlify project. The deployed Vercel build and approved private runtime configuration passed public API, existing administrator login, studio/enrollment-list and logout checks. [Hosted browser evidence](qa/vercel-public-browser.json). Earlier development-cloud and Netlify results do not verify uploads on the new host; the first real production recording remains an owner upload through the studio.
 
 ## Sign in as a mentor
 
@@ -29,11 +29,11 @@ Student accounts cannot upload videos. An existing student account needs an admi
 
 Up to 20 resource files can be attached to one lesson. A normal browser-compatible MP4 is a useful choice for playback across devices. Split long recordings into separate lessons when necessary.
 
-With Convex configured, file bytes upload directly to Convex storage and survive Netlify redeployments. Uploading and publishing a lesson does not require rebuilding the website. The current uploader does not resume an interrupted transfer; choose the file again after a failure. Convex’s upload request has a two-minute timeout, and the Free plan has storage/bandwidth limits. [Convex upload documentation](https://docs.convex.dev/file-storage/upload-files), [Convex usage limits](https://docs.convex.dev/production/state/limits).
+With Convex configured, file bytes upload directly to Convex storage and survive Vercel redeployments. Uploading and publishing a lesson does not require rebuilding the website. The current uploader does not resume an interrupted transfer; choose the file again after a failure. Convex’s upload request has a two-minute timeout, and the Free plan has storage/bandwidth limits. [Convex upload documentation](https://docs.convex.dev/file-storage/upload-files), [Convex usage limits](https://docs.convex.dev/production/state/limits).
 
 Without a Convex URL, the local preview stores accounts and uploads on this computer. Local uploads are not automatically copied to a future Convex deployment.
 
-Website/backend updates use the [manual local-build and artifact-upload workflow](NETLIFY_DEPLOYMENT.md). Netlify receives the production Convex URL, private runtime bridge secret and mentor invitation. No Convex deploy key is required or granted to Netlify; backend deployment credentials stay with the authenticated local CLI.
+Website updates use the [Vercel deployment workflow](VERCEL_DEPLOYMENT.md). Vercel builds the Next.js app and needs the existing production Convex URL plus matching private runtime bridge/invitation values. Backend changes deploy separately through the authenticated local Convex CLI. No Convex deploy key or account token is required or granted to Vercel. Existing accounts and uploaded files stay in Convex when the frontend is redeployed.
 
 ## Approve students
 

@@ -1,0 +1,689 @@
+{
+  "passed": true,
+  "url": "https://yo-app-academy.vercel.app",
+  "deployId": "dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7",
+  "capturedAt": "2026-11-03T22:11:43.748Z",
+  "contentReadOnly": true,
+  "navigation": {
+    "finalURL": "https://yo-app-academy.vercel.app/",
+    "chain": [
+      {
+        "url": "https://yo-app-academy.vercel.app/",
+        "status": 200
+      }
+    ],
+    "vercelEdgeHeader": true
+  },
+  "platform": {
+    "netlifyCompatibilityScript": false,
+    "netlifyHUD": false,
+    "netlifyPromotionComment": false,
+    "netlifyFrames": false
+  },
+  "checks": [
+    "Direct Vercel homepage200 with no Netlify redirect, compatibility shim, promotion comment or badge",
+    "Latest package/cards/prices/CTA spacing and structured contact links fit375/768/1280 with uppercase YO branding",
+    "Approved teacher portrait and48-second public sample load from the Vercel origin without playback",
+    "Existing administrator UI login, studio/enrollment list+refresh and mobile logout work; no records created or changed"
+  ],
+  "states": [
+    {
+      "screen": "homepage",
+      "width": 375,
+      "viewport": 375,
+      "documentWidth": 375,
+      "osDark": false,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "package": {
+        "padding": "40px",
+        "gridGap": "16px",
+        "cards": [
+          {
+            "label": "Semester 1",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 20,
+              "y": 2225.515625,
+              "right": 355,
+              "bottom": 2339.875,
+              "width": 335,
+              "height": 114.359375
+            },
+            "labelRect": {
+              "x": 45,
+              "y": 2250.515625,
+              "right": 330,
+              "bottom": 2271.515625,
+              "width": 285,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 45,
+              "y": 2283.515625,
+              "right": 330,
+              "bottom": 2314.875,
+              "width": 285,
+              "height": 31.359375
+            },
+            "lineTops": [
+              2282
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Semester 2",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 20,
+              "y": 2355.875,
+              "right": 355,
+              "bottom": 2470.234375,
+              "width": 335,
+              "height": 114.359375
+            },
+            "labelRect": {
+              "x": 45,
+              "y": 2380.875,
+              "right": 330,
+              "bottom": 2401.875,
+              "width": 285,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 45,
+              "y": 2413.875,
+              "right": 330,
+              "bottom": 2445.234375,
+              "width": 285,
+              "height": 31.359375
+            },
+            "lineTops": [
+              2412
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Full program total",
+            "amount": "6,000 ETB",
+            "card": {
+              "x": 20,
+              "y": 2486.234375,
+              "right": 355,
+              "bottom": 2602.59375,
+              "width": 335,
+              "height": 116.359375
+            },
+            "labelRect": {
+              "x": 46,
+              "y": 2512.234375,
+              "right": 329,
+              "bottom": 2533.234375,
+              "width": 283,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 46,
+              "y": 2545.234375,
+              "right": 329,
+              "bottom": 2576.59375,
+              "width": 283,
+              "height": 31.359375
+            },
+            "lineTops": [
+              2543
+            ],
+            "whiteSpace": "nowrap"
+          }
+        ],
+        "actionGap": "16px",
+        "actionWrap": "wrap",
+        "actions": {
+          "x": 20,
+          "y": 2634.59375,
+          "right": 355,
+          "bottom": 2759.375,
+          "width": 335,
+          "height": 124.78125
+        },
+        "links": [
+          {
+            "href": "tel:+251911701858",
+            "rect": {
+              "x": 20,
+              "y": 2634.59375,
+              "right": 355,
+              "bottom": 2688.984375,
+              "width": 335,
+              "height": 54.390625
+            }
+          },
+          {
+            "href": "#sample-lesson",
+            "rect": {
+              "x": 20,
+              "y": 2704.984375,
+              "right": 355,
+              "bottom": 2759.375,
+              "width": 335,
+              "height": 54.390625
+            }
+          }
+        ]
+      },
+      "footer": {
+        "brand": "YO.\nAPP ACADEMY",
+        "contacts": [
+          {
+            "label": "EMAIL",
+            "value": "yohansforex@gmail.com",
+            "href": "mailto:yohansforex@gmail.com",
+            "height": 76,
+            "y": 14727,
+            "bottom": 14803,
+            "gap": 12,
+            "centerOffset": 0
+          },
+          {
+            "label": "PHONE",
+            "value": "0911701858",
+            "href": "tel:+251911701858",
+            "height": 76,
+            "y": 14803,
+            "bottom": 14879,
+            "gap": 12,
+            "centerOffset": 0
+          }
+        ]
+      }
+    },
+    {
+      "screen": "homepage",
+      "width": 768,
+      "viewport": 768,
+      "documentWidth": 768,
+      "osDark": false,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "package": {
+        "padding": "64px",
+        "gridGap": "24px",
+        "cards": [
+          {
+            "label": "Semester 1",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 32,
+              "y": 1837.890625,
+              "right": 250.65625,
+              "bottom": 1954.25,
+              "width": 218.65625,
+              "height": 116.359375
+            },
+            "labelRect": {
+              "x": 57,
+              "y": 1862.890625,
+              "right": 225.65625,
+              "bottom": 1883.890625,
+              "width": 168.65625,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 57,
+              "y": 1895.890625,
+              "right": 225.65625,
+              "bottom": 1927.25,
+              "width": 168.65625,
+              "height": 31.359375
+            },
+            "lineTops": [
+              1894
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Semester 2",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 274.65625,
+              "y": 1837.890625,
+              "right": 493.328125,
+              "bottom": 1954.25,
+              "width": 218.671875,
+              "height": 116.359375
+            },
+            "labelRect": {
+              "x": 299.65625,
+              "y": 1862.890625,
+              "right": 468.328125,
+              "bottom": 1883.890625,
+              "width": 168.671875,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 299.65625,
+              "y": 1895.890625,
+              "right": 468.328125,
+              "bottom": 1927.25,
+              "width": 168.671875,
+              "height": 31.359375
+            },
+            "lineTops": [
+              1894
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Full program total",
+            "amount": "6,000 ETB",
+            "card": {
+              "x": 517.328125,
+              "y": 1837.890625,
+              "right": 736,
+              "bottom": 1954.25,
+              "width": 218.671875,
+              "height": 116.359375
+            },
+            "labelRect": {
+              "x": 543.328125,
+              "y": 1863.890625,
+              "right": 710,
+              "bottom": 1884.890625,
+              "width": 166.671875,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 543.328125,
+              "y": 1896.890625,
+              "right": 710,
+              "bottom": 1928.25,
+              "width": 166.671875,
+              "height": 31.359375
+            },
+            "lineTops": [
+              1895
+            ],
+            "whiteSpace": "nowrap"
+          }
+        ],
+        "actionGap": "16px",
+        "actionWrap": "wrap",
+        "actions": {
+          "x": 32,
+          "y": 1986.25,
+          "right": 736,
+          "bottom": 2040.640625,
+          "width": 704,
+          "height": 54.390625
+        },
+        "links": [
+          {
+            "href": "tel:+251911701858",
+            "rect": {
+              "x": 32,
+              "y": 1986.25,
+              "right": 266.40625,
+              "bottom": 2040.640625,
+              "width": 234.40625,
+              "height": 54.390625
+            }
+          },
+          {
+            "href": "#sample-lesson",
+            "rect": {
+              "x": 282.40625,
+              "y": 1986.25,
+              "right": 482.171875,
+              "bottom": 2040.640625,
+              "width": 199.765625,
+              "height": 54.390625
+            }
+          }
+        ]
+      },
+      "footer": {
+        "brand": "YO.\nAPP ACADEMY",
+        "contacts": [
+          {
+            "label": "EMAIL",
+            "value": "yohansforex@gmail.com",
+            "href": "mailto:yohansforex@gmail.com",
+            "height": 76,
+            "y": 12706.828125,
+            "bottom": 12782.828125,
+            "gap": 12,
+            "centerOffset": 0
+          },
+          {
+            "label": "PHONE",
+            "value": "0911701858",
+            "href": "tel:+251911701858",
+            "height": 76,
+            "y": 12782.828125,
+            "bottom": 12858.828125,
+            "gap": 12,
+            "centerOffset": 0
+          }
+        ]
+      }
+    },
+    {
+      "screen": "homepage",
+      "width": 1280,
+      "viewport": 1280,
+      "documentWidth": 1280,
+      "osDark": false,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0,
+      "package": {
+        "padding": "64px",
+        "gridGap": "24px",
+        "cards": [
+          {
+            "label": "Semester 1",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 48,
+              "y": 1477.359375,
+              "right": 426.65625,
+              "bottom": 1607.15625,
+              "width": 378.65625,
+              "height": 129.796875
+            },
+            "labelRect": {
+              "x": 73,
+              "y": 1502.359375,
+              "right": 401.65625,
+              "bottom": 1523.359375,
+              "width": 328.65625,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 73,
+              "y": 1535.359375,
+              "right": 401.65625,
+              "bottom": 1580.15625,
+              "width": 328.65625,
+              "height": 44.796875
+            },
+            "lineTops": [
+              1533
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Semester 2",
+            "amount": "3,000 ETB",
+            "card": {
+              "x": 450.65625,
+              "y": 1477.359375,
+              "right": 829.328125,
+              "bottom": 1607.15625,
+              "width": 378.671875,
+              "height": 129.796875
+            },
+            "labelRect": {
+              "x": 475.65625,
+              "y": 1502.359375,
+              "right": 804.328125,
+              "bottom": 1523.359375,
+              "width": 328.671875,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 475.65625,
+              "y": 1535.359375,
+              "right": 804.328125,
+              "bottom": 1580.15625,
+              "width": 328.671875,
+              "height": 44.796875
+            },
+            "lineTops": [
+              1533
+            ],
+            "whiteSpace": "nowrap"
+          },
+          {
+            "label": "Full program total",
+            "amount": "6,000 ETB",
+            "card": {
+              "x": 853.328125,
+              "y": 1477.359375,
+              "right": 1231.984375,
+              "bottom": 1607.15625,
+              "width": 378.65625,
+              "height": 129.796875
+            },
+            "labelRect": {
+              "x": 879.328125,
+              "y": 1503.359375,
+              "right": 1205.984375,
+              "bottom": 1524.359375,
+              "width": 326.65625,
+              "height": 21
+            },
+            "priceRect": {
+              "x": 879.328125,
+              "y": 1536.359375,
+              "right": 1205.984375,
+              "bottom": 1581.15625,
+              "width": 326.65625,
+              "height": 44.796875
+            },
+            "lineTops": [
+              1534
+            ],
+            "whiteSpace": "nowrap"
+          }
+        ],
+        "actionGap": "16px",
+        "actionWrap": "wrap",
+        "actions": {
+          "x": 48,
+          "y": 1639.15625,
+          "right": 1232,
+          "bottom": 1693.546875,
+          "width": 1184,
+          "height": 54.390625
+        },
+        "links": [
+          {
+            "href": "tel:+251911701858",
+            "rect": {
+              "x": 48,
+              "y": 1639.15625,
+              "right": 282.40625,
+              "bottom": 1693.546875,
+              "width": 234.40625,
+              "height": 54.390625
+            }
+          },
+          {
+            "href": "#sample-lesson",
+            "rect": {
+              "x": 298.40625,
+              "y": 1639.15625,
+              "right": 498.171875,
+              "bottom": 1693.546875,
+              "width": 199.765625,
+              "height": 54.390625
+            }
+          }
+        ]
+      },
+      "footer": {
+        "brand": "YO.\nAPP ACADEMY",
+        "contacts": [
+          {
+            "label": "EMAIL",
+            "value": "yohansforex@gmail.com",
+            "href": "mailto:yohansforex@gmail.com",
+            "height": 76,
+            "y": 9922.203125,
+            "bottom": 9998.203125,
+            "gap": 12,
+            "centerOffset": 0
+          },
+          {
+            "label": "PHONE",
+            "value": "0911701858",
+            "href": "tel:+251911701858",
+            "height": 76,
+            "y": 9998.203125,
+            "bottom": 10074.203125,
+            "gap": 12,
+            "centerOffset": 0
+          }
+        ]
+      }
+    },
+    {
+      "screen": "OS-dark-remains-light",
+      "width": 375,
+      "viewport": 375,
+      "documentWidth": 375,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0
+    },
+    {
+      "screen": "administrator-studio",
+      "width": 375,
+      "viewport": 375,
+      "documentWidth": 375,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0
+    },
+    {
+      "screen": "administrator-studio",
+      "width": 1280,
+      "viewport": 1280,
+      "documentWidth": 1280,
+      "osDark": true,
+      "savedTheme": "dark",
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "themeAttribute": null,
+      "themeControls": 0
+    }
+  ],
+  "media": {
+    "portrait": {
+      "src": "/media/teacher-portrait.png",
+      "hostname": "yo-app-academy.vercel.app",
+      "complete": true,
+      "naturalWidth": 1254,
+      "naturalHeight": 1254
+    },
+    "sampleVideo": {
+      "src": "/media/task-card-lesson.mp4",
+      "hostname": "yo-app-academy.vercel.app",
+      "duration": 48,
+      "readyState": 4
+    }
+  },
+  "admin": {
+    "existingUIAccount": true,
+    "loginStatus": 200,
+    "role": "admin",
+    "enrollmentListStatus": 200,
+    "enrollmentRefreshStatus": 200,
+    "enrollmentCount": 1,
+    "secureHttpOnlySameSiteLax": true,
+    "mobileLogoutStatus": 200,
+    "credentialsCaptured": false,
+    "recordsCreated": false
+  },
+  "captures": [
+    "vercel-package-375.png",
+    "vercel-footer-375.png",
+    "vercel-public-header-375.png",
+    "vercel-package-768.png",
+    "vercel-footer-768.png",
+    "vercel-public-header-768.png",
+    "vercel-package-1280.png",
+    "vercel-footer-1280.png",
+    "vercel-public-header-1280.png",
+    "vercel-teacher-375.png",
+    "vercel-teacher-1280.png",
+    "vercel-auth-empty-375.png",
+    "vercel-studio-header-375.png",
+    "vercel-studio-header-1280.png",
+    "vercel-enrollment-panel-375.png"
+  ],
+  "errors": [],
+  "knownWarnings": [],
+  "unexpectedWarnings": [],
+  "failedRequests": [],
+  "canceledRequests": [
+    {
+      "phase": "administrator",
+      "url": "https://yo-app-academy.vercel.app/media/task-card-lesson.mp4",
+      "error": "net::ERR_ABORTED"
+    }
+  ],
+  "sessionRequests": [
+    {
+      "method": "POST",
+      "url": "https://yo-app-academy.vercel.app/api/auth/login"
+    },
+    {
+      "method": "POST",
+      "url": "https://yo-app-academy.vercel.app/api/auth/logout"
+    }
+  ],
+  "appDataWrites": [],
+  "credentialHandling": "Fixture values held in memory only. No filled auth screenshot or credentials in report; private identity/enrollment names masked. No trace/HAR.",
+  "limits": "No student registration, enrollment decisions, uploaded content, notes/progress or certificate writes. Public sample metadata only; no playback. No global dark theme exists.",
+  "visualReview": {
+    "capturesInspected": 15,
+    "migrationVerdict": "pass",
+    "clearCaptures": true,
+    "responsivePackageFooterHeader": "pass at375/768/1280",
+    "teacherPortrait": "approved1254x1254 image loads and crops correctly",
+    "authAndStudio": "empty auth dialog and signed-in headers/enrollment panel are legible; private identity masked",
+    "existingCosmeticFinding": {
+      "description": "Teacher action links visually concatenate: Call0911701858 and Explore the courses share a line without spacing, while icons sit on separate lines. Source has academy-mentor-actions/contact markup without matching homepage CSS rules. This is separate from the hosting migration; links remain present and no source changes were made.",
+      "evidence": [
+        "teacher-375.png",
+        "teacher-1280.png"
+      ],
+      "blockingMigration": false
+    }
+  },
+  "passCriteria": {
+    "directVercelRoot200WithoutRedirect": true,
+    "noNetlifyBadgeCommentOrShim": true,
+    "latestPackageFooterWidths": [
+      375,
+      768,
+      1280
+    ],
+    "lightOnlyWithOSDarkAndSavedDarkPreference": true,
+    "teacherPortraitLoaded": true,
+    "publicSampleVideoDurationSeconds": 48,
+    "existingAdminUILoginAndEnrollmentReads": true,
+    "secureHttpOnlySameSiteLaxCookie": true,
+    "mobileLogoutCompleted": true,
+    "noApplicationDataWrites": true,
+    "noJavaScriptErrorsOrWarnings": true,
+    "noUnexpectedFailedRequests": true,
+    "credentialsAbsentFromOutput": true
+  }
+}

@@ -1,71 +1,76 @@
-# Deploy YO Tech Academy to Vercel with Convex
+# Deploy YO Tech Academy directly to Vercel
 
-Updated 3 November 2026. The app is live at https://yo-tech-academy.netlify.app using **Convex database and file storage**. Its production backend is `proficient-squirrel-944`; the full development-cloud content flow and live Netlify API/admin/browser checks passed. A Vercel deployment has not been verified. Local SQLite remains available for development without a Convex URL; Vercel requires complete Convex configuration.
+Updated 4 November 2026. The owner deleted the Netlify project and selected **Vercel project `yo-app-academy`** as the application host. The live direct address is **https://yo-app-academy.vercel.app**. Production deployment `dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7` is **READY**. The owner approved the two sensitive Production-only application variables; deployment, public API and existing administrator browser checks passed. [Deployment evidence](qa/vercel-deployment.json), [API checks](qa/vercel-public-api.json), [browser checks](qa/vercel-public-browser.json). Historical Netlify results do not establish Vercel readiness.
 
-The owner requires a **$0 budget** and selected **Netlify Free + Convex Free**. Use [the Netlify deployment guide](NETLIFY_DEPLOYMENT.md) for the current host. This document prepares an optional Vercel migration; no plan upgrades or paid services are authorized. The Vercel team was last checked on Hobby. Vercel restricts Hobby to non-commercial personal use, so this paid academy requires a suitable paid plan before a Vercel commercial launch. [Vercel policy](https://vercel.com/docs/limits/fair-use-guidelines).
+Reuse the existing Convex production deployment, `proficient-squirrel-944`, for database and file storage. This frontend migration does not create another backend or move/recreate existing accounts, recordings, enrollment and learning records. Billing settings remain unchanged; this workflow does not authorize a plan upgrade, paid add-on or domain purchase.
 
-## Current address forwarding
+## Project and domain settings
 
-The existing project is now named `yo-app-academy`, with public address https://yo-app-academy.vercel.app. Its persistent project-level routing rule forwards all paths on this hostname to the selected Netlify host; the former address redirects to it. No application secrets were transferred to Vercel. These routing settings persist across Git deployments. A future direct Vercel hosting migration would need an explicit decision to replace the forwarding setup, a suitable plan, and approved runtime configuration. [Domain evidence](qa/yo-domain-forwarding.json).
-
-## Project settings
-
-Import `Natananse/yoh-tech--mentorship-website`, production branch `main`:
+The repository is `Natananse/yoh-tech--mentorship-website`, with production branch `main`.
 
 | Setting | Value |
 | --- | --- |
+| Vercel project | `yo-app-academy` |
 | Root Directory | `yoh-app-academy` |
 | Framework Preset | Next.js |
 | Node.js Version | `24.x` |
-| Recommended `engines.node` range | `>=24.13.0 <25` |
+| `engines.node` | `>=24.13.0 <25` |
 | Package manager | `pnpm@11.20.0`, pinned in `packageManager` |
 | Install Command | `corepack pnpm install --frozen-lockfile` |
+| Build Command | `corepack pnpm run build` |
 | Output Directory | Next.js default |
 
-Keep the root `pnpm-lock.yaml` and `pnpm-workspace.yaml`. Enable access outside the Root Directory if Vercel requests it for workspace dependencies. Set `ENABLE_EXPERIMENTAL_COREPACK=1` for Production and Preview. [Monorepos](https://vercel.com/docs/monorepos), [package managers](https://vercel.com/docs/package-managers), [Node versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions).
+The app’s `vercel.json` supplies the framework/install/build commands. Keep the root `pnpm-lock.yaml` and `pnpm-workspace.yaml`, and include source files outside the Root Directory in the build so the workspace files are available. Set `ENABLE_EXPERIMENTAL_COREPACK=1` for the intended Vercel deployment environment.
 
-The app's `vercel.json` supplies this build command:
+The former project-level forwarding rule to Netlify is disabled, and the YO hostname serves the tested Vercel build directly with HTTP 200. Keep the former `yoh-app-academy.vercel.app` hostname’s HTTP 307 redirect to `yo-app-academy.vercel.app`, preserving paths and query strings. Do not redirect the new hostname back to the deleted Netlify site.
 
-```bash
-corepack pnpm run build
-```
+The current source no longer includes the Netlify adapter, `netlify.toml` or Netlify-specific head bootstrap. Do not use the archived Netlify build or artifact-upload sequence.
 
-This builds the frontend against the existing Convex production backend. Backend changes are deployed separately through the authenticated local Convex CLI. No Convex deploy key or account token is required or granted to Vercel by this workflow.
+## Production environment
 
-## Connect accounts and set environment values
+Configure values in the Vercel **Production** environment before building/publishing. Private runtime values must be supplied through approved protected provider input; no secret value belongs in source, logs or chat.
 
-1. Confirm access to the intended Vercel team/project and a suitable commercial hosting plan. The current $0 instruction does not authorize a paid upgrade. [Hobby policy](https://vercel.com/docs/plans/hobby).
-2. Reuse the existing Convex production deployment at `https://proficient-squirrel-944.eu-west-1.convex.cloud`. Keep its matching runtime bridge/invitation values; do not create another backend or a deploy key for this migration.
-3. Set these values in the indicated environment dashboards:
-
-| Variable | Vercel | Convex |
+| Variable | Vercel Production | Existing Convex production |
 | --- | --- | --- |
-| `CONVEX_URL` | Existing production deployment URL | Existing public URL |
-| `NEXT_PUBLIC_CONVEX_URL` | Same production URL | Existing public URL |
-| `YOH_CONVEX_SERVER_SECRET` | Private random value of at least 32 characters | Exactly the same value |
-| `YOH_MENTOR_INVITE` | Private production mentor invitation | Exactly the same value; required by Convex mentor registration |
-| `YOH_APP_URL` | Exact public HTTPS origin | Not required |
-| `NEXT_PUBLIC_CONTACT_EMAIL` | Supplied public company contact | Not required |
+| `CONVEX_URL` | `https://proficient-squirrel-944.eu-west-1.convex.cloud` | Existing deployment URL |
+| `NEXT_PUBLIC_CONVEX_URL` | Same production URL | Existing deployment URL |
+| `YOH_CONVEX_SERVER_SECRET` | Existing private application bridge secret, at least 32 characters | Exactly the same existing value |
+| `YOH_MENTOR_INVITE` | Existing private mentor invitation | Exactly the same existing value |
+| `YOH_APP_URL` | `https://yo-app-academy.vercel.app` | Not required |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | `yohansforex@gmail.com` | Not required |
 | `ENABLE_EXPERIMENTAL_COREPACK` | `1` | Not required |
 
-Set both Convex URL variables explicitly to the same intended backend; the build does not inject them. `CONVEX_URL` takes precedence. Production must use the existing production deployment, while previews must use an isolated test deployment.
+Set both Convex URLs explicitly to the same intended backend; `CONVEX_URL` takes precedence. `NEXT_PUBLIC_` values are embedded at build time, so changing them requires a rebuild. Runtime bridge/invitation values must match the existing backend; do not rotate them merely to move the frontend. The canonical `YOH_APP_URL` must match the browser origin so authenticated mutations and certificate links use the Vercel address.
 
-Keep `YOH_BUILD_DIR` unset on Vercel. `YOH_DATA_DIR` cannot persist records there. Enter private credentials through the provider dashboards or protected CLI input, never source files or chat. Do not give private keys a `NEXT_PUBLIC_` prefix.
+Do not set `YOH_DATA_DIR` as a production persistence solution. SQLite/disk storage is for the persistent local/Node/Docker alternative; Vercel requires Convex and fails closed if that configuration is missing. Leave `YOH_BUILD_DIR` unset on Vercel. Vercel manages the runtime port and hostname.
 
-Leave automatic previews disabled until an isolated test backend and its matching runtime variables are configured. Deploy that backend locally rather than granting Vercel a backend deploy credential. Set each preview's exact trusted `YOH_APP_URL`; do not copy the production origin into a different preview hostname.
+The existing administrator account remains in Convex. Reuse it to validate the migration; do not create another administrator or retain bootstrap passwords in Vercel environment settings.
+
+## Backend credentials and previews
+
+Vercel builds the Next.js frontend against the existing backend. **No `CONVEX_DEPLOY_KEY`, Convex account token or CLI credential is required or granted to Vercel.** Application bridge/invitation values permit the app’s protected operations; they do not grant backend deployment access.
+
+Backend changes remain a separate operation through the authenticated local Convex CLI, targeting the intended deployment. A frontend-only hosting migration does not require redeploying or reseeding that backend. Keep account credentials in the local CLI store.
+
+Leave automatic previews disabled until an isolated test backend and matching runtime values/origin are configured. Do not connect arbitrary preview builds to production data. Use the exact trusted preview origin for that preview’s `YOH_APP_URL` and keep backend deployment credentials local.
+
+## Build, deploy and verify
+
+1. Confirm the intended Vercel project/root/runtime settings and matching approved application runtime configuration. Do not change billing settings as part of this migration.
+2. Run `pnpm typecheck`, the relevant existing tests and `pnpm build`. Keep the maintained Next.js/React versions and workspace lockfile; do not bypass vulnerable-version deployment checks.
+3. Deploy the application source with the configured Corepack/pnpm build. Retain `public/media/`, `public/fonts/` and all four certificate TTF files in the generated certificate function trace. `.vercelignore` excludes private environment files, local databases, caches and QA screenshots; it does not replace provider access controls.
+4. Wait for the actual deployment to be ready, then verify the YO hostname serves it directly without the old Netlify redirect, comment/badge or head bootstrap. Record the actual deployment ID/status rather than treating a local build as publication.
+5. Run read-only hosted checks: homepage/package/footer at 375/768/1280px, uppercase YO logos, teacher portrait/sample media, light-only appearance, existing administrator UI login, studio/enrollment list access and logout. Do not create synthetic production users, lessons or certificates for this migration.
+6. Confirm runtime API access, secure session cookies and logout invalidation. Validate the legacy hostname and deep-link/query redirects separately. Mark hosted functional checks passed only after their actual results are recorded.
+
+The full development-cloud content flow has earlier evidence, but production uploads on the new Vercel host still need owner-authorized verification. Use an isolated development backend for synthetic registration/upload/enrollment/playback/notes/certificate regression tests; keep production content changes explicit.
 
 ## Upload and access behavior
 
-The mentor studio requests an authorized upload intent, uploads the raw file directly to Convex with progress/cancellation, then finalizes it through a small API request. The server verifies ownership, size, MIME type, SHA256 and file signature before attaching it. Video remains limited to 250 MB; PDF/ZIP resources to 25 MB. A generated upload URL lasts one hour, and Convex's upload POST has a **two-minute timeout**; this flow is not resumable. [Convex upload limits](https://docs.convex.dev/file-storage/upload-files).
+The mentor studio obtains an authorized upload intent, sends the file directly from the browser to Convex, then finalizes through a small app API request. The app validates ownership, size, MIME type, checksum and file signature. Videos remain limited to 250 MB; PDF/ZIP resources to 25 MB. Direct uploads have progress/cancellation and a two-minute request timeout, and are not resumable.
 
-File routes check lesson access before redirecting the browser to Convex. Direct Convex file URLs are reusable bearer URLs once disclosed; unpublished URLs are released only to the owning mentor/admin. Replacing a video deletes the prior stored video. Never route large upload/download bodies through Vercel Functions, whose payload limit is 4.5 MB. [Convex file access](https://docs.convex.dev/file-storage/serve-files), [Vercel limits](https://vercel.com/docs/functions/limitations).
+Keep large video/resource bodies out of Vercel Functions. Approved students and mentors/admins obtain file access through authorized app routes; drafts remain owner/admin-only. A released raw Convex storage URL is a reusable bearer URL: revocation blocks new application requests but does not invalidate a copied storage URL. Existing browser resource downloads retain original filenames.
 
-## Validate and publish
+Official references: [Vercel monorepos](https://vercel.com/docs/monorepos), [package managers](https://vercel.com/docs/package-managers), [Node.js runtime versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions), [environment variables](https://vercel.com/docs/environment-variables), [Convex production deployments](https://docs.convex.dev/production), [Convex file uploads](https://docs.convex.dev/file-storage/upload-files).
 
-- Run `pnpm typecheck`, the Convex domain/storage tests and `pnpm build`. Keep a maintained security-patched Next.js/React release; do not bypass vulnerable-version deployment checks.
-- Confirm `public/fonts/*-certificate.ttf` is included in the certificate route's function trace. Public images/fonts and the teacher portrait must remain in deployment uploads.
-- Deploy a Preview. Test register/login/logout, a mentor video larger than 4.5 MB, PDF/ZIP upload and download filename, playback/seek, account resume/completion, private notes, Q&A and certificate PDF/verification. Confirm draft file URLs are denied to guests and other accounts.
-- Recheck 390px navigation, the teacher name/photo/contact and public course content. Promote only the tested version, verify the HTTPS domain and record the actual deployment URL/status.
-- Bootstrap the owner/admin against the intended Convex deployment using the existing setup command, then remove the bootstrap password. Upload the real lesson recordings through the studio.
-
-`.vercelignore` excludes local environment files, SQLite/runtime data, caches and QA screenshots while retaining `public/media/` and `public/fonts/`. These exclusions do not replace provider-side access controls or backups.
+The [Netlify guide](NETLIFY_DEPLOYMENT.md) is archived historical context. Historical QA reports remain unchanged. The dedicated Vercel reports above record this deployment’s checks.

@@ -1,14 +1,24 @@
 # Verification — 4 November 2026
 
-Current result: the local preview at http://localhost:3014 is connected to the deployed Convex production backend. The owner selected **Netlify Free + Convex Free** within a strict **$0 budget**, with administrator-approved program enrollment. The website is published at **https://yo-tech-academy.netlify.app**, with real hosted API/admin checks passed. Production content is intentionally empty and ready for the owner’s recordings.
+## Current Vercel migration status — 4 November 2026
 
-Current appearance: one fixed light theme across public, account and certificate pages. Live deployment `6aea501477ef1c66f67c0f47` passed ten footer/account/studio/certificate-not-found states with device dark mode and an earlier saved dark preference: computed colors stay light, theme controls/bootstrap are absent, and there is no overflow or JavaScript error. The dedicated seven-state [light-only browser proof](qa/netlify-light-only.json) also covers the auth dialog. Two previously documented warm-cache font-preload warnings remain known baseline warnings; unexpected warnings and content/data writes were zero. Earlier dark-theme captures below are historical evidence.
+The owner deleted the Netlify project and selected direct Vercel hosting in project `yo-app-academy`, at **https://yo-app-academy.vercel.app**. The former Netlify forwarding rule is disabled and the tested production build serves the YO address directly with HTTP 200. The legacy `yoh-app-academy.vercel.app` alias keeps its HTTP 307 redirect to the YO address, preserving paths and query strings.
 
-## Current YO logos and footer contacts
+The existing Convex production database/file storage is reused. After the owner’s explicit approval, both application variables were stored as sensitive, Production-only settings. Production deployment `dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7` is READY. Frozen pnpm install, typecheck and production build passed; all four certificate fonts were packaged. Public APIs and anonymous/cross-origin access guards passed. Browser checks passed at 375/768/1280px: mentorship pricing, structured footer contacts, uppercase YO, light-only appearance, teacher portrait and 48-second sample. Existing administrator UI login, studio/enrollment-list refresh and mobile logout passed with Secure/HttpOnly/SameSite=Lax cookies. No users, lessons, enrollment decisions or certificates were created. Production recording upload and certificate issuance were not exercised on Vercel. [Deployment](qa/vercel-deployment.json), [public API checks](qa/vercel-public-api.json), [browser checks](qa/vercel-public-browser.json). No Convex deploy key or account token is required or granted to Vercel, and billing settings remain unchanged. See [current Vercel settings](VERCEL_DEPLOYMENT.md) and the [archived Netlify guide](NETLIFY_DEPLOYMENT.md).
+
+The records below are retained historical evidence from earlier local, development-cloud and Netlify revisions. Their passed results, deployment IDs, old addresses and statements of readiness apply to those revisions. They do not verify the new Vercel host. Individual QA reports have not been rewritten.
+
+## Historical release snapshot
+
+Historical result: the local preview at http://localhost:3014 is connected to the deployed Convex production backend. The owner selected **Netlify Free + Convex Free** within a strict **$0 budget**, with administrator-approved program enrollment. The website is published at **https://yo-tech-academy.netlify.app**, with real hosted API/admin checks passed. Production content is intentionally empty and ready for the owner’s recordings.
+
+Historical appearance verification: one fixed light theme across public, account and certificate pages. Live deployment `6aea501477ef1c66f67c0f47` passed ten footer/account/studio/certificate-not-found states with device dark mode and an earlier saved dark preference: computed colors stay light, theme controls/bootstrap are absent, and there is no overflow or JavaScript error. The dedicated seven-state [light-only browser proof](qa/netlify-light-only.json) also covers the auth dialog. Two previously documented warm-cache font-preload warnings remain known baseline warnings; unexpected warnings and content/data writes were zero. Earlier dark-theme captures below are historical evidence.
+
+## Historical Netlify YO logos and footer contacts
 
 On deployment `6aea501477ef1c66f67c0f47`, footer email and phone render as separate labeled 76px rows at 320/390/768/1440px, with centered icons and a 12px icon/text gap. The native destinations remain `mailto:yohansforex@gmail.com` and `tel:+251911701858`; no email client or dialer was launched. Header/footer, account/studio and certificate-not-found logos consistently display uppercase **YO**. Existing administrator login, account/studio headers at 390/1440px and mobile sign-out passed; no users, lessons, enrollment records or certificates were created. Credentials were excluded, and account identity was redacted in header captures. All 14 screenshots were inspected. [Browser report](qa/netlify-footer-final.json), [320px contacts](qa/netlify-footer-final-contacts-320.png), [390px contacts](qa/netlify-footer-final-contacts-390.png), [1440px contacts](qa/netlify-footer-final-contacts-1440.png), [mobile account header](qa/netlify-footer-final-account-header-390.png). The earlier concatenated-contact layout is retained only as [before evidence](qa/netlify-footer-before.json).
 
-## YO address and sample media
+## Historical YO-to-Netlify address and sample media
 
 The Vercel project is now `yo-app-academy`. Its new **https://yo-app-academy.vercel.app** address forwards to the chosen Netlify host through one persistent routing rule scoped to the new hostname. The former address redirects to the new address. Root and API probes preserve paths/query strings and end at Netlify HTTP 200. No private app values, billing, or protection settings were changed, and no new Vercel app deployment was created. [Domain proof](qa/yo-domain-forwarding.json).
 
@@ -36,7 +46,7 @@ All **15 Convex domain/storage tests passed**, covering role/session guards, pri
 
 Development and production Convex functions are now deployed. Actual development-cloud upload CORS, seeking, resume and certificate checks passed; see the verified cloud backend section below. Without a Convex URL, local development continues using SQLite; both Netlify and Vercel require complete Convex configuration.
 
-## Performance and hosting
+## Historical performance and Netlify hosting
 
 Earlier Lighthouse default mobile performance score: **91/100**. LCP 0.9s, total blocking time 390ms, CLS 0.001. This local lab run predates the enrollment UI; performance has not been remeasured after that addition. [Summary](qa/lighthouse-summary.json), [full report](qa/lighthouse.json).
 
@@ -92,7 +102,7 @@ The local preview on port 3014 uses the production bridge. The ordinary `pnpm de
 
 Automatic approval review rejected creation/grant of a production Convex deploy key to Netlify without specific credential-grant approval. No deploy key was created. The selected safer workflow deploys Convex through the existing authenticated local CLI and uploads locally built frontend/function artifacts; Netlify does not receive a Convex management/deploy credential or account token. Its application runtime will still require the private app bridge and configured production URL. The real Netlify adapter build passed with Node 24, 22 API modules and all four certificate fonts in its server function. The archive was checked for private environment/credential files and contained none. Public runtime verification passed after upload. [Adapter build](qa/netlify-build.json), [hosted checks](qa/netlify-hosted-check.json).
 
-## Public Netlify launch
+## Historical public Netlify launch
 
 Netlify production deployment `6aea45d8c3b16e2ee0800818` is **ready**, published 3 November 2026 at https://yo-tech-academy.netlify.app. The new-team default initially required Netlify team login. Using the official Make Public behavior, this site now protects only nonproduction deploys; team defaults and application enrollment guards were unchanged. [Deployment](qa/netlify-deployment.json), [visibility](qa/netlify-public-access.json).
 
@@ -100,7 +110,7 @@ The actual HTTPS homepage, teacher portrait, authentication/status, stats, publi
 
 The first owner recording has not been uploaded to production. The full upload/playback/approval/resource/certificate flow was verified against the separate development cloud deployment as recorded above. Public recording uploads should not be described as already tested. Uploading lesson content through Mentor Studio does not require another deployment.
 
-## Hosted rendering compatibility and historical theme corrections
+## Historical Netlify rendering compatibility and theme corrections
 
 The first public visual run caught a React 418 hydration recovery caused by a newline Netlify inserts immediately before its hosting comment in `<head>`. Browser isolation showed that removing only this whitespace fixes hydration; removing the HUD or hosting comment while retaining the whitespace does not. The compatibility bootstrap removes only that adjacent blank text node before hydration and preserves both the hosting comment and badge. Fresh normal/reduced-motion diagnostic contexts passed without errors or font warnings. [Diagnosis](qa/netlify-hydration-diagnosis.json).
 

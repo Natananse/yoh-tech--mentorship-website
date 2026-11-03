@@ -1,8 +1,12 @@
 # YO Tech Academy
 
-A pnpm workspace containing the YO Tech LLC academy website, student lesson player and mentor studio. Accounts, lesson uploads, per-user progress, timestamped notes and lesson Q&A use a real SQLite database and server-side file storage. Students can explicitly issue a completion certificate after finishing a course’s published lessons, download its PDF and share its public verification ID.
+A pnpm workspace containing the YO Tech LLC academy website, student lesson player and mentor studio. Production accounts, lesson uploads, per-user progress, timestamped notes and lesson Q&A use the existing Convex database and file storage. Local development without Convex retains SQLite and disk storage. Students can explicitly issue a completion certificate after finishing a course’s published lessons, download its PDF and share its public verification ID.
 
-Use **Node.js 24.13 or newer** and **pnpm 11.20.0**. Run from this outer folder:
+The current hosting target is **Vercel project `yo-app-academy`**, serving the app directly at **https://yo-app-academy.vercel.app**. The owner deleted the Netlify project; Netlify is no longer the application host. Production deployment `dpl_5hDYmHrDLYoNHpMTgx4kocSxAiQ7` is ready. The cleaned build, private runtime configuration, public APIs, responsive layout and existing administrator login/studio/logout checks passed. See [live Vercel evidence](yoh-app-academy/docs/qa/vercel-public-browser.json). The former `yoh-app-academy.vercel.app` address keeps its HTTP 307 redirect to the YO address.
+
+The existing Convex production backend is reused, so this hosting migration does not move or recreate accounts, recordings or learning records. No Convex deploy key or account token is required or granted to Vercel. Billing settings remain unchanged; this migration does not authorize a paid upgrade.
+
+Use **Node.js 24.13 or newer within major 24** and **pnpm 11.20.0**. Run from this outer folder:
 
 ```bash
 corepack enable
@@ -21,10 +25,8 @@ pnpm build
 pnpm start
 ```
 
-`pnpm start` runs the packaged production server on port 3002. This is a server application, not a static export. Vercel production uses Convex; a persistent Node host with SQLite remains an alternative. See [Vercel deployment](yoh-app-academy/docs/VERCEL_DEPLOYMENT.md).
+`pnpm start` runs the packaged production server on port 3002. This is a server application. Vercel uses the existing Convex backend; a persistent Node host with SQLite remains a local/self-hosted alternative. See [Vercel deployment](yoh-app-academy/docs/VERCEL_DEPLOYMENT.md) for the app root, Node 24, Corepack/pnpm commands and required runtime settings. The [Netlify guide](yoh-app-academy/docs/NETLIFY_DEPLOYMENT.md) is archived historical context.
 
-The deployment files are instructions and source configuration; they do not establish that a public deployment or Docker run has taken place.
+See [setup, environment variables and deployment](yoh-app-academy/README.md), [content still needed](yoh-app-academy/TODO_CONTENT.md), and [verification notes](yoh-app-academy/docs/verification.md). Historical Netlify QA is not proof of the new Vercel deployment.
 
-See [setup, environment variables and deployment](yoh-app-academy/README.md), [content still needed](yoh-app-academy/TODO_CONTENT.md), and [verification notes](yoh-app-academy/docs/verification.md).
-
-A root [Dockerfile](Dockerfile) and [Compose configuration](compose.yaml) are included. Run Docker commands from this outer folder; the app README documents deployment, admin setup and backups.
+A root [Dockerfile](Dockerfile) and [Compose configuration](compose.yaml) are included. Run Docker commands from this outer folder; the app README documents that alternative, admin setup and backups.
