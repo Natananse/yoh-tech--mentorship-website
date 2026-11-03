@@ -23,6 +23,8 @@ When running from this app folder, use `cp -n .env.example .env.local` instead. 
 
 Convex is the selected production backend. Without a Convex URL, local development uses SQLite even when a server secret has been prepared. Vercel requires a configured Convex URL and matching private server secret; local SQLite is disabled there. See [Convex and Vercel setup](docs/VERCEL_DEPLOYMENT.md).
 
+The current hosting choice is **Netlify Free + Convex Free**, within a strict $0 budget. No paid plan or automatic recharge is authorized. Follow [Netlify deployment](docs/NETLIFY_DEPLOYMENT.md); the free plans have usage limits, and a cloud deployment must still be verified. Hosted Netlify execution also requires Convex and disables the local SQLite fallback.
+
 ## Environment variables
 
 Create `.env.local` from `.env.example` only if it does not already exist, then edit the needed values. Exported environment variables take precedence over `.env.local`, which takes precedence over `.env`.
@@ -53,10 +55,12 @@ Keep `.env.local`, the database and uploaded files outside source control. Only 
 
 ## Accounts and the learning flow
 
+See the [mentor upload guide](docs/MENTOR_UPLOADS.md) for first-time mentor registration, exact studio steps, accepted files and the current lesson-access behavior.
+
 1. Register a student account, or register as a mentor using the configured invitation code.
 2. As a mentor, open the studio, create a draft, choose its course, and upload a video and optional resources.
 3. Add duration/chapter details and publish after the video is attached. Drafts are visible only to their owner and admins.
-4. A student can open a published lesson, watch it, resume from the last saved position and mark it complete. Position and completion are stored per account in the database and survive logout and another browser session.
+4. A student requests enrollment from **My learning**. An administrator approves or revokes access in the studio’s **Student enrollment** section. Approval covers the mentorship program; it does not process a payment. Approved students can watch published lessons, resume from the last saved position and mark them complete. Position and completion are stored per account in the database and survive logout and another browser session.
 5. Sign out to end the current session. Session cookies are HttpOnly and become Secure when the canonical origin uses HTTPS.
 
 The mentor studio also shows real unique student viewers and lesson completions. Empty activity is shown as an empty state rather than fabricated counters.
@@ -83,7 +87,7 @@ The command loads the app's `.env.local` and `.env` itself. It preserves values 
 - Video: **MP4 or WebM, up to 250 MB per file**.
 - Resources: **PDF or ZIP, up to 25 MB per file**, with up to 20 resources per lesson.
 - Both the client and server validate type and size. Convex mode uses a short-lived direct upload URL, browser upload progress and a server-verified upload intent. Actual storage metadata, checksum, file signature and ownership are checked before attachment. Large files never pass through a Vercel Function. Local mode retains multipart uploads.
-- Convex video access checks run before redirecting to storage. Shared storage URLs grant bearer access; published lessons are public in the current free-learning flow. Draft URLs are released only to their owner/admin. Resources download in the browser with their original filenames. Hosted playback, range support and download CORS must be verified against the selected deployment.
+- Convex video access checks run before redirecting to storage. Published recordings require approved student enrollment or a mentor/admin account; drafts remain restricted to their owner/admin. Shared storage URLs grant bearer access once released, so revocation blocks fresh application requests but cannot invalidate a copied raw storage URL. Resources download in the browser with their original filenames. Hosted playback, range support and download CORS must be verified against the selected deployment.
 - Convex keeps cloud data across Vercel redeployments. For the local/Docker alternative, upload bytes and SQLite data must survive process/container restarts; do not use an ephemeral data directory.
 - Convex direct uploads have a two-minute request timeout and are not resumable in this implementation. For the local/Docker alternative, allow multipart overhead in the proxy and provision enough memory for the bounded upload parser.
 
@@ -101,7 +105,7 @@ The build creates a Next.js standalone server and packages `public/` and static 
 
 Stop the development server before building into the same `.next` directory. For independent test builds, set `YOH_BUILD_DIR` to a different directory for both build and start.
 
-For the requested Vercel launch, follow [VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) and configure Convex before deploying. Account authorization and hosted end-to-end verification are required; a successful local build alone does not establish a public deployment.
+For the selected free launch, follow [NETLIFY_DEPLOYMENT.md](docs/NETLIFY_DEPLOYMENT.md) and configure Convex before deploying. [VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) retains the optional Vercel settings. Account authorization and hosted end-to-end verification are required; a successful local build alone does not establish a public deployment.
 
 For the alternative persistent Node/Docker deployment, deploy the Node server behind an HTTPS reverse proxy. Configure `YOH_APP_URL` to the HTTPS origin and attach a persistent disk for `YOH_DATA_DIR`. Run one application instance against this local SQLite/storage directory. This implementation is not suitable for a static host or an ephemeral/serverless filesystem; a distributed deployment needs a shared database and object-storage adapter first.
 

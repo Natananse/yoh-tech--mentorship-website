@@ -1,12 +1,14 @@
 export type Role = 'student' | 'mentor' | 'admin';
 export type User = { id: string; name: string; email: string; role: Role };
+export type Enrollment = { status: 'none' | 'pending' | 'approved' | 'revoked'; requestedAt: string | null; approvedAt: string | null };
+export type EnrollmentRequest = Enrollment & { studentId: string; name: string; email: string };
 export type LessonChapter = { title: string; time: number; code?: string; screen?: string };
 export type LessonResource = { id: string; name: string; url: string; size: number; mime: string };
 export type Lesson = {
   id: string; title: string; description: string; courseId: string;
   mentorId: string; mentorName: string; videoUrl: string | null;
   duration: number; published: boolean; resources: LessonResource[];
-  chapters: LessonChapter[]; createdAt: string; updatedAt: string;
+  chapters: LessonChapter[]; createdAt: string; updatedAt: string; canWatch?: boolean;
 };
 export type Progress = { lessonId: string; position: number; duration: number; completed: boolean; updatedAt: string };
 export type PlatformStats = { publishedLessons: number; enrolledStudents: number; completedLessons: number };

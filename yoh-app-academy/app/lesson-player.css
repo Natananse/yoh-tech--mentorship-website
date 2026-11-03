@@ -312,3 +312,7 @@ html[data-theme='dark'] :is(.lp-workspace, .lp-hero) { --lp-success: #7dd3a1; --
 @media (prefers-reduced-motion: reduce) {
   .lp-workspace *, .lp-hero * { animation: none !important; transition: none !important; }
 }
+
+.lp-locked { overflow: hidden; }
+.lp-access-notice { margin: 0; padding: 22px 28px 0; color: var(--muted); font-size: 16px; line-height: 1.65; }
+.lp-access-refresh { display: inline-flex; align-items: center; min-height: 44px; margin: 0 28px 24px; color: var(--cobalt); font-size: 16px; text-decoration: underline; text-underline-offset: 4px; }

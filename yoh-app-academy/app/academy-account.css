@@ -1677,3 +1677,36 @@
 .ac-legacy-draft p {
   font-size: 16px;
 }
+
+/* Administrator-approved access to the mentorship program. */
+.ac-enrollment, .ac-enrollment-admin { padding: 28px; margin-bottom: 32px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--ink); }
+.ac-enrollment-heading { display: flex; align-items: flex-start; gap: 14px; }
+.ac-enrollment-heading > svg { color: var(--cobalt); flex-shrink: 0; margin-top: 4px; }
+.ac-enrollment h2, .ac-enrollment-admin h2 { margin: 8px 0 0; color: var(--ink); font: 700 28px/1.15 var(--font-heading); letter-spacing: -.02em; }
+.ac-enrollment > p, .ac-enrollment-admin > p { max-width: 760px; margin: 18px 0; font-size: 16px; line-height: 1.65; color: var(--muted); }
+.ac-enrollment .ac-enrollment-error { color: var(--danger); }
+.ac-enrollment .ac-button-primary, .ac-enrollment-admin .ac-button-primary { color: var(--on-accent); }
+.ac-enrollment-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 20px; }
+.ac-enrollment-compact { margin: 0; border: 0; border-radius: 0; }
+.ac-enrollment-list { list-style: none; padding: 0; margin: 24px 0 0; }
+.ac-enrollment-list > li { display: flex; align-items: center; gap: 18px; padding: 22px 0; border-top: 1px solid var(--border); }
+.ac-enrollment-avatar { flex-shrink: 0; color: var(--cobalt); }
+.ac-enrollment-student { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 5px; }
+.ac-enrollment-student strong { font-size: 17px; font-weight: 500; overflow-wrap: anywhere; }
+.ac-enrollment-student > span { color: var(--muted); font-size: 16px; overflow-wrap: anywhere; }
+.ac-enrollment-student small { line-height: 1.65; }
+.ac-enrollment-list .ac-button { flex-shrink: 0; }
+.ac-enrollment-empty { padding: 32px 0 8px; }
+.ac-enrollment-empty > svg { color: var(--cobalt); }
+.ac-enrollment-empty h3 { margin-top: 16px; font-size: 24px; }
+.ac-enrollment-empty p { margin-top: 12px; color: var(--muted); font-size: 16px; }
+@media(max-width:560px) {
+  .ac-enrollment, .ac-enrollment-admin { padding: 22px 20px; }
+  .ac-enrollment-heading { gap: 12px; }
+  .ac-enrollment h2, .ac-enrollment-admin h2 { font-size: 25px; }
+  .ac-enrollment-actions { align-items: stretch; flex-direction: column; gap: 8px; }
+  .ac-enrollment-actions > button { justify-content: center; width: 100%; }
+  .ac-enrollment-list > li { flex-wrap: wrap; gap: 14px; }
+  .ac-enrollment-student { flex-basis: calc(100% - 42px); }
+  .ac-enrollment-list .ac-button { margin-left: 41px; }
+}

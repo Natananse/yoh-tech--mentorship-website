@@ -1,0 +1,77 @@
+{
+  "staging_root": "/tmp/yo-netlify-source",
+  "published": false,
+  "public_build_env_only": true,
+  "adapter": "@netlify/plugin-nextjs@5.16.5",
+  "build_completed": true,
+  "handler_directory": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions-internal/___netlify-server-handler",
+  "handler_files": {
+    "___netlify-server-handler.mjs": true,
+    "___netlify-server-handler.json": true
+  },
+  "api_route_count": 22,
+  "required_api_code": {
+    "auth/login": true,
+    "enrollment": true,
+    "enrollments": true,
+    "files/[id]": true,
+    "lessons/[id]/files": true,
+    "certificates/[id]/pdf": true
+  },
+  "certificate_fonts": {
+    "bricolage-certificate.ttf": [
+      "yoh-app-academy/public/fonts/bricolage-certificate.ttf"
+    ],
+    "inter-certificate.ttf": [
+      "yoh-app-academy/public/fonts/inter-certificate.ttf"
+    ],
+    "jetbrains-certificate.ttf": [
+      "yoh-app-academy/public/fonts/jetbrains-certificate.ttf"
+    ],
+    "noto-ethiopic-certificate.ttf": [
+      "yoh-app-academy/public/fonts/noto-ethiopic-certificate.ttf"
+    ]
+  },
+  "private_environment_or_credential_files": [],
+  "handler_uncompressed_bytes": 66184167,
+  "functions_manifest_exists": true,
+  "functions_manifest_top_level_keys": [
+    "functions",
+    "system",
+    "timestamp",
+    "version"
+  ],
+  "functions": [
+    {
+      "name": "___netlify-server-handler",
+      "runtime": "js",
+      "mainFile": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions-internal/___netlify-server-handler/___netlify-server-handler.mjs",
+      "path": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions/___netlify-server-handler.zip",
+      "displayName": "Next.js Server Handler",
+      "generator": "@netlify/plugin-nextjs@5.16.5",
+      "runtimeVersion": "nodejs24.x"
+    }
+  ],
+  "passed": true,
+  "persist_files": [
+    "netlify.toml",
+    "yoh-app-academy/package.json",
+    "pnpm-lock.yaml"
+  ],
+  "zip": {
+    "path": "/tmp/yo-netlify-source/yoh-app-academy/.netlify/functions/___netlify-server-handler.zip",
+    "compressed_bytes": 24431693,
+    "entry_count": 2103,
+    "api_route_modules": 22,
+    "font_files": [
+      "yoh-app-academy/public/fonts/bricolage-certificate.ttf",
+      "yoh-app-academy/public/fonts/inter-certificate.ttf",
+      "yoh-app-academy/public/fonts/jetbrains-certificate.ttf",
+      "yoh-app-academy/public/fonts/noto-ethiopic-certificate.ttf"
+    ],
+    "private_environment_files": []
+  },
+  "build_warnings": [
+    "Pinned adapter 5.16.5 builds successfully; fetched plugin list reports latest 5.16.6."
+  ]
+}

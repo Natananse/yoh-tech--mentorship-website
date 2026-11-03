@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": [
+    "New student sees locked metadata without video or progress requests",
+    "Student requests enrollment and sees pending state",
+    "Opening an unapproved lesson mounts only its approval gate",
+    "Administrator sees request and approves program-wide access",
+    "Approved student refreshes access and plays the uploaded recording",
+    "Revocation removes protected media and does not flush stale progress writes",
+    "Server rejects direct video and progress reads/writes after revocation",
+    "Enrollment screens fit 390px and 1440px in both light and dark themes"
+  ],
+  "errors": [],
+  "warnings": [],
+  "protectedRequestsBeforeApproval": 0,
+  "denialProbes": {
+    "videoGet": 403,
+    "progressGet": 403,
+    "progressPut": 403
+  },
+  "themeCaptureMethod": "Existing persisted theme preference, synchronized by the supported storage event in account views."
+}

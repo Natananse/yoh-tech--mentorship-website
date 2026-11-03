@@ -12,6 +12,7 @@ export default defineSchema({
  uploads:defineTable({id:v.string(),userId:v.string(),lessonId:v.string(),kind:fileKind,originalName:v.string(),mime:v.string(),size:v.number(),sha256:v.string(),createdAt:v.string(),expiresAt:v.number()}).index('by_legacyId',['id']).index('by_user',['userId']),
  progress:defineTable({userId:v.string(),lessonId:v.string(),position:v.number(),duration:v.number(),completed:v.boolean(),updatedAt:v.string()}).index('by_user_lesson',['userId','lessonId']).index('by_userId',['userId']).index('by_lessonId',['lessonId']),
  enrollments:defineTable({userId:v.string(),courseId:v.string(),createdAt:v.string()}).index('by_user_course',['userId','courseId']).index('by_courseId',['courseId']),
+ programEnrollments:defineTable({studentId:v.string(),status:v.union(v.literal('pending'),v.literal('approved'),v.literal('revoked')),requestedAt:v.union(v.string(),v.null()),approvedAt:v.union(v.string(),v.null())}).index('by_studentId',['studentId']).index('by_status',['status']),
  loginAttempts:defineTable({key:v.string(),count:v.number(),resetAt:v.number()}).index('by_key',['key']),
  lessonViews:defineTable({userId:v.string(),lessonId:v.string(),firstViewedAt:v.string()}).index('by_user_lesson',['userId','lessonId']).index('by_lessonId',['lessonId']),
  notes:defineTable({id:v.string(),userId:v.string(),lessonId:v.string(),position:v.number(),body:v.string(),createdAt:v.string()}).index('by_legacyId',['id']).index('by_user_lesson',['userId','lessonId']),

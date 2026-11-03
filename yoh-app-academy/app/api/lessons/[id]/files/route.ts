@@ -20,19 +20,19 @@ export async function POST(request:Request,{params}:{params:Promise<{id:string}>
    if(body.action==='prepare'){
     const declaration=uploadDeclaration(body);
     if(!cloud){const user=await requireMentor(request);const lesson=await requireLessonOwner(lessonId,user);if(declaration.kind==='resource'&&lesson.resources.length>=20)throw new ApiError(400,'A lesson can have up to 20 resource files.');return json({mode:'multipart'});}
-    if(body.sha256===undefined){await convexQuery('file-storage:canUpload',{lessonId},request);return json({mode:'convex',requiresHash:true});}
+    if(body.sha256===undefined){await convexQuery('fileStorage:canUpload',{lessonId},request);return json({mode:'convex',requiresHash:true});}
     if(typeof body.sha256!=='string'||!/^[a-f0-9]{64}$/i.test(body.sha256))throw new ApiError(400,'The file checksum is invalid. Choose the file again.');
-    const result=await convexMutation<{uploadId:string;uploadUrl:string;mime:string}>('file-storage:prepareUpload',{id:randomUUID(),lessonId,kind:declaration.kind,originalName:declaration.name,mime:declaration.mime,size:declaration.size,sha256:body.sha256.toLowerCase()},request);
+    const result=await convexMutation<{uploadId:string;uploadUrl:string;mime:string}>('fileStorage:prepareUpload',{id:randomUUID(),lessonId,kind:declaration.kind,originalName:declaration.name,mime:declaration.mime,size:declaration.size,sha256:body.sha256.toLowerCase()},request);
     return json({mode:'convex',...result});
    }
    if(body.action==='finalize'&&cloud){
     if(typeof body.uploadId!=='string'||typeof body.storageId!=='string'||body.uploadId.length>80||body.storageId.length>128)throw new ApiError(400,'The uploaded file reference is invalid.');
     const args={lessonId,uploadId:body.uploadId,storageId:body.storageId};
-    const info=await convexQuery<{attached:boolean;lesson?:Lesson;file?:LessonResource;mime?:string;url?:string}>('file-storage:uploadInfo',args,request);
+    const info=await convexQuery<{attached:boolean;lesson?:Lesson;file?:LessonResource;mime?:string;url?:string}>('fileStorage:uploadInfo',args,request);
     if(info.attached)return json({lesson:info.lesson,file:info.file});
     if(!info.mime||!info.url)throw new ApiError(400,'The uploaded file is not ready. Choose it again.');
     validateUploadSignature(await uploadSignatureFromUrl(info.url),info.mime);
-    const attached=await convexMutation<{lesson:Lesson;file:LessonResource}>('file-storage:attachUpload',{...args,verifiedMime:info.mime},request);
+    const attached=await convexMutation<{lesson:Lesson;file:LessonResource}>('fileStorage:attachUpload',{...args,verifiedMime:info.mime},request);
     return json(attached,201);
    }
    throw new ApiError(400,'Choose a valid upload action.');

@@ -20,7 +20,7 @@ try{
  if(convexUrl||process.env.VERCEL==='1'){
   if(!convexUrl||!secret||secret.length<32)throw new Error('Configure a Convex deployment URL and a matching private YOH_CONVEX_SERVER_SECRET.');
   const{ConvexHttpClient}=await import('convex/browser');const{makeFunctionReference}=await import('convex/server');const client=new ConvexHttpClient(convexUrl,{logger:false});
-  const result=await client.mutation(makeFunctionReference('academy:adminUpsert'),{serverSecret:secret,id:randomUUID(),name,email,...(passwordHash?{passwordHash}:{})});
+  const result=await client.mutation(makeFunctionReference('academy:adminUpsert'),{serverSecret:secret,requestTime:Date.now(),id:randomUUID(),name,email,...(passwordHash?{passwordHash}:{})});
   console.log(result.created?'Admin account created.':'Existing account granted the admin role.');
  }else{
  const{getDatabase}=await import('../lib/server/database.mjs');const db=getDatabase();

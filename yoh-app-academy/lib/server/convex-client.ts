@@ -3,11 +3,12 @@ import { ConvexHttpClient } from 'convex/browser';
 import { makeFunctionReference } from 'convex/server';
 import { ConvexError,type Value } from 'convex/values';
 import { ApiError } from './http';
+import { isHostedEnvironment } from './origin';
 
 export function convexEnabled():boolean{
  const url=process.env.CONVEX_URL||process.env.NEXT_PUBLIC_CONVEX_URL;const secret=process.env.YOH_CONVEX_SERVER_SECRET;
  if(url&&secret&&secret.length>=32)return true;
- if(url||process.env.VERCEL==='1')throw new ApiError(503,'Configure a Convex deployment URL and a matching private YOH_CONVEX_SERVER_SECRET before using the hosted academy.');
+ if(url||isHostedEnvironment())throw new ApiError(503,'Configure a Convex deployment URL and a matching private YOH_CONVEX_SERVER_SECRET before using the hosted academy.');
  return false;
 }
 export function requestSessionHash(request?:Request):string|undefined{
@@ -17,7 +18,8 @@ export function requestSessionHash(request?:Request):string|undefined{
 async function call<T>(kind:'query'|'mutation',name:string,args:Record<string,Value>,request?:Request):Promise<T>{
  if(!convexEnabled())throw new ApiError(503,'Convex is not configured.');
  const client=new ConvexHttpClient((process.env.CONVEX_URL||process.env.NEXT_PUBLIC_CONVEX_URL)!,{logger:false});
- const sessionHash=requestSessionHash(request);const parameters={...args,serverSecret:process.env.YOH_CONVEX_SERVER_SECRET!,...(sessionHash?{sessionHash}:{})};
+ // Query cache keys must include trusted request time so session/ticket expiry stays current.
+ const sessionHash=requestSessionHash(request);const parameters={...args,serverSecret:process.env.YOH_CONVEX_SERVER_SECRET!,requestTime:Date.now(),...(sessionHash?{sessionHash}:{})};
  try{return(kind==='query'?await client.query(makeFunctionReference<'query'>(name),parameters):await client.mutation(makeFunctionReference<'mutation'>(name),parameters)) as T;}
  catch(error){
   if(error instanceof ConvexError&&error.data&&typeof error.data==='object'&&!Array.isArray(error.data)){

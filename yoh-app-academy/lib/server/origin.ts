@@ -6,17 +6,21 @@ function configuredOrigin(value:string|undefined,hostname=false):string|undefine
 }
 function origins(){
  const vercel=process.env.VERCEL==='1';
+ const netlify=process.env.NETLIFY==='true'||Boolean(process.env.SITE_ID);
  const canonical=configuredOrigin(process.env.YOH_APP_URL)||
-  (vercel?configuredOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL,true):undefined);
- const deployment=vercel?configuredOrigin(process.env.VERCEL_URL,true):undefined;
- return{vercel,canonical,deployment};
+  (vercel?configuredOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL,true):netlify?configuredOrigin(process.env.URL):undefined);
+ const deployment=vercel?configuredOrigin(process.env.VERCEL_URL,true):netlify?configuredOrigin(process.env.URL):undefined;
+ return{vercel,hosted:vercel||netlify,canonical,deployment};
 }
 
-/** Only deployment configuration supplies public Vercel URLs; forwarded headers are never trusted. */
+/** Netlify documents SITE_ID and URL at function runtime; preview URL variables are build-only. */
+export function isHostedEnvironment():boolean{return process.env.VERCEL==='1'||process.env.NETLIFY==='true'||Boolean(process.env.SITE_ID);}
+
+/** Only deployment configuration supplies public hosted URLs; forwarded headers are never trusted. */
 export function applicationOrigin(request?:Request):string|undefined{
- const{vercel,canonical,deployment}=origins();
+ const{vercel,hosted,canonical,deployment}=origins();
  if(vercel&&process.env.VERCEL_ENV==='preview')return deployment||canonical;
- return canonical||deployment||(request&&!vercel?new URL(request.url).origin:undefined);
+ return canonical||deployment||(request&&!hosted?new URL(request.url).origin:undefined);
 }
 export function acceptedRequestOrigins(request:Request):string[]{
  const{canonical,deployment}=origins();

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "backend": "proficient-squirrel-944",
+  "loginStatus": 200,
+  "role": "admin",
+  "lessonCount": 0,
+  "enrollmentRequests": 0,
+  "logoutStatus": 200,
+  "oldSessionRejected": true,
+  "syntheticProductionLessonsCreated": 0
+}

@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "command": "pnpm --dir yoh-app-academy exec vitest run --maxWorkers=1",
+  "testFiles": 6,
+  "tests": 37,
+  "isolatedQaData": true,
+  "cloudDeploymentVerified": false
+}

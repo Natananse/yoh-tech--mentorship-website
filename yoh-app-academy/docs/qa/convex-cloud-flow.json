@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "checks": [
+    "Synthetic mentor and student fixture accounts registered through the cloud-backed local API",
+    "Mentor used direct Convex storage upload for a playable5MiB MP4; all local upload-route bodies stayed below64KiB",
+    "Mentor uploaded actual ZIP and PDF resources with progress and finalized storage metadata",
+    "Resumed the existing persisted5MiB QA recording without uploading its bytes again",
+    "Unapproved student sees redacted metadata and requests enrollment without protected file/progress requests",
+    "Administrator approved the persisted cloud enrollment request",
+    "Approved cloud student played the uploaded recording and persisted a12-second seek",
+    "Cloud ZIP/PDF downloads preserve original filenames and exact uploaded bytes across the storage redirect",
+    "Cloud-backed resume and private timestamped note survive page reload",
+    "Cloud completion explicitly issued an owner-downloadable PDF and anonymous verification record",
+    "Cloud revocation locks the UI and application file/resource/progress/note routes deny direct access"
+  ],
+  "errors": [],
+  "warnings": [],
+  "lessonId": "9e41f8e5-a139-4bed-8cb3-4092ee98c571",
+  "behaviorAssertionsPassed": true,
+  "expectedNetworkDenials": [
+    "Failed to load resource: the server responded with a status of 403 (Forbidden)"
+  ],
+  "consoleNote": "One generic browser network403 was observed in a run containing deliberate revocation and denial probes. It had no URL attribution; all behavior and denial assertions passed. No JavaScript exception or warning was observed.",
+  "videoBytes": 5242880,
+  "uploadEvidence": "upload-attempt-report.json",
+  "videoUploadRepeated": false,
+  "localUploadBodyVerifiedBoundBytes": 65536,
+  "directUploadModeVerified": "convex",
+  "scope": "403 denial checks cover application routes, not previously issued bearer storage URLs.",
+  "downloads": [
+    {
+      "filename": "QA lesson handout.pdf",
+      "bytes": 243695,
+      "originalBytesMatched": true
+    },
+    {
+      "filename": "QA starter files.zip",
+      "bytes": 188,
+      "originalBytesMatched": true
+    }
+  ],
+  "certificatePdf": {
+    "generated": true,
+    "renderedAndVisuallyChecked": true,
+    "pages": 1,
+    "format": "A4 landscape",
+    "bytes": 243748
+  },
+  "cloudEnvironment": "Root-authorized Convex development backend through localhost3039"
+}

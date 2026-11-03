@@ -12,8 +12,8 @@ export async function PUT(request:Request,{params}:Context){try{
   if(body.completed!==undefined&&typeof body.completed!=='boolean')throw new ApiError(400,'Completed must be true or false.');
   return json(await convexMutation('academy:saveProgress',{lessonId,...(body.position===undefined?{}:{position:number(body.position)}),...(body.duration===undefined?{}:{duration:number(body.duration)}),...(body.completed===undefined?{}:{completed:body.completed as boolean})},request));
  }
- const lesson=await requireLesson(lessonId,user);
  const progress=await getDb().transaction(async transaction=>{
+  const lesson=await requireLesson(lessonId,user,transaction);
   const previous=await getProgress(user.id,lesson.id,transaction);const requestedDuration=number(body.duration,previous.duration);const duration=lesson.duration>0?lesson.duration:requestedDuration;const requestedPosition=number(body.position,previous.position);const position=duration>0?Math.min(requestedPosition,duration):requestedPosition;const completed=body.completed===undefined?previous.completed:body.completed;if(typeof completed!=='boolean')throw new ApiError(400,'Completed must be true or false.');
   await transaction.run("INSERT INTO progress(user_id,lesson_id,position,duration,completed) VALUES(?,?,?,?,?) ON CONFLICT(user_id,lesson_id) DO UPDATE SET position=excluded.position,duration=excluded.duration,completed=excluded.completed,updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now')",user.id,lesson.id,position,duration,completed?1:0);
   if(user.role==='student'){await transaction.run('INSERT OR IGNORE INTO enrollments(user_id,course_id) VALUES(?,?)',user.id,lesson.courseId);if(position>0)await transaction.run('INSERT OR IGNORE INTO lesson_views(user_id,lesson_id) VALUES(?,?)',user.id,lesson.id);}

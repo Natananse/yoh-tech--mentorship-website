@@ -2,7 +2,7 @@
 
 Updated 3 November 2026. The selected hosted backend is **Convex database and file storage**. Configuration and application adapters are prepared; a successful cloud deployment and its browser checks must be recorded before claiming publication. Local SQLite remains available for development without a Convex URL, even when a private server secret has been prepared. Vercel always requires a working Convex configuration.
 
-Current handoff: Vercel CLI sign-in was verified. The owner selected **keep the local preview until hosting is ready**, so no Vercel or Convex deployment was created or changed. Convex CLI device authorization was not completed, and no cloud deployment URL has been verified. The local production preview remains the working result.
+Current handoff: the owner requires a **$0 budget** and has selected **Netlify Free + Convex Free** instead of a Vercel commercial launch. Use [the Netlify deployment guide](NETLIFY_DEPLOYMENT.md) for the current target; this document retains the optional Vercel configuration. No plan upgrades or paid services are authorized. Vercel CLI sign-in was rechecked successfully, but the active team remains Hobby and no academy project exists there. Cloud deployment is not yet verified. Administrator-approved program enrollment has now been implemented in both backends; hosted upload/playback and approval checks remain launch requirements.
 
 ## Project settings
 

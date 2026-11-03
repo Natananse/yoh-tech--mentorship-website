@@ -1,7 +1,7 @@
 import { v } from 'convex/values';
 import { publicLesson } from './academy';
 import { mutation, query, type QueryContext } from './runtime';
-import { authArgs, byId, fail, mentor, now, ownedLesson, readableLesson, requireServerSecret, type AuthArgs } from './security';
+import { authArgs, byId, fail, mentor, now, ownedLesson, requireLessonContent, requireServerSecret, type AuthArgs } from './security';
 
 const kind = v.union(v.literal('video'), v.literal('resource'));
 const validId = (id: string) => /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(id);
@@ -21,7 +21,7 @@ async function pendingUpload(ctx: QueryContext, args: AuthArgs & { lessonId: str
   const upload = await byId(ctx, 'uploads', args.uploadId);
   if (!upload || upload.userId !== user.id || upload.lessonId !== args.lessonId) fail(404, 'Upload request not found. Prepare the file again.');
   const { lesson } = await ownedLesson(ctx, args, upload.lessonId);
-  if (upload.expiresAt <= Date.now()) fail(400, 'The upload request expired. Choose the file again.');
+  if (upload.expiresAt <= args.requestTime) fail(400, 'The upload request expired. Choose the file again.');
   const storageId = ctx.db.system.normalizeId('_storage', args.storageId);
   if (!storageId) fail(400, 'The uploaded file reference is invalid.');
   if (await ctx.db.query('files').withIndex('by_storageName', q => q.eq('storageName', storageId)).unique()) fail(409, 'This uploaded file is already attached. Choose the file again.');
@@ -61,7 +61,7 @@ export const uploadInfo = query({
     if (attached) {
       const { lesson } = await ownedLesson(ctx, args, attached.lessonId);
       if (attached.storageName !== args.storageId || attached.lessonId !== args.lessonId) fail(409, 'This upload request has already been used.');
-      return { attached: true as const, lesson: await publicLesson(ctx, lesson), file: fileRecord(attached) };
+      return { attached: true as const, lesson: await publicLesson(ctx, lesson,args), file: fileRecord(attached) };
     }
     const { upload, storageId } = await pendingUpload(ctx, args);
     const url = await ctx.storage.getUrl(storageId);
@@ -78,7 +78,7 @@ export const attachUpload = mutation({
     if (attached) {
       const { lesson } = await ownedLesson(ctx, args, attached.lessonId);
       if (attached.storageName !== args.storageId || attached.lessonId !== args.lessonId) fail(409, 'This upload request has already been used.');
-      return { lesson: await publicLesson(ctx, lesson), file: fileRecord(attached) };
+      return { lesson: await publicLesson(ctx, lesson,args), file: fileRecord(attached) };
     }
     const { upload, lesson, storageId } = await pendingUpload(ctx, args);
     if (args.verifiedMime !== upload.mime) fail(400, 'The file contents could not be verified.');
@@ -87,7 +87,7 @@ export const attachUpload = mutation({
     if (upload.kind === 'video') for (const old of files.filter(file => file.kind === 'video')) { await ctx.db.delete(old._id); await ctx.storage.delete(old.storageName); }
     const file = { id: upload.id, lessonId: lesson.id, kind: upload.kind, originalName: upload.originalName, storageName: storageId, mime: upload.mime, size: upload.size, createdAt: now() };
     await ctx.db.insert('files', file); await ctx.db.patch(lesson._id, { updatedAt: now() }); await ctx.db.delete(upload._id);
-    return { lesson: await publicLesson(ctx, (await byId(ctx, 'lessons', lesson.id))!), file: fileRecord(file) };
+    return { lesson: await publicLesson(ctx, (await byId(ctx, 'lessons', lesson.id))!,args), file: fileRecord(file) };
   },
 });
 
@@ -96,7 +96,7 @@ export const readFile = query({
   handler: async (ctx, args) => {
     requireServerSecret(args);
     const file = await byId(ctx, 'files', args.id); if (!file) fail(404, 'File not found.');
-    await readableLesson(ctx, args, file.lessonId);
+    await requireLessonContent(ctx, args, file.lessonId);
     const url = await ctx.storage.getUrl(file.storageName); if (!url) fail(404, 'The file is no longer available.');
     return { url, mime: file.mime, size: file.size, kind: file.kind, originalName: file.originalName };
   },

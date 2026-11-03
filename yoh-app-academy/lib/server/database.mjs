@@ -4,7 +4,7 @@ import path from 'node:path';
 
 export const dataDirectory=path.resolve(process.env.YOH_DATA_DIR||path.join(process.cwd(),'.data'));
 export const uploadDirectory=path.join(dataDirectory,'uploads');
-const SCHEMA_VERSION=3;
+const SCHEMA_VERSION=5;
 const schema=`
     PRAGMA foreign_keys = ON;
     PRAGMA journal_mode = WAL;
@@ -44,6 +44,12 @@ const schema=`
       user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE, course_id TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')), PRIMARY KEY (user_id,course_id)
     );
+    CREATE TABLE IF NOT EXISTS program_enrollments (
+      user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+      status TEXT NOT NULL CHECK(status IN ('pending','approved','revoked')),
+      requested_at TEXT, approved_at TEXT
+    );
+    CREATE INDEX IF NOT EXISTS program_enrollments_status ON program_enrollments(status);
     CREATE TABLE IF NOT EXISTS login_attempts (
       key TEXT PRIMARY KEY, count INTEGER NOT NULL, reset_at INTEGER NOT NULL
     );
@@ -79,9 +85,30 @@ const schema=`
     );
 `;
 
+function migrateEnrollmentRequests(raw){
+ const requestedAt=raw.prepare('PRAGMA table_info(program_enrollments)').all().find(column=>column.name==='requested_at');
+ if(!requestedAt?.notnull)return;
+ // SQLite cannot drop NOT NULL in place. Rebuild only this table atomically,
+ // retaining every existing enrollment value and its user foreign key.
+ raw.exec('BEGIN IMMEDIATE');
+ try{
+  raw.exec(`CREATE TABLE program_enrollments_v5 (
+   user_id TEXT PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+   status TEXT NOT NULL CHECK(status IN ('pending','approved','revoked')),
+   requested_at TEXT, approved_at TEXT
+  );
+  INSERT INTO program_enrollments_v5(user_id,status,requested_at,approved_at)
+   SELECT user_id,status,requested_at,approved_at FROM program_enrollments;
+  DROP TABLE program_enrollments;
+  ALTER TABLE program_enrollments_v5 RENAME TO program_enrollments;
+  CREATE INDEX program_enrollments_status ON program_enrollments(status);`);
+  raw.exec('COMMIT');
+ }catch(error){raw.exec('ROLLBACK');throw error;}
+}
+
 export function getDatabase(){
- if(process.env.VERCEL==='1'){
-  const error=new Error('A hosted database adapter must be configured before deploying this application on Vercel. Local SQLite is disabled.');
+ if(process.env.VERCEL==='1'||process.env.NETLIFY==='true'||Boolean(process.env.SITE_ID)){
+  const error=new Error('Configure Convex before deploying this application on Vercel or Netlify. Local SQLite is disabled on serverless hosts.');
   error.code='YOH_REMOTE_DATABASE_REQUIRED';throw error;
  }
  const databasePath=path.join(dataDirectory,'academy.sqlite');
@@ -89,7 +116,7 @@ export function getDatabase(){
  if(existing&&existing.path===databasePath&&existing.schemaVersion===SCHEMA_VERSION)return existing.facade;
  mkdirSync(uploadDirectory,{recursive:true,mode:0o700});
  const raw=globalThis.__yohDatabase&&globalThis.__yohDatabasePath===databasePath?globalThis.__yohDatabase:new DatabaseSync(databasePath);
- if(globalThis.__yohDatabaseSchema!==SCHEMA_VERSION||globalThis.__yohDatabasePath!==databasePath)raw.exec(schema);
+ if(globalThis.__yohDatabaseSchema!==SCHEMA_VERSION||globalThis.__yohDatabasePath!==databasePath){raw.exec(schema);migrateEnrollmentRequests(raw);}
  const state={raw,path:databasePath,schemaVersion:SCHEMA_VERSION,tail:Promise.resolve(),facade:null};
  const direct={
   async get(sql,...parameters){return raw.prepare(sql).get(...parameters);},

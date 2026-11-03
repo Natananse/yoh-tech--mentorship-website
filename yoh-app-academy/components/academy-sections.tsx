@@ -166,9 +166,9 @@ export function AcademyProjects() {
 const questions = [
   { question: 'Do I need to know how to code?', answer: 'Start with JavaScript fundamentals if coding is new to you. Beginner courses explain components, props and state as you build. Intermediate courses list the skills you need first.' },
   { question: 'What do I need to get started?', answer: 'A computer, a code editor and an internet connection. A phone with Expo Go helps you preview compatible projects. Each course covers its setup.' },
-  { question: 'Can I try a lesson first?', answer: 'Yes. The free classroom includes a clearly marked interactive sample. Mentor-uploaded recordings appear in the lesson library when published.' },
-  { question: 'Will my progress be saved?', answer: 'Yes. Sign in to save your place and completion in your account. You can resume a published lesson after logging out or using another device. The anonymous sample is only a preview.' },
-  { question: 'How do mentor uploads work?', answer: 'Invited mentors can save a lesson draft, upload an MP4 or WebM recording, attach a PDF or ZIP, then publish the lesson. Students can watch and download published resources.' },
+  { question: 'Can I try a lesson first?', answer: 'Yes. The free classroom includes a clearly marked interactive sample. Uploaded recordings appear in the lesson library; administrator-approved enrollment is required to watch them.' },
+  { question: 'Will my progress be saved?', answer: 'Yes. Approved students can save their place and completion in their account, then resume after logging out or using another device. The free interactive sample remains public.' },
+  { question: 'How do mentor uploads work?', answer: 'Invited mentors can save a lesson draft, upload an MP4 or WebM recording, attach a PDF or ZIP, then publish the lesson. Approved students can watch uploaded recordings and download their resources.' },
   { question: 'How is the mentorship package priced?', answer: `The program has ${mentorshipPackage.semesterCount} semesters. Each semester costs ${formatFee(mentorshipPackage.feePerSemester)}, for ${formatFee(mentorshipTotal)} in total. Contact Yohanes about enrollment. This version does not accept online payments.` },
 ];
 

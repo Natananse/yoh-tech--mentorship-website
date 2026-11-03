@@ -3,6 +3,7 @@
 import { memo, useCallback, useEffect, useId, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { useMotionPreference } from '../lib/use-motion-preference';
 import { ResourceDownload } from './resource-download';
+import { LessonAccessGate } from './student-enrollment';
 import { ArrowRight, BookOpen, Check, CheckCircle2, ChevronRight, Code2, FileText, Maximize2, MessageCircle, Pause, Play, Send, Smartphone, Volume2, X } from 'lucide-react';
 import type { Lesson, LessonChapter, LessonNote, LessonQuestion, Progress, User } from '../lib/platform-types';
 
@@ -31,7 +32,7 @@ const sampleLesson: Lesson = {
 };
 
 export type LessonWorkspaceProps = {
-  compact?: boolean; capture?: boolean; hero?: boolean; lesson?: Lesson;
+  compact?: boolean; capture?: boolean; hero?: boolean; lesson?: Lesson; sampleOnly?: boolean;
   onAuthRequired?: () => void; onProgress?: (progress: Progress) => void;
 };
 
@@ -183,11 +184,50 @@ function LessonQuestions({ lesson, user, isSample, position, onSeek, onAuthRequi
   </div>;
 }
 
-export function HeroLessonPreview(props: { lesson?: Lesson; onAuthRequired?: () => void }) {
+export function HeroLessonPreview(props: { lesson?: Lesson; onAuthRequired?: () => void; sampleOnly?: boolean }) {
   return <LessonWorkspace {...props} hero />;
 }
 
-export function LessonWorkspace({ compact = false, capture = false, hero = false, lesson, onAuthRequired, onProgress }: LessonWorkspaceProps) {
+function LockedLesson({ lesson, onAuthRequired, refresh, failure }: { lesson: Lesson; onAuthRequired?: () => void; refresh: () => void; failure?: boolean }) {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    let active = true;
+    fetch('/api/auth/me', { cache: 'no-store' }).then(response => response.json()).then(data => { if (active) setUser(data.user || null); }).catch(() => {}).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, []);
+  return <section className="lp-workspace lp-locked" aria-label="Locked lesson"><div className="lp-heading"><div><span className="lp-label">Uploaded lesson · approval required</span><h3>{lesson.title}</h3></div></div>{failure && <p className="lp-access-notice" role="status">This recording could not be loaded. Your access may have changed. Refresh access to check.</p>}{loading ? <p className="lp-access-notice" role="status">Checking your account…</p> : <LessonAccessGate user={user} onAuthRequired={onAuthRequired} />}<button className="lp-access-refresh" onClick={refresh}>Refresh lesson access</button></section>;
+}
+
+export function LessonWorkspace(props: LessonWorkspaceProps) {
+  const [resolved, setResolved] = useState<{ input: Lesson | undefined; value: Lesson | undefined }>({ input: props.lesson, value: props.lesson });
+  const [failure, setFailure] = useState(false);
+  const handleAccessError = useCallback(() => { setFailure(true); window.dispatchEvent(new CustomEvent('academy-enrollment-updated')); }, []);
+  const lesson = props.sampleOnly ? undefined : resolved.input === props.lesson ? resolved.value : props.lesson;
+  const accessAllowed = useRef(true);
+  accessAllowed.current = !(lesson && (lesson.canWatch === false || failure));
+  const refresh = useCallback(async (retry = false) => {
+    if (!lesson || props.sampleOnly) return;
+    try {
+      const response = await fetch('/api/lessons', { cache: 'no-store' });
+      if (!response.ok) return;
+      const result = await response.json();
+      const updated = (result.lessons || []).find((item: Lesson) => item.id === lesson.id);
+      setResolved({ input: props.lesson, value: updated || { ...lesson, canWatch: false, videoUrl: null, resources: [], chapters: [] } });
+      if (retry || !updated || updated.canWatch === false) setFailure(false);
+    } catch { /* Keep the current gate while access cannot be checked. */ }
+  }, [lesson?.id, props.lesson, props.sampleOnly]);
+  useEffect(() => {
+    const changed = () => { refresh(); };
+    window.addEventListener('academy-enrollment-updated', changed);
+    window.addEventListener('academy-auth-updated', changed);
+    return () => { window.removeEventListener('academy-enrollment-updated', changed); window.removeEventListener('academy-auth-updated', changed); };
+  }, [refresh]);
+  if (lesson && (lesson.canWatch === false || failure)) return <LockedLesson lesson={lesson} onAuthRequired={props.onAuthRequired} refresh={() => { refresh(true); }} failure={failure} />;
+  return <PlayableLessonWorkspace {...props} lesson={lesson} key={`${lesson?.id || 'sample'}:${props.sampleOnly ? 'demo' : 'lesson'}`} onAccessError={handleAccessError} accessAllowed={accessAllowed} />;
+}
+
+function PlayableLessonWorkspace({ compact = false, capture = false, hero = false, lesson, sampleOnly = false, onAuthRequired, onProgress, onAccessError, accessAllowed }: LessonWorkspaceProps & { onAccessError?: () => void; accessAllowed: { current: boolean } }) {
   const instance = useId();
   const video = useRef<HTMLVideoElement>(null);
   const viewport = useRef<HTMLDivElement>(null);
@@ -240,6 +280,7 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
   const caption = nativeCaption || captions.find(cue => position >= cue.start && position < cue.end)?.text || (isSample ? sampleCaptions[actualChapter] : '');
 
   useEffect(() => {
+    if (sampleOnly) { setSource(sampleLesson); setRelatedLessons([]); setLoading(false); return; }
     let active = true;
     async function load() {
       try {
@@ -247,16 +288,16 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
         if (!response.ok) return;
         const data = await response.json();
         if (!active) return;
-        const lessons = (data.lessons || []).filter((item: Lesson) => item.published && item.videoUrl);
+        const lessons = (data.lessons || []).filter((item: Lesson) => item.published && item.videoUrl && item.canWatch !== false);
         setRelatedLessons(lessons);
-        if (!lesson && !hero && lessons.length) setSource(lessons[0]);
+        if (!sampleOnly && !lesson && !hero && lessons.length) setSource(lessons[0]);
       } catch {} finally { if (active) setLoading(false); }
     }
     if (lesson) { setSource(lesson); setLoading(false); }
     if (capture) setLoading(false);
     load();
     return () => { active = false; };
-  }, [lesson, hero, capture]);
+  }, [lesson, hero, capture, sampleOnly]);
 
   useEffect(() => {
     let active = true;
@@ -286,8 +327,8 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
     if (isSample) {
       try { const raw = localStorage.getItem('yoh-preview-progress-v3'); if (raw) restore(JSON.parse(raw)); } catch {}
       progressReady.current = true;
-    } else if (user) {
-      fetch(`/api/progress/${source.id}`, {cache: 'no-store'}).then(response => response.ok ? response.json() : null).then(data => {
+    } else if (user && source.canWatch !== false) {
+      fetch(`/api/progress/${source.id}`, {cache: 'no-store'}).then(response => { if (response.status === 403) onAccessError?.(); return response.ok ? response.json() : null; }).then(data => {
         if (!active) return;
         if (data?.progress) { restore(data.progress); progressReady.current = true; }
         else setNotice('Your saved position could not be loaded. Reload before saving new progress.');
@@ -295,10 +336,10 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
         if (active) { restoringRef.current = false; setRestoring(false); }
       });
     } else {
-      progressReady.current = true;
+      progressReady.current = source.canWatch !== false;
     }
     return () => { active = false; };
-  }, [source.id, user?.id, isSample]);
+  }, [source.id, source.canWatch, user?.id, isSample, onAccessError]);
 
   useEffect(() => setTab('Overview'), [source.id]);
 
@@ -348,6 +389,7 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
   }, [isSample]);
 
   const persist = useCallback((nextPosition: number, nextComplete?: boolean) => {
+    if (!accessAllowed.current || source.canWatch === false) return Promise.resolve(false);
     if (!progressReady.current) return Promise.resolve(false);
     if (!dirty.current) return Promise.resolve(true);
     savedAt.current = Date.now();
@@ -363,10 +405,10 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
     const version = changeVersion.current;
     const payload = {position: Math.max(0, nextPosition), duration: Math.max(duration, nextPosition), ...(nextComplete === undefined ? {} : {completed: nextComplete})};
     writeQueue.current = writeQueue.current.catch(() => false).then(async () => {
-      if (progressScope.current !== scope) return false;
+      if (progressScope.current !== scope || !accessAllowed.current) return false;
       try {
         const response = await fetch(`/api/progress/${lessonId}`, {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload), keepalive: true});
-        if (!response.ok) { setNotice(response.status === 401 ? 'Sign in again to save your progress.' : 'Progress could not be saved. Try again.'); return false; }
+        if (!response.ok) { if (response.status === 403) { progressReady.current = false; dirty.current = false; video.current?.pause(); onAccessError?.(); } setNotice(response.status === 401 ? 'Sign in again to save your progress.' : 'Progress could not be saved. Refresh your lesson access.'); return false; }
         const data = await response.json();
         if (progressScope.current !== scope) return false;
         if (changeVersion.current === version) {
@@ -379,7 +421,7 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
       } catch { setNotice('Progress could not be saved. Check your connection.'); return false; }
     });
     return writeQueue.current;
-  }, [duration, instance, isSample, onProgress, source.id, user]);
+  }, [duration, instance, isSample, onProgress, onAccessError, source.id, source.canWatch, user, accessAllowed]);
 
   useEffect(() => {
     function synchronizeProgress(event: Event) {
@@ -454,7 +496,7 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
         track.mode = 'hidden';
         track.oncuechange = () => setNativeCaption(Array.from(track.activeCues || []).map(cue => 'text' in cue ? String(cue.text) : '').join(' '));
       }
-    }} onDurationChange={event => { if (Number.isFinite(event.currentTarget.duration)) setDuration(event.currentTarget.duration); }} onPlay={() => { dirty.current = true; changeVersion.current++; setHasStarted(true); setPlaying(true); setNotice(''); window.dispatchEvent(new CustomEvent('academy-player-play', {detail: instance})); }} onPause={() => { setPlaying(false); persist(positionRef.current); }} onTimeUpdate={event => { const value = event.currentTarget.currentTime; positionRef.current = value; setPosition(value); if (!event.currentTarget.paused) { dirty.current = true; changeVersion.current++; if (Date.now() - savedAt.current > 4000) persist(value); } }} onEnded={() => { setPlaying(false); persist(positionRef.current); }} onError={() => setNotice('This video is unavailable. Ask the mentor to check the recording.')} />
+    }} onDurationChange={event => { if (Number.isFinite(event.currentTarget.duration)) setDuration(event.currentTarget.duration); }} onPlay={() => { dirty.current = true; changeVersion.current++; setHasStarted(true); setPlaying(true); setNotice(''); window.dispatchEvent(new CustomEvent('academy-player-play', {detail: instance})); }} onPause={() => { setPlaying(false); persist(positionRef.current); }} onTimeUpdate={event => { const value = event.currentTarget.currentTime; positionRef.current = value; setPosition(value); if (!event.currentTarget.paused) { dirty.current = true; changeVersion.current++; if (Date.now() - savedAt.current > 4000) persist(value); } }} onEnded={() => { setPlaying(false); persist(positionRef.current); }} onError={() => { setNotice('This recording is unavailable. Refresh your lesson access.'); if (!isSample) onAccessError?.(); }} />
     {(isSample || showHeroPreview) && <div className="lp-interactive-screen"><TypedCode chapter={activeChapter} characters={codeCharacters} /></div>}
     {!isSample && !source.videoUrl && <div className="lp-media-missing"><Play size={30} /><p>The mentor has not uploaded a recording yet.</p></div>}
   </div>;

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "testFiles": 6,
+  "tests": 40,
+  "command": "pnpm --dir yoh-app-academy exec vitest run --maxWorkers=1",
+  "strictConvexTypecheckPassed": true,
+  "developmentPushPassed": true,
+  "productionPushPassed": true,
+  "productionAdministratorVerified": true
+}

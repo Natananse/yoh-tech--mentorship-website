@@ -20,6 +20,7 @@ import {
   Eye,
   EyeOff,
   LogOut,
+  LockKeyhole,
   Menu,
   Play,
   ShieldCheck,
@@ -34,6 +35,7 @@ import type {
   User,
 } from "../lib/platform-types";
 import { LessonWorkspace } from "./academy-upgrade";
+import { StudentEnrollmentPanel, useStudentEnrollment } from "./student-enrollment";
 
 export async function platformRequest<T>(
   url: string,
@@ -137,7 +139,7 @@ export function AcademyAuthDialog({
       <p>
         {mode === "login"
           ? "Sign in to pick up where you left off."
-          : "Create an account to save progress across devices."}
+          : "Create an account to request enrollment and keep your learning progress."}
       </p>
       <div className="ac-auth-tabs" role="group" aria-label="Account action">
         <button
@@ -354,13 +356,13 @@ export function AccountHeader({
           className="ac-brand"
           type="button"
           onClick={onHome}
-          aria-label="YOH App Academy home"
+          aria-label="YO Tech Academy home"
         >
           <span>
             <Code2 size={24} />
           </span>
           <b>
-            yoh<em>.</em>
+            yo<em>.</em>
             <small>APP ACADEMY</small>
           </b>
         </button>
@@ -429,7 +431,7 @@ export function AccountGate({
       <span className="ac-gate-icon">
         <BookOpen size={30} />
       </span>
-      <span className="ac-label">YOH App Academy</span>
+      <span className="ac-label">YO Tech Academy</span>
       <h1>{title}</h1>
       <p>{description}</p>
       <div>
@@ -475,11 +477,12 @@ export function AccountWorkspace({
         "/api/lessons",
       );
       const published = result.lessons.filter(
-        (lesson) => lesson.published && lesson.videoUrl,
+        (lesson) => lesson.published && (lesson.videoUrl || lesson.canWatch === false),
       );
       setLessons(published);
+      setSelected(previous => previous ? published.find(lesson => lesson.id === previous.id) || null : null);
       const values = await Promise.all(
-        published.map(async (lesson) => {
+        published.filter(lesson => lesson.canWatch !== false).map(async (lesson) => {
           try {
             const result = await platformRequest<{ progress: Progress }>(
               `/api/progress/${lesson.id}`,
@@ -507,11 +510,15 @@ export function AccountWorkspace({
       setLoading(false);
     }
   }, [user?.id]);
+  const enrollmentState = useStudentEnrollment(user);
   useEffect(() => {
     refresh();
     window.addEventListener("academy-progress-updated", refresh);
-    return () =>
+    window.addEventListener("academy-enrollment-updated", refresh);
+    return () => {
       window.removeEventListener("academy-progress-updated", refresh);
+      window.removeEventListener("academy-enrollment-updated", refresh);
+    };
   }, [refresh]);
   const completed = lessons.filter(
     (lesson) => progress[lesson.id]?.completed,
@@ -527,7 +534,7 @@ export function AccountWorkspace({
         <AccountHeader user={null} onHome={onHome} />
         <AccountGate
           title="Your next lesson is waiting."
-          description="Sign in to watch published lessons and save your place across devices."
+          description="Sign in to request access to uploaded lessons and save your place across devices."
           onSignIn={onSignIn}
           onHome={onHome}
         />
@@ -562,6 +569,7 @@ export function AccountWorkspace({
             </button>
           )}
         </div>
+        {user.role === "student" && (!selected || selected.canWatch !== false) && <StudentEnrollmentPanel state={enrollmentState} />}
         {(started > 0 || completed > 0) && (
           <div
             className="ac-live-stats"
@@ -602,6 +610,7 @@ export function AccountWorkspace({
             <LessonWorkspace
               key={selected?.id || "sample"}
               lesson={selected || undefined}
+              sampleOnly={showSample}
               onAuthRequired={onSignIn}
             />
           </section>
@@ -649,7 +658,7 @@ export function AccountWorkspace({
                       <span
                         className={`ac-library-icon${saved?.completed ? " ac-is-complete" : ""}`}
                       >
-                        {saved?.completed ? (
+                        {lesson.canWatch === false ? <LockKeyhole size={23} /> : saved?.completed ? (
                           <Check size={24} />
                         ) : (
                           <Play size={22} />
@@ -659,7 +668,7 @@ export function AccountWorkspace({
                         <span className="ac-label">{lesson.mentorName}</span>
                         <strong>{lesson.title}</strong>
                         <span>
-                          {saved?.completed
+                          {lesson.canWatch === false ? "Administrator approval required" : saved?.completed
                             ? "Completed"
                             : saved?.position > 0
                               ? `Resume from ${formatTime(saved.position)}`
@@ -669,7 +678,7 @@ export function AccountWorkspace({
                             ? formatTime(lesson.duration)
                             : "Duration set by recording"}
                         </span>
-                        <span
+                        {lesson.canWatch !== false && <span
                           className="ac-library-progress"
                           role="progressbar"
                           aria-label={`${lesson.title} progress`}
@@ -680,7 +689,7 @@ export function AccountWorkspace({
                           <i
                             style={{ transform: `scaleX(${percent / 100})` }}
                           />
-                        </span>
+                        </span>}
                       </span>
                       <ArrowRight size={21} />
                     </button>
@@ -705,7 +714,7 @@ export function AccountWorkspace({
             )}
           </section>
         )}
-        {user.role === "student" && <StudentCertificates />}
+        {user.role === "student" && enrollmentState.canViewLessons && <StudentCertificates />}
       </main>
     </div>
   );

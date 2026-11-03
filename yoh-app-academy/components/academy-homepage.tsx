@@ -75,8 +75,8 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
       if (results[0].status === 'fulfilled' && results[0].value) setPublished(results[0].value.lessons || []);
       if (results[1].status === 'fulfilled' && results[1].value) setStats(results[1].value);
     }
-    refresh(); window.addEventListener('academy-progress-updated', refresh);
-    return () => { live = false; window.removeEventListener('academy-progress-updated', refresh); };
+    refresh(); window.addEventListener('academy-progress-updated', refresh); window.addEventListener('academy-enrollment-updated', refresh); window.addEventListener('academy-auth-updated', refresh);
+    return () => { live = false; window.removeEventListener('academy-progress-updated', refresh); window.removeEventListener('academy-enrollment-updated', refresh); window.removeEventListener('academy-auth-updated', refresh); };
   }, []);
   useEffect(() => {
     if (!menuOpen) return;
@@ -87,7 +87,6 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
   function scrollToSection(id: string) { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth' }); }
   const filtered = courses.map((course, index) => ({ course, index })).filter(({ course }) => (filter === 'All courses' || course.category === filter) && `${course.title} ${course.desc}`.toLowerCase().includes(query.trim().toLowerCase()));
   const liveStats = stats ? [[stats.publishedLessons, 'published lessons'], [stats.enrolledStudents, 'enrolled students'], [stats.completedLessons, 'lessons completed']].filter(([value]) => Number(value) > 0) : [];
-  const firstPublished = published.find(lesson => lesson.videoUrl);
   const nav = (mobile = false) => <><a href="#courses" onClick={() => setMenuOpen(false)}>Courses</a><a href="#mentorship-package" onClick={() => setMenuOpen(false)}>Package</a><a href="#sample-lesson" onClick={() => setMenuOpen(false)}>Free lesson</a><a href="#mentors" onClick={() => setMenuOpen(false)}>Mentors</a>{mobile && <><button onClick={() => { setMenuOpen(false); onWorkspace(); }}>My learning <ArrowUpRight size={18} /></button><button onClick={() => { setMenuOpen(false); onStudio(); }}>Mentor studio <ArrowUpRight size={18} /></button></>}</>;
   return <div className="academy-site">
     <a className="academy-skip-link" href="#academy-main">Skip to content</a>
@@ -105,7 +104,7 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
           <div className="academy-hero-actions"><button className="academy-button academy-button-primary" onClick={() => scrollToSection('sample-lesson')}><Play size={18} /> Watch a free lesson</button><button className="academy-text-link" onClick={() => scrollToSection('courses')}>See all courses <ArrowRight size={19} /></button></div>
           <div className="academy-hero-tools"><span><Atom size={18} /> React Native</span><span><Layers size={18} /> Expo</span><span><Braces size={18} /> JavaScript</span></div>
         </div>
-        <div className="academy-hero-product"><HeroLessonPreview lesson={firstPublished} onAuthRequired={onAuth} /><span className="academy-product-caption"><span /> {firstPublished ? 'A recorded lesson. An app you can build.' : 'Interactive sample · Build a task app, one component at a time.'}</span></div>
+        <div className="academy-hero-product"><HeroLessonPreview sampleOnly onAuthRequired={onAuth} /><span className="academy-product-caption"><span /> Interactive sample · Build a task app, one component at a time.</span></div>
       </div></section>
       {liveStats.length > 0 && <div className="academy-live-stats"><div className="academy-container">{liveStats.map(([value, label]) => <span key={String(label)}><b><Count value={Number(value)} /></b> {String(label)}</span>)}</div></div>}
       <motion.section className="academy-section academy-courses" id="courses" aria-labelledby="academy-courses-title" initial={reduce ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .05 }} transition={{ duration: reduce ? 0 : .25 }}><div className="academy-container">
@@ -118,7 +117,7 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
         {filtered.length === 0 && <div className="academy-empty"><Search size={28} /><h3>No courses found</h3><p>Try another topic, or clear your filters.</p><button className="academy-button" onClick={() => { setFilter('All courses'); setQuery(''); }}>Reset filters <ArrowRight size={18} /></button></div>}
         <p className="academy-note">Curriculum and mentor assignments marked “planned” are previews. Semester dates and topic allocation will be confirmed before enrollment.</p>
       </div></motion.section>
-      <section className="academy-section academy-lesson-section" id="sample-lesson" aria-labelledby="academy-lesson-title"><div className="academy-container"><div className="academy-section-heading"><div><span className="academy-kicker">Inside the classroom</span><h2 id="academy-lesson-title">Watch it.<br />Then <mark>build it.</mark></h2></div><p>Pause at the useful bit. Try the code. Pick up where you left off when you come back.</p></div><LessonWorkspace lesson={firstPublished} onAuthRequired={onAuth} /></div></section>
+      <section className="academy-section academy-lesson-section" id="sample-lesson" aria-labelledby="academy-lesson-title"><div className="academy-container"><div className="academy-section-heading"><div><span className="academy-kicker">Inside the classroom</span><h2 id="academy-lesson-title">Watch it.<br />Then <mark>build it.</mark></h2></div><p>Pause at the useful bit. Try the code. Pick up where you left off when you come back.</p></div><LessonWorkspace sampleOnly onAuthRequired={onAuth} /></div></section>
       <AcademyMentors />
       <AcademyHowItWorks />
       <AcademyProjects />

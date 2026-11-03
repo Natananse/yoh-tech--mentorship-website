@@ -2,10 +2,10 @@ import { convexEnabled,convexMutation,convexQuery } from '../../../../lib/server
 import { getUser,requireMentor } from '../../../../lib/server/auth';
 import { getDb } from '../../../../lib/server/db';
 import { ApiError,assertSameOrigin,handleError,json,number,readJson,text } from '../../../../lib/server/http';
-import { findLesson,parseChapters,requireLesson,requireLessonOwner } from '../../../../lib/server/lessons';
+import { findLesson,parseChapters,requireLessonMetadata,requireLessonOwner } from '../../../../lib/server/lessons';
 export const runtime='nodejs';export const dynamic='force-dynamic';
 type Context={params:Promise<{id:string}>};
-export async function GET(request:Request,{params}:Context){try{const{id}=await params;if(convexEnabled())return json(await convexQuery('academy:getLesson',{id},request));return json({lesson:await requireLesson(id,await getUser(request))});}catch(error){return handleError(error);}}
+export async function GET(request:Request,{params}:Context){try{const{id}=await params;if(convexEnabled())return json(await convexQuery('academy:getLesson',{id},request));return json({lesson:await requireLessonMetadata(id,await getUser(request))});}catch(error){return handleError(error);}}
 export async function PATCH(request:Request,{params}:Context){try{
  const{id}=await params;assertSameOrigin(request);const user=await requireMentor(request);const body=await readJson(request);
  if(convexEnabled()){

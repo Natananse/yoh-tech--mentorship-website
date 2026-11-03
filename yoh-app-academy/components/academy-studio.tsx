@@ -7,6 +7,7 @@ import { courses } from '../lib/academy-data';
 import { LessonWorkspace } from './academy-upgrade';
 import { AccountGate, AccountHeader, platformRequest } from './academy-account';
 import { ResourceDownload } from './resource-download';
+import { AdminEnrollmentPanel } from './enrollment-panel';
 
 const VIDEO_LIMIT = 250 * 1024 * 1024;
 const RESOURCE_LIMIT = 25 * 1024 * 1024;
@@ -173,10 +174,11 @@ export function AcademyStudio({ user, onHome, onWorkspace, onSignIn, onLogout }:
 
   const activity = analytics?.lessons.filter(lesson => lesson.uniqueViewers > 0 || lesson.completions > 0) || [];
   if (!user) return <div className="ac-site"><AccountHeader user={null} onHome={onHome} /><AccountGate title="A home for your next lesson." description="Sign in with an invited mentor account to upload videos, add resources and publish your lessons." onSignIn={onSignIn} onHome={onHome} /></div>;
-  if (!allowed) return <div className="ac-site"><AccountHeader user={user} onHome={onHome} onWorkspace={onWorkspace} onLogout={onLogout} /><AccountGate title="The studio is for invited mentors." description="Your student account can watch published lessons and save progress. Ask the academy administrator if you need a mentor invitation." onHome={onHome} /><div className="ac-gate-link"><button className="ac-button ac-button-primary" onClick={onWorkspace}>Go to my learning <ArrowRight size={17} /></button></div></div>;
+  if (!allowed) return <div className="ac-site"><AccountHeader user={user} onHome={onHome} onWorkspace={onWorkspace} onLogout={onLogout} /><AccountGate title="The studio is for invited mentors." description="Approved student accounts can watch uploaded lessons and save progress. Ask the academy administrator if you need a mentor invitation." onHome={onHome} /><div className="ac-gate-link"><button className="ac-button ac-button-primary" onClick={onWorkspace}>Go to my learning <ArrowRight size={17} /></button></div></div>;
 
   return <div className="ac-site"><AccountHeader user={user} active="studio" onHome={onHome} onWorkspace={onWorkspace} onStudio={() => { setPreview(false); }} onLogout={onLogout} /><main className="ac-workspace">
     <div className="ac-page-heading"><div><span className="ac-label">{user.role === 'admin' ? 'Academy administration' : 'Mentor workspace'}</span><h1>Make the next idea clear.</h1><p>Save a draft, upload a recording and add the files students need.</p></div><button className="ac-button ac-button-primary" onClick={() => select(null)} disabled={!!uploading || saving}><Plus size={18} />New lesson</button></div>
+    {user.role === 'admin' && <AdminEnrollmentPanel user={user} />}
     <section className="ac-analytics" aria-labelledby="studio-activity-title">
       <div className="ac-analytics-heading"><div><span className="ac-label">From student activity</span><h2 id="studio-activity-title">Lesson activity</h2></div><button className="ac-text-button" type="button" disabled={refreshing} onClick={refresh}><RefreshCw size={17} className={refreshing ? 'ac-spin' : undefined} />{refreshing ? 'Refreshing…' : 'Refresh activity'}</button></div>
       {analyticsError && <p className="ac-analytics-error" role="status">{analyticsError}</p>}

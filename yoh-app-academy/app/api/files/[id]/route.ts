@@ -10,7 +10,7 @@ import { convexEnabled,convexQuery } from '../../../../lib/server/convex-client'
 export const runtime='nodejs';export const dynamic='force-dynamic';
 async function respond(request:Request,id:string,head=false){try{
  if(convexEnabled()){
-  const file=await convexQuery<{url:string;mime:string;size:number;kind:string;originalName:string}>('file-storage:readFile',{id},request);
+  const file=await convexQuery<{url:string;mime:string;size:number;kind:string;originalName:string}>('fileStorage:readFile',{id},request);
   const asciiName=file.originalName.replace(/[^\x20-\x7e]|["\\]/g,'_');
   const headers=new Headers({'Content-Type':file.mime,'Accept-Ranges':'bytes','X-Content-Type-Options':'nosniff','Cache-Control':'private, no-store','Vary':'Cookie','Content-Disposition':`${file.kind==='resource'?'attachment':'inline'}; filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(file.originalName)}`});
   if(head){headers.set('Content-Length',String(file.size));return new Response(null,{headers});}
