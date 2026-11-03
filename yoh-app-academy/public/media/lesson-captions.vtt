@@ -1,0 +1,26 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:08.000
+Import View and Text from React Native. A component is a function that returns UI.
+
+2
+00:00:08.000 --> 00:00:16.000
+TaskCard receives a title prop. Reuse the same component with different text.
+
+3
+00:00:16.000 --> 00:00:24.000
+View groups the content. Add padding and a background to make a readable card.
+
+4
+00:00:24.000 --> 00:00:32.000
+Text renders the title. Braces insert a JavaScript value into the JSX.
+
+5
+00:00:32.000 --> 00:00:40.000
+Render TaskCard twice with different titles. One component, two tasks.
+
+6
+00:00:40.000 --> 00:00:48.000
+Add a third TaskCard. Change its title, then adjust the padding and background.
+

@@ -1,0 +1,14 @@
+{
+  "name": "yoh-app-academy-source",
+  "private": true,
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22.13.0",
+    "pnpm": ">=11.20.0 <12"
+  },
+  "scripts": {
+    "dev": "pnpm --dir yoh-app-academy dev",
+    "build": "pnpm --dir yoh-app-academy build",
+    "typecheck": "pnpm --dir yoh-app-academy typecheck"
+  }
+}
