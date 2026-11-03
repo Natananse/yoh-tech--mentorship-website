@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": [
+    "Memoized phone still responds to task taps",
+    "Hero animation stops with reduced motion"
+  ],
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:3014",
+  "checks": [
+    "Unsaved dark/light OS defaults render and follow live OS changes without writing a manual preference",
+    "Explicit preference overrides OS, survives reload/document navigation, and Space/Enter switch once while preserving focus",
+    "First nonempty theme attribute is the saved dark preference while external hydration scripts are held; hydration then completes cleanly",
+    "Theme writes synchronize other tabs; cross-tab removeItem/clear restores OS mode, and a cleared source tab restores OS mode on reload",
+    "Blocked getItem/setItem falls back to OS while manual changes still apply and remain explicit despite later OS changes",
+    "A throwing localStorage getter causes no crash and does not prevent a manual in-memory preference",
+    "An invalid stored value falls back to system mode"
+  ],
+  "bootstrap": {
+    "first": {
+      "theme": "dark",
+      "preference": "dark"
+    },
+    "current": "dark",
+    "preference": "dark"
+  },
+  "errors": [],
+  "warnings": [],
+  "applicationWrites": []
+}

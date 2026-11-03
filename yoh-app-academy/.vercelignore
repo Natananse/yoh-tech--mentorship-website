@@ -1,0 +1,24 @@
+# Local dependencies, build output and runtime records.
+node_modules/
+.next/
+.next-*/
+out/
+.data/
+**/*.sqlite*
+*.tsbuildinfo
+
+# Runtime secrets are configured in Vercel, never uploaded from this computer.
+.env*
+!.env.example
+.git/
+.aws/
+.codex/
+.agents/
+*.log
+*.tar.gz
+
+# Screenshots and test reports are documentation, not application assets.
+docs/design/
+docs/qa/
+
+# Keep public/media/ and public/fonts/: the teacher photo and PDF fonts are used.

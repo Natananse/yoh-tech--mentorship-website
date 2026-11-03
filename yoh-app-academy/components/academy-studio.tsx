@@ -6,6 +6,7 @@ import type { Lesson, MentorAnalytics, User } from '../lib/platform-types';
 import { courses } from '../lib/academy-data';
 import { LessonWorkspace } from './academy-upgrade';
 import { AccountGate, AccountHeader, platformRequest } from './academy-account';
+import { ResourceDownload } from './resource-download';
 
 const VIDEO_LIMIT = 250 * 1024 * 1024;
 const RESOURCE_LIMIT = 25 * 1024 * 1024;
@@ -25,11 +26,13 @@ export function AcademyStudio({ user, onHome, onWorkspace, onSignIn, onLogout }:
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState<'video' | 'resource' | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadPhase, setUploadPhase] = useState('Preparing upload…');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [preview, setPreview] = useState(false);
   const [browserDraft, setBrowserDraft] = useState<{ title: string; course?: string; description?: string } | null>(null);
   const activeRequest = useRef<XMLHttpRequest | null>(null);
+  const activeUpload = useRef<AbortController | null>(null);
   const allowed = user?.role === 'mentor' || user?.role === 'admin';
   const refresh = useCallback(async () => {
     if (!allowed) { setLoading(false); return; }
@@ -41,7 +44,7 @@ export function AcademyStudio({ user, onHome, onWorkspace, onSignIn, onLogout }:
     else setAnalyticsError('Lesson activity is unavailable. Your lesson editor still works.');
     setLoading(false); setRefreshing(false);
   }, [allowed, user?.id, user?.role]);
-  useEffect(() => { refresh(); return () => activeRequest.current?.abort(); }, [refresh]);
+  useEffect(() => { refresh(); return () => { activeUpload.current?.abort(); activeRequest.current?.abort(); }; }, [refresh]);
   useEffect(() => {
     if (!allowed) return;
     try {
@@ -95,32 +98,66 @@ export function AcademyStudio({ user, onHome, onWorkspace, onSignIn, onLogout }:
     const limit = kind === 'video' ? VIDEO_LIMIT : RESOURCE_LIMIT;
     if (file.size > limit) { setError(`${kind === 'video' ? 'Videos' : 'Resources'} must be ${kind === 'video' ? '250' : '25'} MB or smaller.`); return; }
     if (!file.size) { setError('This file is empty. Choose another file.'); return; }
-    setUploading(kind); setUploadProgress(0);
+    setUploading(kind); setUploadProgress(0); setUploadPhase('Preparing upload…');
+    const controller = new AbortController(); activeUpload.current = controller;
+    const lessonId = current.id;
+    function checkCancelled() { if (controller.signal.aborted) throw new Error('Upload cancelled. Your lesson draft is safe.'); }
+    function sendFile<T>(url: string, payload: File | FormData, mime?: string): Promise<T> {
+      return new Promise((resolve, reject) => {
+        if (controller.signal.aborted) { reject(new Error('Upload cancelled. Your lesson draft is safe.')); return; }
+        const xhr = new XMLHttpRequest(); activeRequest.current = xhr;
+        const abort = () => xhr.abort(); controller.signal.addEventListener('abort', abort, { once: true });
+        const cleanup = () => { controller.signal.removeEventListener('abort', abort); if (activeRequest.current === xhr) activeRequest.current = null; };
+        xhr.open('POST', url); xhr.withCredentials = !mime;
+        if (mime) { xhr.setRequestHeader('Content-Type', mime); xhr.timeout = 125000; }
+        xhr.upload.onprogress = progress => { if (progress.lengthComputable) setUploadProgress(Math.round(progress.loaded / progress.total * 100)); };
+        xhr.onerror = () => { cleanup(); reject(new Error('The connection was interrupted. Try the upload again.')); };
+        xhr.onabort = () => { cleanup(); reject(new Error('Upload cancelled. Your lesson draft is safe.')); };
+        xhr.ontimeout = () => { cleanup(); reject(new Error('This upload took too long. Try again with a faster connection or a smaller recording.')); };
+        xhr.onload = () => {
+          cleanup(); let response: T & { error?: string };
+          try { response = JSON.parse(xhr.responseText); } catch { reject(new Error('The server could not accept this file.')); return; }
+          if (xhr.status < 200 || xhr.status >= 300) { reject(new Error(response.error || 'Upload failed. Please try again.')); return; }
+          resolve(response);
+        };
+        xhr.send(payload);
+      });
+    }
     try {
       const measuredDuration = kind === 'video' ? await videoDuration(file) : 0;
-      const result = await new Promise<{ lesson: Lesson }>((resolve, reject) => {
-        const xhr = new XMLHttpRequest(); activeRequest.current = xhr;
-        xhr.open('POST', `/api/lessons/${current.id}/files`); xhr.withCredentials = true;
-        xhr.upload.onprogress = progress => { if (progress.lengthComputable) setUploadProgress(Math.round(progress.loaded / progress.total * 100)); };
-        xhr.onerror = () => reject(new Error('The connection was interrupted. Try the upload again.'));
-        xhr.onabort = () => reject(new Error('Upload cancelled. Your lesson draft is safe.'));
-        xhr.onload = () => {
-          let result: { lesson: Lesson; error?: string };
-          try { result = JSON.parse(xhr.responseText); } catch { reject(new Error('The server could not accept this file.')); return; }
-          if (xhr.status < 200 || xhr.status >= 300) { reject(new Error(result.error || 'Upload failed. Please try again.')); return; }
-          resolve(result);
-        };
-        const form = new FormData(); form.append('kind', kind); form.append('file', file); xhr.send(form);
-      });
-      let next = result.lesson;
+      checkCancelled();
+      const declaration = { action: 'prepare', kind, name: file.name, size: file.size, mime: file.type };
+      type PreparedUpload = { mode: 'multipart' | 'convex'; requiresHash?: boolean; uploadId?: string; uploadUrl?: string; mime?: string };
+      const endpoint = `/api/lessons/${lessonId}/files`;
+      const prepare = (sha256?: string) => platformRequest<PreparedUpload>(endpoint, { method: 'POST', signal: controller.signal, body: JSON.stringify({ ...declaration, ...(sha256 ? { sha256 } : {}) }) });
+      let prepared = await prepare(); checkCancelled();
+      if (prepared.mode === 'convex' && prepared.requiresHash) {
+        setUploadPhase('Checking file…');
+        const digest = await crypto.subtle.digest('SHA-256', await file.arrayBuffer()); checkCancelled();
+        const sha256 = Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, '0')).join('');
+        prepared = await prepare(sha256); checkCancelled();
+      }
+      setUploadPhase(`Uploading ${kind === 'video' ? 'video' : 'resource'}…`);
+      let result: { lesson: Lesson };
+      if (prepared.mode === 'convex') {
+        if (!prepared.uploadUrl || !prepared.uploadId || !prepared.mime) throw new Error('The upload request could not be prepared. Try again.');
+        const stored = await sendFile<{ storageId: string }>(prepared.uploadUrl, file, prepared.mime); checkCancelled();
+        if (!stored.storageId) throw new Error('The uploaded file could not be confirmed. Try again.');
+        setUploadPhase('Verifying uploaded file…');
+        result = await platformRequest<{ lesson: Lesson }>(endpoint, { method: 'POST', signal: controller.signal, body: JSON.stringify({ action: 'finalize', uploadId: prepared.uploadId, storageId: stored.storageId }) });
+      } else {
+        const form = new FormData(); form.append('kind', kind); form.append('file', file);
+        result = await sendFile<{ lesson: Lesson }>(endpoint, form);
+      }
+      checkCancelled(); let next = result.lesson;
       if (kind === 'video' && measuredDuration > 0) {
         setDuration(measuredDuration);
-        const updated = await platformRequest<{ lesson: Lesson }>(`/api/lessons/${current.id}`, { method: 'PATCH', body: JSON.stringify({ duration: measuredDuration }) });
+        const updated = await platformRequest<{ lesson: Lesson }>(`/api/lessons/${lessonId}`, { method: 'PATCH', signal: controller.signal, body: JSON.stringify({ duration: measuredDuration }) });
         next = updated.lesson;
       }
       setCurrent(next); setUploadProgress(100); setMessage(`${file.name} uploaded. ${next.published ? 'Your lesson is available to students.' : 'Review the lesson, then publish it for students.'}`); await refresh();
-    } catch (problem) { setError(problem instanceof Error ? problem.message : 'The upload failed.'); }
-    finally { setUploading(null); activeRequest.current = null; }
+    } catch (problem) { setError(controller.signal.aborted ? 'Upload cancelled. Your lesson draft is safe.' : problem instanceof Error ? problem.message : 'The upload failed.'); }
+    finally { setUploading(null); activeRequest.current = null; if (activeUpload.current === controller) activeUpload.current = null; }
   }
 
   async function togglePublished() {
@@ -157,8 +194,8 @@ export function AcademyStudio({ user, onHome, onWorkspace, onSignIn, onLogout }:
         <form onSubmit={save} className="ac-studio-panel"><div className="ac-panel-title"><span className="ac-label">01 / Lesson details</span>{current && <span className={`ac-status${current.published ? ' ac-status-published' : ''}`}>{current.published ? 'Published' : 'Draft'}</span>}</div><label className="ac-field">Lesson title<input id="lesson-title" name="lessonTitle" required minLength={3} maxLength={160} placeholder="For example: Build a reusable task card" value={title} onChange={event => setTitle(event.target.value)} /></label><div className="ac-fields-grid"><label className="ac-field">Course<select value={courseId} onChange={event => setCourseId(event.target.value)}>{courses.map((course, index) => <option key={course.title} value={String(index)}>{course.title}</option>)}</select></label><label className="ac-field">Duration in seconds<input type="number" min={0} max={86400} value={duration} onChange={event => setDuration(Math.max(0, Number(event.target.value)))} /><small>Filled from your video when available.</small></label></div><label className="ac-field">What will students build?<textarea name="description" rows={4} required minLength={10} maxLength={5000} placeholder="Explain the skill and the small project in this lesson." value={description} onChange={event => setDescription(event.target.value)} /></label><label className="ac-field">Chapters <span className="ac-optional">Optional</span><textarea name="chapters" rows={3} placeholder={'00:00 Start with a component\n00:30 Add a title prop'} value={chapters} onChange={event => setChapters(event.target.value)} /><small>One chapter per line: mm:ss followed by a short title.</small></label><div className="ac-studio-actions"><button className="ac-button ac-button-primary" type="submit" disabled={saving || !!uploading}>{saving ? <LoaderCircle className="ac-spin" size={18} /> : <Save size={18} />}{saving ? 'Saving…' : 'Save lesson draft'}</button>{current && <span className="ac-label">Saved to the academy database</span>}</div></form>
 
         <section className="ac-studio-panel" aria-labelledby="studio-files-heading"><div className="ac-panel-title"><span className="ac-label">02 / Recording and resources</span><h2 id="studio-files-heading">Give the lesson its working files.</h2></div>{!current && <p className="ac-upload-help">Save a draft above to attach your recording and resources.</p>}<div className="ac-upload-grid"><label className={`ac-upload-field${!current || uploading ? ' ac-upload-disabled' : ''}`}><span className="ac-upload-icon"><Film size={27} /></span><strong>{current?.videoUrl ? 'Replace lesson video' : 'Upload lesson video'}</strong><span>MP4 or WebM · Up to 250 MB</span><input type="file" accept="video/mp4,video/webm,.mp4,.webm" aria-label="Upload lesson video" disabled={!current || !!uploading || saving} onChange={event => upload(event, 'video')} /><span className="ac-upload-action"><UploadCloud size={17} />Choose a video</span></label><label className={`ac-upload-field${!current || uploading ? ' ac-upload-disabled' : ''}`}><span className="ac-upload-icon"><FileText size={27} /></span><strong>Add a lesson resource</strong><span>PDF or ZIP · Up to 25 MB</span><input type="file" accept="application/pdf,application/zip,.pdf,.zip" aria-label="Upload lesson document" disabled={!current || !!uploading || saving} onChange={event => upload(event, 'resource')} /><span className="ac-upload-action"><UploadCloud size={17} />Choose a document</span></label></div>
-          {uploading && <div className="ac-upload-progress" role="status"><div><span>Uploading {uploading === 'video' ? 'video' : 'resource'}…</span><strong>{uploadProgress}%</strong></div><span role="progressbar" aria-label="File upload progress" aria-valuenow={uploadProgress} aria-valuemin={0} aria-valuemax={100}><i style={{ transform: `scaleX(${uploadProgress / 100})` }} /></span><button className="ac-text-button" type="button" onClick={() => activeRequest.current?.abort()}>Cancel upload</button></div>}
-          {current?.videoUrl && <div className="ac-attached-file"><span><Video size={20} /><strong>Lesson video attached</strong></span><span>{duration > 0 ? formatTime(duration) : 'Add a duration above'}</span></div>}{current?.resources.map(resource => <a className="ac-attached-file" key={resource.id} href={resource.url} download><span><FileText size={20} /><strong>{resource.name}</strong></span><span>{formatSize(resource.size)}<Download size={17} /></span></a>)}
+          {uploading && <div className="ac-upload-progress" role="status"><div><span>{uploadPhase}</span><strong>{uploadProgress}%</strong></div><span role="progressbar" aria-label="File upload progress" aria-valuenow={uploadProgress} aria-valuemin={0} aria-valuemax={100}><i style={{ transform: `scaleX(${uploadProgress / 100})` }} /></span><button className="ac-text-button" type="button" onClick={() => { activeUpload.current?.abort(); activeRequest.current?.abort(); }}>Cancel upload</button></div>}
+          {current?.videoUrl && <div className="ac-attached-file"><span><Video size={20} /><strong>Lesson video attached</strong></span><span>{duration > 0 ? formatTime(duration) : 'Add a duration above'}</span></div>}{current?.resources.map(resource => <ResourceDownload className="ac-attached-file" key={resource.id} url={resource.url} name={resource.name}><span><FileText size={20} /><strong>{resource.name}</strong></span><span>{formatSize(resource.size)}<Download size={17} /></span></ResourceDownload>)}
         </section>
 
         <section className="ac-studio-panel ac-publish-panel" aria-labelledby="studio-publish-title"><div><span className="ac-label">03 / Review and publish</span><h2 id="studio-publish-title">Ready for a student?</h2><p>Publishing makes the lesson available in the learning library.</p></div><div className="ac-studio-actions"><button className="ac-button ac-button-outline" disabled={!current?.videoUrl || !!uploading || saving} onClick={() => setPreview(value => !value)}>{preview ? 'Close student preview' : 'Preview lesson'}</button><button className="ac-button ac-button-primary" disabled={!current?.videoUrl || !!uploading || saving} onClick={togglePublished}>{current?.published ? 'Unpublish lesson' : 'Publish lesson'}<ArrowRight size={17} /></button></div></section>

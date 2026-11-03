@@ -1,2 +1,4 @@
 packages:
   - yoh-app-academy
+allowBuilds:
+  esbuild: true

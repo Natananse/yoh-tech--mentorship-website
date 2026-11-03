@@ -1,0 +1,537 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:3036",
+  "checks": [
+    "studio/light: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "student-library/light: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "valid-certificate/light: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "studio/dark: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "student-library/dark: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "valid-certificate/dark: Enter/Space toggle, accessible action name, saved preference, and keyboard focus",
+    "Existing completed student course certificate reused or issued idempotently in isolated QA data only"
+  ],
+  "screens": [
+    {
+      "screen": "studio",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "studio",
+      "theme": "light",
+      "width": 768,
+      "preference": "light",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "studio",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "light",
+      "width": 768,
+      "preference": "light",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "light",
+      "width": 768,
+      "preference": "light",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "light",
+      "width": 768,
+      "preference": "light",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "light",
+      "width": 768,
+      "preference": "light",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "valid-certificate",
+      "theme": "light",
+      "width": 390,
+      "preference": "light",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 328,
+        "right": 372
+      }
+    },
+    {
+      "screen": "valid-certificate",
+      "theme": "light",
+      "width": 1440,
+      "preference": "light",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1300,
+        "right": 1344
+      }
+    },
+    {
+      "screen": "studio",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "studio",
+      "theme": "dark",
+      "width": 768,
+      "preference": "dark",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "studio",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "dark",
+      "width": 768,
+      "preference": "dark",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-library",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "dark",
+      "width": 768,
+      "preference": "dark",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-player",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "dark",
+      "width": 768,
+      "preference": "dark",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-notes",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 271,
+        "right": 315
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "dark",
+      "width": 768,
+      "preference": "dark",
+      "viewport": 768,
+      "scrollWidth": 768,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 645,
+        "right": 689
+      }
+    },
+    {
+      "screen": "student-qa",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1356,
+        "right": 1400
+      }
+    },
+    {
+      "screen": "valid-certificate",
+      "theme": "dark",
+      "width": 390,
+      "preference": "dark",
+      "viewport": 390,
+      "scrollWidth": 390,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 328,
+        "right": 372
+      }
+    },
+    {
+      "screen": "valid-certificate",
+      "theme": "dark",
+      "width": 1440,
+      "preference": "dark",
+      "viewport": 1440,
+      "scrollWidth": 1440,
+      "headerOverlaps": [],
+      "toggle": {
+        "width": 44,
+        "height": 44,
+        "left": 1300,
+        "right": 1344
+      }
+    }
+  ],
+  "failures": [],
+  "consoleErrors": [],
+  "consoleWarnings": [
+    "The resource http://127.0.0.1:3036/fonts/bricolage-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource http://127.0.0.1:3036/fonts/inter-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "reactWarnings": [],
+  "pageErrors": [],
+  "pdfRequested": false,
+  "screenChecks": 34,
+  "contrastChecks": 110,
+  "minimumTextContrast": 5.462064122351665
+}

@@ -1,10 +1,10 @@
-# YOH App Academy design and delivery checks
+# YO Tech Academy design and delivery checks
 
 3 November 2026. Current implementation follows the supplied restyling brief.
 
 ## Design
 
-Shared tokens define paper, white and ink surfaces, cobalt actions and sparse yellow highlights. Local Bricolage Grotesque, Inter and JetBrains Mono fonts are packaged with the app. The left-aligned two-line hero includes a working lesson preview and changing phone UI. Courses use 16:10 artwork, readable short titles, a featured layout and restrained color accents. Editorial mentors, a vertical timeline, masonry project concepts, FAQ and the YOH Tech LLC footer vary the page rhythm. The supplied contact email is live.
+Shared tokens define paper, white and ink surfaces, cobalt actions and sparse yellow highlights. Local Bricolage Grotesque, Inter and JetBrains Mono fonts are packaged with the app. The left-aligned two-line hero includes a working lesson preview and changing phone UI. Courses use 16:10 artwork, readable short titles, a featured layout and restrained color accents. Editorial mentors, a vertical timeline, masonry project concepts, FAQ and the YO Tech LLC footer vary the page rhythm. The supplied contact email is live.
 
 The retained course catalog, course dialog and page/workspace integration remain in place. Accounts, uploaded lessons and account progress now use SQLite and server-side storage. Old browser drafts can be imported without overwriting their original browser copy.
 
@@ -28,17 +28,17 @@ The generated certificate was rendered with Poppler and visually inspected as on
 
 ## Build and performance
 
-- Node 24.18.0, pnpm 11.20.0.
+- Next.js 15.5.28, React 19.3.1, Node 24.18.0, pnpm 11.20.0.
 - `pnpm typecheck` and production `pnpm build` passed. Build output contained no errors or warnings.
 - Production packaging includes server code, public assets, local web fonts and PDF fonts.
-- Final Lighthouse 13.6.0 default mobile performance score: **94/100**. FCP 1.1s, LCP 1.1s, TBT 240ms, CLS 0, Speed Index 3.7s. [Summary](docs/qa/lighthouse-summary.json), [full report](docs/qa/lighthouse.json). This local lab result is not a guarantee for another host or network.
+- Final Lighthouse 13.6.0 default mobile performance score: **91/100**. FCP 0.9s, LCP 0.9s, TBT 390ms, CLS 0.001. [Summary](docs/qa/lighthouse-summary.json), [full report](docs/qa/lighthouse.json). This local lab result is not a guarantee for another host or network.
 - `git diff --check` passed.
 - Docker Compose configuration validation passed. A Docker engine was unavailable, so image execution was not tested.
 
 ## Content and deployment
 
-QA accounts and media were isolated in a temporary data directory. The owner database begins without fabricated activity; zero public stats are hidden. Sample lesson media, mentor portrait/profile fields, project concepts and proposed catalog values remain clearly identified. See [TODO_CONTENT.md](TODO_CONTENT.md) for required owner material.
+QA accounts and media were isolated in a temporary data directory. The owner database begins without fabricated activity; zero public stats are hidden. The supplied teacher portrait and approved Yohanes Damtae profile are live locally. Sample lesson media, additional mentor details, project concepts and planned curriculum values remain clearly identified. See [TODO_CONTENT.md](TODO_CONTENT.md) for required owner material.
 
 The verified local production preview runs at http://127.0.0.1:3014 using the project’s persistent `.data` directory. The existing development server on port 3002 was preserved. `pnpm dev` defaults to 3002.
 
-No public deployment is claimed. A connected Node host with persistent storage is still required; the prepared Node/Docker deployment and environment steps are in [README.md](README.md). The older orange reference and motion images under `docs/design/` are historical captures, not evidence of this current design.
+Public deployment is deferred at the owner’s request. Convex database/storage adapters and Vercel configuration are implemented; actual cloud connection and hosted verification remain pending. See [Vercel setup](docs/VERCEL_DEPLOYMENT.md) and [current verification](docs/verification.md). The older orange reference and motion images under `docs/design/` are historical captures, not evidence of this current design.

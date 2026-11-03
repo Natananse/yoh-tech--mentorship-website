@@ -6,7 +6,9 @@ import { ArrowRight, ArrowUpRight, Atom, BookOpen, Braces, Check, Clock3, Code2,
 import { useMotionPreference } from '../lib/use-motion-preference';
 import type { Course } from '../lib/academy-data';
 import type { Lesson, PlatformStats, User } from '../lib/platform-types';
-import { Count, details } from './academy-upgrade';
+import { Count } from './academy-upgrade';
+import { AcademyPackage } from './academy-package';
+import { ThemeToggle } from './theme-toggle';
 import { HeroLessonPreview, LessonWorkspace } from './lesson-player';
 import { AcademyFAQ, AcademyFooter, AcademyMentors, AcademyHowItWorks, AcademyProjects } from './academy-sections';
 
@@ -40,7 +42,7 @@ function CourseCard({ course, index, featured = false, published, onOpen }: { co
       <h3>{course.title}</h3><p>{course.desc}</p>
       {featured && <ul className="academy-course-topics">{course.topics.slice(0, 3).map(topic => <li key={topic}><Check size={16} />{topic}</li>)}</ul>}
       <div className="academy-course-meta"><span><BookOpen size={16} />{lessons.length ? `${lessons.length} published ${lessons.length === 1 ? 'lesson' : 'lessons'}` : `${course.lessons} planned lessons`}</span><span><Clock3 size={16} />{seconds ? `${Math.ceil(seconds / 60)} min` : `${course.hours}h planned`}</span><span><UserRound size={16} />{lessons[0]?.mentorName || 'Mentor to be confirmed'}</span></div>
-      <div className="academy-course-bottom"><div><b>{details[index].price.toLocaleString()} ETB</b><small>Proposed price</small></div><button onClick={onOpen} aria-label={`View course: ${course.title}`}>View course <ArrowUpRight size={19} /></button></div>
+      <div className="academy-course-bottom"><a className="academy-course-package-link" href="#mentorship-package">Package details</a><button onClick={onOpen} aria-label={`View course: ${course.title}`}>View course <ArrowUpRight size={19} /></button></div>
     </div>
   </article>;
 }
@@ -86,13 +88,13 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
   const filtered = courses.map((course, index) => ({ course, index })).filter(({ course }) => (filter === 'All courses' || course.category === filter) && `${course.title} ${course.desc}`.toLowerCase().includes(query.trim().toLowerCase()));
   const liveStats = stats ? [[stats.publishedLessons, 'published lessons'], [stats.enrolledStudents, 'enrolled students'], [stats.completedLessons, 'lessons completed']].filter(([value]) => Number(value) > 0) : [];
   const firstPublished = published.find(lesson => lesson.videoUrl);
-  const nav = (mobile = false) => <><a href="#courses" onClick={() => setMenuOpen(false)}>Courses</a><a href="#sample-lesson" onClick={() => setMenuOpen(false)}>Free lesson</a><a href="#mentors" onClick={() => setMenuOpen(false)}>Mentors</a>{mobile && <><button onClick={() => { setMenuOpen(false); onWorkspace(); }}>My learning <ArrowUpRight size={18} /></button><button onClick={() => { setMenuOpen(false); onStudio(); }}>Mentor studio <ArrowUpRight size={18} /></button></>}</>;
+  const nav = (mobile = false) => <><a href="#courses" onClick={() => setMenuOpen(false)}>Courses</a><a href="#mentorship-package" onClick={() => setMenuOpen(false)}>Package</a><a href="#sample-lesson" onClick={() => setMenuOpen(false)}>Free lesson</a><a href="#mentors" onClick={() => setMenuOpen(false)}>Mentors</a>{mobile && <><button onClick={() => { setMenuOpen(false); onWorkspace(); }}>My learning <ArrowUpRight size={18} /></button><button onClick={() => { setMenuOpen(false); onStudio(); }}>Mentor studio <ArrowUpRight size={18} /></button></>}</>;
   return <div className="academy-site">
     <a className="academy-skip-link" href="#academy-main">Skip to content</a>
     <header className="academy-header"><div className="academy-container academy-header-inner">
-      <a className="academy-brand" href="#home" aria-label="YOH App Academy home"><span className="academy-brand-mark"><Code2 size={26} /></span><span><b>yoh<span>.</span></b><small>App Academy</small></span></a>
+      <a className="academy-brand" href="#home" aria-label="YO Tech Academy home"><span className="academy-brand-mark"><Code2 size={26} /></span><span><b>yo<span>.</span></b><small>App Academy</small></span></a>
       <nav className="academy-nav" aria-label="Main navigation">{nav()}</nav>
-      <div className="academy-header-actions">{user ? <><button className="academy-login-link" onClick={onWorkspace}>My learning <ArrowUpRight size={16} /></button><button className="academy-logout" onClick={onLogout} aria-label="Log out"><LogOut size={19} /></button></> : <button className="academy-login-link" onClick={onAuth}>Log in <ArrowUpRight size={17} /></button>}<button ref={menuButton} className="academy-menu-toggle" aria-expanded={menuOpen} aria-controls="academy-mobile-menu" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X /> : <Menu />}</button></div>
+      <div className="academy-header-actions">{user ? <><button className="academy-login-link" onClick={onWorkspace}>My learning <ArrowUpRight size={16} /></button><button className="academy-logout" onClick={onLogout} aria-label="Log out"><LogOut size={19} /></button></> : <button className="academy-login-link" onClick={onAuth}>Log in <ArrowUpRight size={17} /></button>}<ThemeToggle /><button ref={menuButton} className="academy-menu-toggle" aria-expanded={menuOpen} aria-controls="academy-mobile-menu" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X /> : <Menu />}</button></div>
     </div></header>
     <AnimatePresence>{menuOpen && <><motion.button className="academy-menu-backdrop" aria-label="Close navigation overlay" onClick={() => setMenuOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} /><motion.nav id="academy-mobile-menu" className="academy-mobile-nav" aria-label="Mobile navigation" initial={reduce ? false : { x: '100%' }} animate={{ x: 0 }} exit={reduce ? { opacity: 0 } : { x: '100%' }} transition={{ duration: .22 }}><span className="academy-kicker">Your next step</span>{nav(true)}<p>Watch a lesson. Write the code. Run it on your phone.</p></motion.nav></>}</AnimatePresence>
     <main id="academy-main">
@@ -108,12 +110,13 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
       {liveStats.length > 0 && <div className="academy-live-stats"><div className="academy-container">{liveStats.map(([value, label]) => <span key={String(label)}><b><Count value={Number(value)} /></b> {String(label)}</span>)}</div></div>}
       <motion.section className="academy-section academy-courses" id="courses" aria-labelledby="academy-courses-title" initial={reduce ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .05 }} transition={{ duration: reduce ? 0 : .25 }}><div className="academy-container">
         <div className="academy-section-heading"><div><span className="academy-kicker">Practical paths</span><h2 id="academy-courses-title">A little theory.<br />A <mark>working app.</mark></h2></div><p>Choose one project. Learn the pieces as you build it. Keep the code and make it yours.</p></div>
+        <AcademyPackage />
         <div className="academy-course-toolbar"><div className="academy-filters" role="group" aria-label="Filter courses by technology">{['All courses', 'React Native', 'Expo', 'JavaScript'].map(value => <button key={value} aria-pressed={filter === value} onClick={() => setFilter(value)}>{value}</button>)}</div><label className="academy-search"><Search size={18} /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Find a course" aria-label="Search courses" />{query && <button onClick={() => setQuery('')} aria-label="Clear course search"><X size={18} /></button>}</label></div>
         <p className="academy-course-count" role="status">{filtered.length} {filtered.length === 1 ? 'course' : 'courses'} · Curriculum previews</p>
         {filtered[0] && <CourseCard course={filtered[0].course} index={filtered[0].index} featured published={published} onOpen={event => onOpenCourse(filtered[0].index, event)} />}
         <div className="academy-course-grid">{filtered.slice(1).map(({ course, index }) => <CourseCard key={course.title} course={course} index={index} published={published} onOpen={event => onOpenCourse(index, event)} />)}</div>
         {filtered.length === 0 && <div className="academy-empty"><Search size={28} /><h3>No courses found</h3><p>Try another topic, or clear your filters.</p><button className="academy-button" onClick={() => { setFilter('All courses'); setQuery(''); }}>Reset filters <ArrowRight size={18} /></button></div>}
-        <p className="academy-note">Curriculum, prices and mentor assignments marked “planned” are placeholders until confirmed.</p>
+        <p className="academy-note">Curriculum and mentor assignments marked “planned” are previews. Semester dates and topic allocation will be confirmed before enrollment.</p>
       </div></motion.section>
       <section className="academy-section academy-lesson-section" id="sample-lesson" aria-labelledby="academy-lesson-title"><div className="academy-container"><div className="academy-section-heading"><div><span className="academy-kicker">Inside the classroom</span><h2 id="academy-lesson-title">Watch it.<br />Then <mark>build it.</mark></h2></div><p>Pause at the useful bit. Try the code. Pick up where you left off when you come back.</p></div><LessonWorkspace lesson={firstPublished} onAuthRequired={onAuth} /></div></section>
       <AcademyMentors />

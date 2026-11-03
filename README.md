@@ -1,6 +1,6 @@
-# YOH App Academy
+# YO Tech Academy
 
-A pnpm workspace containing the YOH Tech LLC academy website, student lesson player and mentor studio. Accounts, lesson uploads, per-user progress, timestamped notes and lesson Q&A use a real SQLite database and server-side file storage. Students can explicitly issue a completion certificate after finishing a course’s published lessons, download its PDF and share its public verification ID.
+A pnpm workspace containing the YO Tech LLC academy website, student lesson player and mentor studio. Accounts, lesson uploads, per-user progress, timestamped notes and lesson Q&A use a real SQLite database and server-side file storage. Students can explicitly issue a completion certificate after finishing a course’s published lessons, download its PDF and share its public verification ID.
 
 Use **Node.js 24.13 or newer** and **pnpm 11.20.0**. Run from this outer folder:
 
@@ -21,7 +21,7 @@ pnpm build
 pnpm start
 ```
 
-`pnpm start` runs the packaged production server on port 3002. This is a server application, not a static export. Production requires a Node host with persistent writable storage for the database and uploads.
+`pnpm start` runs the packaged production server on port 3002. This is a server application, not a static export. Vercel production uses Convex; a persistent Node host with SQLite remains an alternative. See [Vercel deployment](yoh-app-academy/docs/VERCEL_DEPLOYMENT.md).
 
 The deployment files are instructions and source configuration; they do not establish that a public deployment or Docker run has taken place.
 

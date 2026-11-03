@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --paper: #fafaf7;
   --surface: #ffffff;
   --ink: #0e0f13;
@@ -10,6 +11,10 @@
   --success: #12a150;
   --danger: #d92d20;
   --on-dark: #f2f2ee;
+  --dark-surface: #0e0f13;
+  --on-accent: #ffffff;
+  --on-highlight: #0e0f13;
+  --on-danger: #ffffff;
   --font-heading: 'Bricolage Grotesque', Arial, sans-serif;
   --font-body: 'Inter', Arial, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -29,4 +34,19 @@
   --peach: var(--highlight);
   --blue: var(--cobalt);
   --green: var(--success);
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --paper: #10131a;
+  --surface: #191e28;
+  --ink: #f2f2ee;
+  --muted: #b7bfce;
+  --border: #353e4e;
+  --cobalt: #8ca5ff;
+  --cobalt-hover: #a1b5ff;
+  --success: #58d991;
+  --danger: #ff8c82;
+  --on-accent: #101728;
+  --on-danger: #220906;
 }

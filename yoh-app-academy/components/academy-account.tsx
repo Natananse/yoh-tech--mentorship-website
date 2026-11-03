@@ -4,13 +4,10 @@ import { useCallback, useEffect, useRef, useState, type FormEvent } from 'react'
 import { ArrowLeft, ArrowRight, Award, BookOpen, Check, CheckCircle2, Code2, Download, ExternalLink, Eye, EyeOff, LogOut, Menu, Play, ShieldCheck, UploadCloud, X } from 'lucide-react';
 import type { Certificate, CertificateEligibility, Lesson, Progress, User } from '../lib/platform-types';
 import { LessonWorkspace } from './academy-upgrade';
+import { ThemeToggle } from './theme-toggle';
 
-export async function platformRequest<T>(url: string, options: RequestInit = {}): Promise<T> {
-  const response = await fetch(url, { credentials: 'same-origin', ...options, headers: { ...(options.body && typeof options.body === 'string' ? { 'Content-Type': 'application/json' } : {}), ...options.headers } });
-  const body = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(body.error || 'The request could not be completed. Try again.');
-  return body as T;
-}
+import { platformRequest } from '../lib/platform-client';
+export { platformRequest } from '../lib/platform-client';
 
 export function AcademyAuthDialog({ onClose, onSuccess, initialRole = 'student' }: { onClose: () => void; onSuccess: (user: User) => void; initialRole?: 'student' | 'mentor' }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -62,11 +59,11 @@ export function AccountHeader({ user, onHome, onWorkspace, onStudio, onLogout, a
   }, [open]);
   const canTeach = user?.role === 'mentor' || user?.role === 'admin';
   const navigation = <><button type="button" aria-current={active === 'dashboard' ? 'page' : undefined} onClick={() => { setOpen(false); onWorkspace?.(); }}><BookOpen size={18} />My learning</button>{canTeach && <button type="button" aria-current={active === 'studio' ? 'page' : undefined} onClick={() => { setOpen(false); onStudio?.(); }}><UploadCloud size={18} />{user?.role === 'admin' ? 'Admin studio' : 'Mentor studio'}</button>}<button type="button" onClick={() => { setOpen(false); onHome(); }}><ArrowLeft size={18} />Academy home</button>{onLogout && user && <button type="button" onClick={onLogout}><LogOut size={18} />Sign out</button>}</>;
-  return <header className="ac-header"><div className="ac-header-inner"><button className="ac-brand" type="button" onClick={onHome} aria-label="YOH App Academy home"><span><Code2 size={24} /></span><b>yoh<em>.</em><small>APP ACADEMY</small></b></button><nav className="ac-desktop-nav" aria-label="Account navigation">{navigation}</nav><div className="ac-identity"><span>{user?.name.split(' ').map(part => part[0]).slice(0, 2).join('') || 'Y'}</span><div><b>{user?.name || 'Your account'}</b><small>{user?.role || 'Signed out'}</small></div></div><button ref={toggle} className="ac-icon-button ac-menu-toggle" aria-expanded={open} aria-controls="account-mobile-navigation" aria-label={open ? 'Close workspace navigation' : 'Open workspace navigation'} onClick={() => setOpen(value => !value)}>{open ? <X size={22} /> : <Menu size={22} />}</button></div>{open && <><button className="ac-drawer-scrim" aria-label="Close workspace navigation backdrop" onClick={() => setOpen(false)} /><nav id="account-mobile-navigation" className="ac-mobile-nav" aria-label="Workspace navigation">{navigation}</nav></>}</header>;
+  return <header className="ac-header"><div className="ac-header-inner"><button className="ac-brand" type="button" onClick={onHome} aria-label="YO Tech Academy home"><span><Code2 size={24} /></span><b>yo<em>.</em><small>APP ACADEMY</small></b></button><nav className="ac-desktop-nav" aria-label="Account navigation">{navigation}</nav><div className="ac-identity"><span>{user?.name.split(' ').map(part => part[0]).slice(0, 2).join('') || 'Y'}</span><div><b>{user?.name || 'Your account'}</b><small>{user?.role || 'Signed out'}</small></div></div><ThemeToggle /><button ref={toggle} className="ac-icon-button ac-menu-toggle" aria-expanded={open} aria-controls="account-mobile-navigation" aria-label={open ? 'Close workspace navigation' : 'Open workspace navigation'} onClick={() => setOpen(value => !value)}>{open ? <X size={22} /> : <Menu size={22} />}</button></div>{open && <><button className="ac-drawer-scrim" aria-label="Close workspace navigation backdrop" onClick={() => setOpen(false)} /><nav id="account-mobile-navigation" className="ac-mobile-nav" aria-label="Workspace navigation">{navigation}</nav></>}</header>;
 }
 
 export function AccountGate({ title, description, onSignIn, onHome }: { title: string; description: string; onSignIn?: () => void; onHome: () => void }) {
-  return <main className="ac-gate"><span className="ac-gate-icon"><BookOpen size={30} /></span><span className="ac-label">YOH App Academy</span><h1>{title}</h1><p>{description}</p><div>{onSignIn && <button className="ac-button ac-button-primary" onClick={onSignIn}>Sign in or create an account <ArrowRight size={17} /></button>}<button className="ac-button ac-button-outline" onClick={onHome}>Back to the academy</button></div></main>;
+  return <main className="ac-gate"><span className="ac-gate-icon"><BookOpen size={30} /></span><span className="ac-label">YO Tech Academy</span><h1>{title}</h1><p>{description}</p><div>{onSignIn && <button className="ac-button ac-button-primary" onClick={onSignIn}>Sign in or create an account <ArrowRight size={17} /></button>}<button className="ac-button ac-button-outline" onClick={onHome}>Back to the academy</button></div></main>;
 }
 
 export function AccountWorkspace({ user, onHome, onStudio, onSignIn, onLogout }: { user: User | null; onHome: () => void; onStudio: () => void; onSignIn: () => void; onLogout: () => void }) {

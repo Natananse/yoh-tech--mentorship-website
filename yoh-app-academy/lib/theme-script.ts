@@ -1,0 +1,2 @@
+// Runs before the first paint so a saved or system dark theme never flashes light.
+export const themeBootstrapScript = `(function(){var root=document.documentElement,saved=null;try{var value=localStorage.getItem('yo-tech-theme');if(value==='light'||value==='dark')saved=value;}catch(e){}var theme=saved||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');root.dataset.theme=theme;root.dataset.themePreference=saved||'system';})();`;

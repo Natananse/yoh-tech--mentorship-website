@@ -1,13 +1,13 @@
 {
-  "score": 94,
-  "fetchTime": "2026-11-03T17:49:33.668Z",
+  "score": 91,
+  "fetchTime": "2026-11-03T18:36:57.893Z",
   "lighthouseVersion": "13.6.0",
-  "mode": "Default mobile Lighthouse performance audit against the packaged production server",
+  "mode": "Default mobile audit against final local production build",
   "metrics": {
-    "first-contentful-paint": "1.1\u00a0s",
-    "largest-contentful-paint": "1.1\u00a0s",
-    "total-blocking-time": "240\u00a0ms",
-    "cumulative-layout-shift": "0",
-    "speed-index": "3.7\u00a0s"
+    "first-contentful-paint": "0.9\u00a0s",
+    "largest-contentful-paint": "0.9\u00a0s",
+    "total-blocking-time": "390\u00a0ms",
+    "cumulative-layout-shift": "0.001",
+    "speed-index": "1.4\u00a0s"
   }
 }

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "checks": [
+    "Original supplied photo displays as the first teacher portrait",
+    "Portrait has no placeholder badge or three-person crop",
+    "Square crop fits desktop and mobile without horizontal overflow"
+  ],
+  "sizes": [
+    {
+      "viewport": 1440,
+      "scroll": 1440,
+      "portraitWidth": 526.65625,
+      "portraitHeight": 526.65625
+    },
+    {
+      "viewport": 390,
+      "scroll": 390,
+      "portraitWidth": 350,
+      "portraitHeight": 350
+    }
+  ],
+  "errors": [],
+  "warnings": []
+}

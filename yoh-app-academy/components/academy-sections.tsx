@@ -10,12 +10,15 @@ import {
   Code2,
   Laptop,
   Layers3,
+  Phone,
   Play,
   Quote,
   Smartphone,
   Star,
   UserRound,
 } from 'lucide-react';
+import { academyContactEmail, academyTeacher } from '../lib/academy-profile';
+import { formatFee, mentorshipPackage, mentorshipTotal } from '../lib/academy-offer';
 
 const studentStories = [
   {
@@ -106,13 +109,42 @@ export function AcademyMentors() {
     fetch('/api/mentors').then(r => r.ok ? r.json() : { mentors: [] }).then(data => { if (live) setProfiles(data.mentors || []); }).catch(() => {}).finally(() => { if (live) setLoading(false); });
     return () => { live = false; };
   }, []);
-  const mentor = profiles[active];
+  const registeredTeacher = profiles.find(profile => profile.name.trim().toLocaleLowerCase() === academyTeacher.name.toLocaleLowerCase());
+  const publicTeacher: MentorProfile = {
+    id: registeredTeacher?.id || academyTeacher.id,
+    name: academyTeacher.name,
+    role: academyTeacher.role,
+    teaches: [...academyTeacher.teaches],
+    yearsExperience: academyTeacher.yearsExperience,
+    teachingStyle: academyTeacher.teachingStyle,
+    portraitUrl: academyTeacher.portraitUrl,
+  };
+  const publicProfiles = [publicTeacher, ...profiles.filter(profile => profile !== registeredTeacher)];
+  const mentor = publicProfiles[active] || publicTeacher;
+  const isAcademyTeacher = mentor.id === publicTeacher.id;
   return <section className="academy-section academy-mentor-feature" id="mentors" aria-labelledby="academy-mentors-title"><div className="academy-container">
     <div className="academy-section-heading"><div><span className="academy-kicker">A person, not a playlist</span><h2 id="academy-mentors-title">Learn the why.<br />Then <mark>try it.</mark></h2></div><p>See who teaches the course and what they help you build. Mentor details are confirmed before a course opens.</p></div>
     {loading ? <div className="academy-mentor-skeleton" role="status" aria-label="Loading mentor profiles" /> : <>
-      {profiles.length > 1 && <div className="academy-mentor-selector" role="group" aria-label="Choose a mentor">{profiles.map((profile, index) => <button aria-pressed={active === index} key={profile.id} onClick={() => setActive(index)}>{profile.name}</button>)}</div>}
-      <article className="academy-mentor-editorial"><div className="academy-mentor-portrait">{mentor?.portraitUrl ? <img decoding="async" src={mentor.portraitUrl} alt={mentor.name} width={600} height={600} loading="lazy" /> : <><img decoding="async" className="academy-placeholder-portrait" src="/media/mentor-triptych.webp" alt="Placeholder mentor portrait; the approved team photo has not been supplied." width={1500} height={500} loading="lazy" /><span>Placeholder portrait</span></>}</div><div className="academy-mentor-editorial-copy"><span className="academy-kicker">{mentor ? 'Your course mentor' : 'Profile placeholder'}</span><h3>{mentor?.name || 'Mentor name to be supplied'}</h3><p className="academy-mentor-editorial-role">{mentor?.role || 'App development mentor'}</p><p className="academy-mentor-editorial-quote">{mentor?.teachingStyle || 'The mentor’s teaching approach and professional biography are being confirmed.'}</p><div className="academy-mentor-facts"><div><span>Teaches</span><p>{mentor?.teaches.length ? mentor.teaches.join(' · ') : 'Planned: React Native · Expo · JavaScript'}</p></div><div><span>Experience</span><p>{mentor?.yearsExperience != null ? `${mentor.yearsExperience} years` : 'Years of experience to be supplied'}</p></div></div><a href="#courses">Explore the courses <ArrowUpRight size={18} /></a></div></article>
-      <p className="academy-note">Portraits, experience and biographies marked as placeholders need the team’s approved content.</p>
+      {publicProfiles.length > 1 && <div className="academy-mentor-selector" role="group" aria-label="Choose a mentor">{publicProfiles.map((profile, index) => <button aria-pressed={active === index} key={profile.id} onClick={() => setActive(index)}>{profile.name}</button>)}</div>}
+      <article className="academy-mentor-editorial">
+        <div className="academy-mentor-portrait">{mentor.portraitUrl ? <img decoding="async" src={mentor.portraitUrl} alt={mentor.name} width={1254} height={1254} loading="lazy" /> : <><img decoding="async" className="academy-placeholder-portrait" src="/media/mentor-triptych.webp" alt="Placeholder mentor portrait; the approved team photo has not been supplied." width={1500} height={500} loading="lazy" /><span>Placeholder portrait</span></>}</div>
+        <div className="academy-mentor-editorial-copy">
+          <span className="academy-kicker">Your course teacher</span>
+          <h3>{mentor.name}</h3>
+          <p className="academy-mentor-editorial-role">{mentor.role}</p>
+          <p className="academy-mentor-editorial-quote">{mentor.teachingStyle || 'The teacher’s teaching approach and professional biography are being confirmed.'}</p>
+          {isAcademyTeacher && <p className="academy-mentor-editorial-bio">{academyTeacher.biography}</p>}
+          <div className="academy-mentor-facts">
+            <div><span>Teaches</span><p>{mentor.teaches.length ? mentor.teaches.join(' · ') : 'Teaching subjects to be confirmed'}</p></div>
+            <div><span>{isAcademyTeacher ? 'Coding experience' : 'Experience'}</span><p>{mentor.yearsExperience != null ? `${mentor.yearsExperience} years${isAcademyTeacher ? ' building software' : ''}` : 'Years of experience to be supplied'}</p></div>
+          </div>
+          <div className="academy-mentor-actions">
+            {isAcademyTeacher && <a className="academy-mentor-contact" href={academyTeacher.phoneHref} aria-label={`Call ${academyTeacher.name} at ${academyTeacher.phone}`}><Phone size={18} strokeWidth={1.5} aria-hidden="true" /><span>Call {academyTeacher.phone}</span></a>}
+            <a href="#courses">Explore the courses <ArrowUpRight size={18} /></a>
+          </div>
+        </div>
+      </article>
+      {publicProfiles.length > 1 && <p className="academy-note">Additional mentor details awaiting confirmation are marked above. Placeholder portraits remain until approved photos are supplied.</p>}
     </>}
   </div></section>;
 }
@@ -137,7 +169,7 @@ const questions = [
   { question: 'Can I try a lesson first?', answer: 'Yes. The free classroom includes a clearly marked interactive sample. Mentor-uploaded recordings appear in the lesson library when published.' },
   { question: 'Will my progress be saved?', answer: 'Yes. Sign in to save your place and completion in your account. You can resume a published lesson after logging out or using another device. The anonymous sample is only a preview.' },
   { question: 'How do mentor uploads work?', answer: 'Invited mentors can save a lesson draft, upload an MP4 or WebM recording, attach a PDF or ZIP, then publish the lesson. Students can watch and download published resources.' },
-  { question: 'How much do courses cost?', answer: 'Catalog prices are proposed and need confirmation from YOH Tech LLC. This version does not take payments. Course availability and refund terms will be supplied before checkout opens.' },
+  { question: 'How is the mentorship package priced?', answer: `The program has ${mentorshipPackage.semesterCount} semesters. Each semester costs ${formatFee(mentorshipPackage.feePerSemester)}, for ${formatFee(mentorshipTotal)} in total. Contact Yohanes about enrollment. This version does not accept online payments.` },
 ];
 
 export function AcademyFAQ() {
@@ -206,14 +238,17 @@ type FooterProps = {
 };
 
 export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: FooterProps) {
+  const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || academyContactEmail;
   return (
     <footer className="academy-footer">
       <div className="academy-container">
         <div className="academy-footer-grid">
           <div className="academy-footer-brand">
-            <a className="academy-brand" href="#" aria-label="YOH App Academy, back to top"><span className="academy-brand-icon"><Code2 size={25} aria-hidden="true" /></span><span>yoh<span className="academy-brand-dot">.</span><small>APP ACADEMY</small></span></a>
+            <a className="academy-brand" href="#" aria-label="YO Tech Academy, back to top"><span className="academy-brand-icon"><Code2 size={25} aria-hidden="true" /></span><span>yo<span className="academy-brand-dot">.</span><small>APP ACADEMY</small></span></a>
             <p>A place to turn “I have an idea” into “I built an app.” Learn the tools. Understand the code. Make it yours.</p>
-            <span className="academy-footer-location">YOH Tech LLC</span>{process.env.NEXT_PUBLIC_CONTACT_EMAIL ? <a className="academy-footer-contact" href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_EMAIL}`}>{process.env.NEXT_PUBLIC_CONTACT_EMAIL}</a> : <span className="academy-footer-contact-placeholder">Contact email to be supplied</span>}
+            <span className="academy-footer-location">YO Tech LLC</span>
+            <a className="academy-footer-contact" href={`mailto:${contactEmail}`}>{contactEmail}</a>
+            <a className="academy-footer-contact academy-footer-phone" href={academyTeacher.phoneHref} aria-label={`Call ${academyTeacher.name} at ${academyTeacher.phone}`}><Phone size={17} strokeWidth={1.5} aria-hidden="true" /><span>{academyTeacher.phone}</span></a>
           </div>
           <div className="academy-footer-column">
             <h3>LEARNING PATHS</h3>
@@ -225,6 +260,7 @@ export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: Fo
           <div className="academy-footer-column">
             <h3>THE ACADEMY</h3>
             <a href="#mentors">Meet the mentors</a>
+            <a href="#mentorship-package">The mentorship package</a>
             <a href="#faq">Frequently asked questions</a>
             <button type="button" onClick={onWorkspace}>Student workspace</button>
             <button type="button" onClick={onStudio}>Mentor studio</button>
@@ -236,7 +272,7 @@ export function AcademyFooter({ onWorkspace, onStudio, onExplore, onLesson }: Fo
             <button type="button" onClick={onLesson}>Take the free lesson <ArrowRight size={17} aria-hidden="true" /></button>
           </div>
         </div>
-        <div className="academy-footer-bottom"><span>© {new Date().getFullYear()} YOH Tech LLC.</span><span>Learn by building. YOH App Academy.</span><a href="#">BACK TO TOP <ArrowUpRight size={13} aria-hidden="true" /></a></div>
+        <div className="academy-footer-bottom"><span>© {new Date().getFullYear()} YO Tech LLC.</span><span>Learn by building. YO Tech Academy.</span><a href="#">BACK TO TOP <ArrowUpRight size={13} aria-hidden="true" /></a></div>
       </div>
     </footer>
   );

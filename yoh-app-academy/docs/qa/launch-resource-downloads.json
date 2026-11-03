@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "Mentor studio resource downloads with original ZIP filename and bytes",
+    "Student player resource downloads with original ZIP filename and bytes"
+  ],
+  "filename": "browser-resource.zip",
+  "bytes": 22,
+  "errors": [],
+  "warnings": []
+}

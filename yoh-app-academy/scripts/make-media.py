@@ -10,7 +10,7 @@ steps=[('01 / START WITH A COMPONENT','Import View and Text from React Native. A
 lines=["import { View, Text } from 'react-native';",'',"function TaskCard({ title }: { title: string }) {","  return (","    <View style={{ padding: 16,","      backgroundColor: '#FFF0E6' }}>","      <Text>{title}</Text>","    </View>","  );","}",'',"export default function App() {","  return <View>","    <TaskCard title=\"Sketch the first screen\" />","    <TaskCard title=\"Build a reusable card\" />","  </View>;","}"]
 for idx,(title,caption) in enumerate(steps):
  im=Image.new('RGB',(1280,720),'#fafaf8');d=ImageDraw.Draw(im)
- d.text((50,34),'YOH APP ACADEMY  /  FREE MICRO LESSON',font=f(15),fill='#8d6d51');d.text((50,76),'Build a reusable task card',font=f(35,True),fill='#222522')
+ d.text((50,34),'YO TECH ACADEMY  /  FREE MICRO LESSON',font=f(15),fill='#8d6d51');d.text((50,76),'Build a reusable task card',font=f(35,True),fill='#222522')
  d.rounded_rectangle((50,145,850,590),16,fill='#29332c');d.text((75,165),'TaskCard.tsx',font=f(13),fill='#c2d2b4')
  limit=[1,3,6,10,17,17][idx]
  for n,line in enumerate(lines[:limit]):

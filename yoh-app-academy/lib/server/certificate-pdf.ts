@@ -68,9 +68,9 @@ export async function createCertificatePdf(certificate:Certificate,origin:string
  page.drawRectangle({x:0,y:0,width,height,color:paper});
  page.drawRectangle({x:22,y:22,width:width-44,height:height-44,borderColor:hairline,borderWidth:1});
  page.drawRectangle({x:22,y:height-28,width:width-44,height:6,color:cobalt});
- paintText(page,'yoh.',margin,height-72,29,fonts.heading,fonts,ink);
+ paintText(page,'yo.',margin,height-72,29,fonts.heading,fonts,ink);
  paintText(page,'APP ACADEMY',margin+89,height-65,10,fonts.mono,fonts,muted);
- paintText(page,'YOH Tech LLC',width-margin-105,height-65,12,fonts.body,fonts,muted);
+ paintText(page,'YO Tech LLC',width-margin-105,height-65,12,fonts.body,fonts,muted);
  page.drawRectangle({x:margin-2,y:height-132,width:196,height:17,color:yellow});
  paintText(page,'Published lesson completion',margin,height-128,29,fonts.heading,fonts,ink);
  page.drawLine({start:{x:margin,y:height-154},end:{x:width-margin,y:height-154},color:hairline,thickness:1});
@@ -82,7 +82,7 @@ export async function createCertificatePdf(certificate:Certificate,origin:string
  course.lines.forEach((line,index)=>paintText(page,line,margin,240-index*(course.size+5),course.size,fonts.heading,fonts,ink));
  const date=new Date(certificate.issuedAt).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'Africa/Addis_Ababa'});
  paintText(page,`${certificate.completedLessonCount} published ${certificate.completedLessonCount===1?'lesson':'lessons'} completed as of ${date}.`,margin,169,12,fonts.body,fonts,ink);
- paintText(page,'A completion record issued by YOH Tech LLC.',margin,148,11,fonts.body,fonts,muted);
+ paintText(page,'A completion record issued by YO Tech LLC.',margin,148,11,fonts.body,fonts,muted);
  page.drawLine({start:{x:margin,y:121},end:{x:width-margin,y:121},color:hairline,thickness:1});
  paintText(page,'VERIFICATION ID',margin,97,9,fonts.mono,fonts,muted);
  paintText(page,certificate.id,margin,79,10,fonts.mono,fonts,ink);
@@ -92,6 +92,6 @@ export async function createCertificatePdf(certificate:Certificate,origin:string
  paintText(page,linkLabel,linkX,85,linkSize,fonts.body,fonts,cobalt);
  const annotation=document.context.obj({Type:'Annot',Subtype:'Link',Rect:[linkX,81,linkX+linkWidth,103],Border:[0,0,0],A:{Type:'Action',S:'URI',URI:PDFString.of(verifyUrl)}});
  page.node.addAnnot(document.context.register(annotation));
- document.setTitle(`${certificate.recipientName} — ${certificate.courseTitle}`);document.setAuthor('YOH Tech LLC');document.setSubject('Published lesson completion record');document.setCreationDate(new Date(certificate.issuedAt));
+ document.setTitle(`${certificate.recipientName} — ${certificate.courseTitle}`);document.setAuthor('YO Tech LLC');document.setSubject('Published lesson completion record');document.setCreationDate(new Date(certificate.issuedAt));
  return document.save();
 }

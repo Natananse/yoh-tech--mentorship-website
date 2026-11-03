@@ -2,12 +2,17 @@
 
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { MotionConfig } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ArrowRight, CheckCircle2, Smartphone, X } from 'lucide-react';
 import { AcademyHomepage } from '../components/academy-homepage';
-import { AcademyAuthDialog, AccountWorkspace, platformRequest } from '../components/academy-account';
-import { AcademyStudio } from '../components/academy-studio';
+import { platformRequest } from '../lib/platform-client';
 import { courses, type Course } from '../lib/academy-data';
+import { formatFee, mentorshipPackage, mentorshipTotal } from '../lib/academy-offer';
 import type { User } from '../lib/platform-types';
+
+const AccountWorkspace = dynamic(() => import('../components/academy-account').then(module => module.AccountWorkspace), { loading: () => <p className="ac-lazy-status" role="status">Opening your learning workspace…</p> });
+const AcademyStudio = dynamic(() => import('../components/academy-studio').then(module => module.AcademyStudio), { loading: () => <p className="ac-lazy-status" role="status">Opening the mentor studio…</p> });
+const AcademyAuthDialog = dynamic(() => import('../components/academy-account').then(module => module.AcademyAuthDialog), { loading: () => <p className="ac-lazy-status ac-lazy-dialog" role="status">Opening sign in…</p> });
 
 type View = 'website' | 'dashboard' | 'studio';
 
@@ -20,7 +25,7 @@ function ProgramDialog({ course, onClose, onWatch }: { course: Course; onClose: 
     <h2 id="course-dialog-title">{course.title}</h2><p>{course.desc}</p>
     <div className="ac-course-project"><Smartphone size={25} /><div><span className="ac-label">What you’ll build</span><b>{course.project}</b></div></div>
     <span className="ac-label">Course outline</span><ul>{course.topics.map(topic => <li key={topic}><CheckCircle2 size={18} />{topic}</li>)}</ul>
-    <p className="ac-placeholder-note">Planning preview. Final course availability, mentor details and prices are still being confirmed. The sample classroom is free to try.</p>
+    <dl className="ac-program-price"><div><dt>Mentorship package</dt><dd>{mentorshipPackage.semesterCount} semesters</dd></div><div><dt>Fee per semester</dt><dd>{formatFee(mentorshipPackage.feePerSemester)}</dd></div><div><dt>Full program total</dt><dd>{formatFee(mentorshipTotal)}</dd></div></dl><p className="ac-placeholder-note">Curriculum preview. Semester dates and topic allocation will be confirmed before enrollment. The sample classroom is free to try.</p>
     <button className="ac-button ac-button-primary" onClick={onWatch}>Watch a free lesson <ArrowRight size={18} /></button>
   </dialog>;
 }

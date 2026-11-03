@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "semesterFees": [
+    "Semester 13,000 ETB",
+    "Semester 23,000 ETB"
+  ],
+  "total": "6,000 ETB",
+  "contact": "tel:+251911701858",
+  "widths": [
+    {
+      "viewport": 1440,
+      "scroll": 1440
+    },
+    {
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "viewport": 390,
+      "scroll": 390
+    }
+  ],
+  "dialogPricing": "Mentorship package\n2 semesters\nFee per semester\n3,000 ETB\nFull program total\n6,000 ETB",
+  "faq": "The program has 2 semesters. Each semester costs 3,000 ETB, for 6,000 ETB in total. Contact Yohanes about enrollment. This version does not accept online payments.",
+  "messages": []
+}

@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "checks": [
+    "Mentor registered through account dialog with invitation code",
+    "Video upload progress bar appears",
+    "Mentor uploaded actual MP4 and ZIP through file inputs",
+    "Mentor published the uploaded lesson",
+    "Student registered through account dialog",
+    "Student played the mentor uploaded MP4",
+    "Keyboard seek saved position to the database",
+    "Student resumed after logout, page reload and sign in",
+    "Student marked lesson complete with database confirmation",
+    "Logout invalidates session"
+  ],
+  "widths": [
+    {
+      "screen": "studio",
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "screen": "studio",
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "screen": "studio",
+      "viewport": 1440,
+      "scroll": 1440
+    },
+    {
+      "screen": "student",
+      "viewport": 390,
+      "scroll": 390
+    },
+    {
+      "screen": "student",
+      "viewport": 768,
+      "scroll": 768
+    },
+    {
+      "screen": "student",
+      "viewport": 1440,
+      "scroll": 1440
+    }
+  ],
+  "errors": [],
+  "warnings": [],
+  "lessonId": "2291f15d-a07c-46c6-876e-1532c594af64"
+}

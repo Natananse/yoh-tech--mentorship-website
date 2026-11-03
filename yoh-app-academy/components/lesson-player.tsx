@@ -1,8 +1,9 @@
 'use client';
 
-import { useCallback, useEffect, useId, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
+import { memo, useCallback, useEffect, useId, useMemo, useRef, useState, type FormEvent, type KeyboardEvent } from 'react';
 import { useMotionPreference } from '../lib/use-motion-preference';
-import { ArrowRight, BookOpen, Check, CheckCircle2, ChevronRight, Code2, Download, FileText, Maximize2, MessageCircle, Pause, Play, Send, Smartphone, Volume2, X } from 'lucide-react';
+import { ResourceDownload } from './resource-download';
+import { ArrowRight, BookOpen, Check, CheckCircle2, ChevronRight, Code2, FileText, Maximize2, MessageCircle, Pause, Play, Send, Smartphone, Volume2, X } from 'lucide-react';
 import type { Lesson, LessonChapter, LessonNote, LessonQuestion, Progress, User } from '../lib/platform-types';
 
 const sampleChapters: LessonChapter[] = [
@@ -39,7 +40,7 @@ function timestamp(seconds: number) {
   return `${Math.floor(value / 60).toString().padStart(2, '0')}:${(value % 60).toString().padStart(2, '0')}`;
 }
 
-function LivePhone({ chapter, index }: { chapter: LessonChapter; index: number }) {
+const LivePhone = memo(function LivePhone({ chapter, index }: { chapter: LessonChapter; index: number }) {
   const [checked, setChecked] = useState<Set<number>>(() => new Set());
   useEffect(() => setChecked(new Set()), [index]);
   const count = index < 1 ? 0 : index < 4 ? 1 : index === 4 ? 2 : 3;
@@ -58,7 +59,7 @@ function LivePhone({ chapter, index }: { chapter: LessonChapter; index: number }
     </div>
     <div className="lp-phone-home" />
   </div>;
-}
+});
 
 function TypedCode({ chapter, characters }: { chapter: LessonChapter; characters?: number }) {
   const code = chapter.code || `// ${chapter.title}\n\n// Follow the lesson, then try it in your app.`;
@@ -483,7 +484,7 @@ export function LessonWorkspace({ compact = false, capture = false, hero = false
         }}>{value}{value === 'Resources' && <span>{source.resources.length}</span>}</button>)}<span className="lp-tabs-status">{isSample ? 'Sample preview' : restoring ? 'Restoring your place…' : user ? 'Saved to your account' : 'Sign in to save progress'}</span></div>
         <div className="lp-tab-panel" role="tabpanel" id={`${instance}-panel`} aria-labelledby={`${instance}-tab-${tab}`}>
           {tab === 'Overview' && <><p>{source.description}</p><div className="lp-practice"><Code2 size={20} /><div><strong>{isSample ? 'Your next five minutes' : 'Put it into practice'}</strong><p>{isSample ? 'Add a third task card. Change its title, then tap a task in the live phone preview.' : 'Pause at each chapter. Try the code in your own project, then return to the next step.'}</p></div></div><p className="lp-shortcuts">Keyboard: <kbd>Space</kbd> play/pause <kbd>J</kbd>/<kbd>L</kbd> back/forward 10s <kbd>F</kbd> fullscreen</p></>}
-          {tab === 'Resources' && (source.resources.length ? <ul className="lp-resource-list">{source.resources.map(resource => <li key={resource.id}><FileText size={20} /><span><strong>{resource.name}</strong><small>{resource.mime.includes('pdf') ? 'PDF' : 'ZIP'} · {resource.size < 1048576 ? `${Math.max(1, Math.ceil(resource.size / 1024))} KB` : `${(resource.size / 1048576).toFixed(1)} MB`}</small></span><a href={resource.url} download={resource.name} aria-label={`Download ${resource.name}`}><Download size={18} /><span>Download</span></a></li>)}</ul> : <div className="lp-no-resources"><FileText size={24} /><div><strong>{isSample ? 'Sample resources are not uploaded yet.' : 'No resources for this lesson yet.'}</strong><p>{isSample ? 'Your mentor’s PDF or starter ZIP will appear here when it is supplied.' : 'The mentor can attach a PDF or ZIP in the lesson studio.'}</p></div></div>)}
+          {tab === 'Resources' && (source.resources.length ? <ul className="lp-resource-list">{source.resources.map(resource => <li key={resource.id}><FileText size={20} /><span><strong>{resource.name}</strong><small>{resource.mime.includes('pdf') ? 'PDF' : 'ZIP'} · {resource.size < 1048576 ? `${Math.max(1, Math.ceil(resource.size / 1024))} KB` : `${(resource.size / 1048576).toFixed(1)} MB`}</small></span><ResourceDownload url={resource.url} name={resource.name} /></li>)}</ul> : <div className="lp-no-resources"><FileText size={24} /><div><strong>{isSample ? 'Sample resources are not uploaded yet.' : 'No resources for this lesson yet.'}</strong><p>{isSample ? 'Your mentor’s PDF or starter ZIP will appear here when it is supplied.' : 'The mentor can attach a PDF or ZIP in the lesson studio.'}</p></div></div>)}
           {tab === 'Notes' && <LessonNotes key={`${source.id}:${user?.id || 'guest'}`} lesson={source} user={user} isSample={isSample} position={position} onSeek={seek} onAuthRequired={onAuthRequired} />}
           {tab === 'Q&A' && <LessonQuestions key={`${source.id}:${user?.id || 'guest'}`} lesson={source} user={user} isSample={isSample} position={position} onSeek={seek} onAuthRequired={onAuthRequired} />}
         </div>

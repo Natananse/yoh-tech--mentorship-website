@@ -1,0 +1,142 @@
+[
+  {
+    "name": "normal-fresh-homepage",
+    "warnings": [],
+    "state": {
+      "url": "http://127.0.0.1:3036/",
+      "fonts": [
+        {
+          "family": "Bricolage Grotesque",
+          "status": "loaded",
+          "weight": "700"
+        },
+        {
+          "family": "Inter",
+          "status": "loaded",
+          "weight": "400 600"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded",
+          "weight": "400 500"
+        }
+      ],
+      "headingFont": "\"Bricolage Grotesque\", Arial, sans-serif",
+      "bodyFont": "Inter, Arial, sans-serif",
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3036/fonts/bricolage-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 22684
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/inter-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 48556
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/jetbrains-0.woff2",
+          "initiatorType": "css",
+          "transferSize": 31732
+        }
+      ]
+    }
+  },
+  {
+    "name": "normal-fresh-valid-certificate",
+    "warnings": [],
+    "state": {
+      "url": "http://127.0.0.1:3036/verify/7a08253f-62d2-4842-a8b7-f8bcd4dbde18",
+      "fonts": [
+        {
+          "family": "Bricolage Grotesque",
+          "status": "loaded",
+          "weight": "700"
+        },
+        {
+          "family": "Inter",
+          "status": "loaded",
+          "weight": "400 600"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded",
+          "weight": "400 500"
+        }
+      ],
+      "headingFont": "\"Bricolage Grotesque\", Arial, sans-serif",
+      "bodyFont": "Inter, Arial, sans-serif",
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3036/fonts/bricolage-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 22684
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/inter-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 48556
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/jetbrains-0.woff2",
+          "initiatorType": "css",
+          "transferSize": 31732
+        }
+      ]
+    }
+  },
+  {
+    "name": "warm-homepage-to-certificate",
+    "warnings": [
+      {
+        "type": "warning",
+        "message": "The resource http://127.0.0.1:3036/fonts/bricolage-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+        "route": "http://127.0.0.1:3036/verify/7a08253f-62d2-4842-a8b7-f8bcd4dbde18"
+      },
+      {
+        "type": "warning",
+        "message": "The resource http://127.0.0.1:3036/fonts/inter-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+        "route": "http://127.0.0.1:3036/verify/7a08253f-62d2-4842-a8b7-f8bcd4dbde18"
+      }
+    ],
+    "state": {
+      "url": "http://127.0.0.1:3036/verify/7a08253f-62d2-4842-a8b7-f8bcd4dbde18",
+      "fonts": [
+        {
+          "family": "Bricolage Grotesque",
+          "status": "loaded",
+          "weight": "700"
+        },
+        {
+          "family": "Inter",
+          "status": "loaded",
+          "weight": "400 600"
+        },
+        {
+          "family": "JetBrains Mono",
+          "status": "loaded",
+          "weight": "400 500"
+        }
+      ],
+      "headingFont": "\"Bricolage Grotesque\", Arial, sans-serif",
+      "bodyFont": "Inter, Arial, sans-serif",
+      "resources": [
+        {
+          "name": "http://127.0.0.1:3036/fonts/bricolage-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 300
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/inter-0.woff2",
+          "initiatorType": "link",
+          "transferSize": 300
+        },
+        {
+          "name": "http://127.0.0.1:3036/fonts/jetbrains-0.woff2",
+          "initiatorType": "css",
+          "transferSize": 0
+        }
+      ]
+    }
+  }
+]

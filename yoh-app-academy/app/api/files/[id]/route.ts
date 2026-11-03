@@ -6,10 +6,20 @@ import { getUser } from '../../../../lib/server/auth';
 import { getDb,uploadDirectory } from '../../../../lib/server/db';
 import { ApiError,handleError } from '../../../../lib/server/http';
 import { requireLesson } from '../../../../lib/server/lessons';
+import { convexEnabled,convexQuery } from '../../../../lib/server/convex-client';
 export const runtime='nodejs';export const dynamic='force-dynamic';
 async function respond(request:Request,id:string,head=false){try{
- const file=getDb().prepare('SELECT lesson_id,storage_name,original_name,mime,kind FROM files WHERE id=?').get(id) as {lesson_id:string;storage_name:string;original_name:string;mime:string;kind:string}|undefined;
- if(!file)throw new ApiError(404,'File not found.');requireLesson(file.lesson_id,getUser(request));
+ if(convexEnabled()){
+  const file=await convexQuery<{url:string;mime:string;size:number;kind:string;originalName:string}>('file-storage:readFile',{id},request);
+  const asciiName=file.originalName.replace(/[^\x20-\x7e]|["\\]/g,'_');
+  const headers=new Headers({'Content-Type':file.mime,'Accept-Ranges':'bytes','X-Content-Type-Options':'nosniff','Cache-Control':'private, no-store','Vary':'Cookie','Content-Disposition':`${file.kind==='resource'?'attachment':'inline'}; filename="${asciiName}"; filename*=UTF-8''${encodeURIComponent(file.originalName)}`});
+  if(head){headers.set('Content-Length',String(file.size));return new Response(null,{headers});}
+  headers.set('Location',file.url);
+  // Video and document bytes travel from Convex to the browser, not through Vercel.
+  return new Response(null,{status:302,headers});
+ }
+ const file=await getDb().get<{lesson_id:string;storage_name:string;original_name:string;mime:string;kind:string}>('SELECT lesson_id,storage_name,original_name,mime,kind FROM files WHERE id=?',id);
+ if(!file)throw new ApiError(404,'File not found.');await requireLesson(file.lesson_id,await getUser(request));
  const filePath=path.join(uploadDirectory,file.storage_name);let size:number;
  try{size=(await stat(filePath)).size;}catch{throw new ApiError(404,'The file is no longer available.');}
  const disposition=file.kind==='resource'?'attachment':'inline';
@@ -27,5 +37,5 @@ async function respond(request:Request,id:string,head=false){try{
  headers.set('Content-Length',String(end-start+1));
  return new Response(head?null:Readable.toWeb(createReadStream(filePath,{start,end})) as ReadableStream<Uint8Array>,{status,headers});
 }catch(error){return handleError(error);}}
-export function GET(request:Request,{params}:{params:{id:string}}){return respond(request,params.id);}
-export function HEAD(request:Request,{params}:{params:{id:string}}){return respond(request,params.id,true);}
+export async function GET(request:Request,{params}:{params:Promise<{id:string}>}){const{id}=await params;return respond(request,id);}
+export async function HEAD(request:Request,{params}:{params:Promise<{id:string}>}){const{id}=await params;return respond(request,id,true);}

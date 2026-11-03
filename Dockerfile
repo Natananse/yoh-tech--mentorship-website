@@ -25,6 +25,7 @@ WORKDIR /app
 RUN mkdir -p /app/data && chown node:node /app/data
 COPY --from=builder --chown=node:node /app/yoh-app-academy/.next/standalone ./
 COPY --from=builder --chown=node:node /app/yoh-app-academy/scripts/setup-admin.mjs ./yoh-app-academy/scripts/setup-admin.mjs
+COPY --from=builder --chown=node:node /app/yoh-app-academy/lib/server/database.mjs ./yoh-app-academy/lib/server/database.mjs
 USER node
 VOLUME ["/app/data"]
 EXPOSE 3002

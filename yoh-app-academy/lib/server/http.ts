@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { acceptedRequestOrigins } from './origin';
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) { super(message); }
@@ -8,13 +9,13 @@ export function json(data: unknown, status = 200) {
 }
 export function handleError(error: unknown) {
   if (error instanceof ApiError) return json({ error: error.message }, error.status);
+  if (error instanceof Error && (error as Error & {code?:string}).code === 'YOH_REMOTE_DATABASE_REQUIRED') return json({error:error.message},503);
   console.error('Academy API request failed:', error instanceof Error ? error.message : 'Unknown error');
   return json({ error: 'The request could not be completed. Please try again.' }, 500);
 }
 export function assertSameOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  const expected = new URL(process.env.YOH_APP_URL || request.url).origin;
-  if (origin && origin !== expected) throw new ApiError(403, 'This request came from a different site.');
+  if (origin && !acceptedRequestOrigins(request).includes(origin)) throw new ApiError(403, 'This request came from a different site.');
   if (!origin && request.headers.get('sec-fetch-site') === 'cross-site') throw new ApiError(403, 'Cross-site requests are not allowed.');
 }
 export async function readJson(request: Request): Promise<Record<string, unknown>> {
