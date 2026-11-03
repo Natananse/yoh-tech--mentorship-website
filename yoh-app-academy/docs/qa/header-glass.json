@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "top": 0,
+      "background": "color(srgb 0.980392 0.980392 0.968627 / 0.84)",
+      "blur": "blur(16px) saturate(1.15)",
+      "opacity": "1"
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "scrollWidth": 390,
+      "top": 0,
+      "background": "color(srgb 0.980392 0.980392 0.968627 / 0.84)",
+      "blur": "blur(16px) saturate(1.15)",
+      "opacity": "1"
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "scrollWidth": 1440,
+      "top": 0,
+      "background": "color(srgb 0.0627451 0.0745098 0.101961 / 0.84)",
+      "blur": "blur(16px) saturate(1.15)",
+      "opacity": "1"
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "scrollWidth": 390,
+      "top": 0,
+      "background": "color(srgb 0.0627451 0.0745098 0.101961 / 0.84)",
+      "blur": "blur(16px) saturate(1.15)",
+      "opacity": "1"
+    }
+  ],
+  "errors": []
+}

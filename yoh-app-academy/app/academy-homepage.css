@@ -29,6 +29,13 @@
   border-bottom: 1px solid var(--border);
   background: var(--paper);
 }
+@supports ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+  .academy-header {
+    background: color-mix(in srgb, var(--paper) 84%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.15);
+    backdrop-filter: blur(16px) saturate(1.15);
+  }
+}
 .academy-header-inner {
   display: flex;
   align-items: center;
@@ -77,10 +84,10 @@
   min-height: 44px;
   align-items: center;
   font-size: 16px;
-  color: var(--muted);
+  color: var(--ink);
 }
 .academy-nav a:hover {
-  color: var(--cobalt);
+  color: var(--cobalt-hover);
 }
 .academy-header-actions {
   display: flex;
@@ -96,7 +103,7 @@
   font-weight: 500;
 }
 .academy-login-link:hover {
-  color: var(--cobalt);
+  color: var(--cobalt-hover);
 }
 .academy-logout {
   display: grid;
