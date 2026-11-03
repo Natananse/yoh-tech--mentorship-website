@@ -1,6 +1,8 @@
-# Verification — 3 November 2026
+# Verification — 4 November 2026
 
 Current result: the local preview at http://localhost:3014 is connected to the deployed Convex production backend. The owner selected **Netlify Free + Convex Free** within a strict **$0 budget**, with administrator-approved program enrollment. The website is published at **https://yo-tech-academy.netlify.app**, with real hosted API/admin checks passed. Production content is intentionally empty and ready for the owner’s recordings.
+
+Current appearance: one fixed light theme across public, account and certificate pages. Live deployment `6aea4c056f369d7ba0b7e2e8` passed all seven homepage/auth/certificate-not-found states at 390/1440px with device dark mode and an earlier saved dark preference: computed colors stay light, theme controls/bootstrap are absent, and there is no overflow or JavaScript error. The Netlify compatibility script, hosting comment and badge remain intact. Two previously documented warm-cache font-preload warnings remain classified as known baseline warnings; unexpected warnings and application writes were zero. [Light-only browser proof](qa/netlify-light-only.json). Earlier dark-theme captures below are historical evidence.
 
 ## Confirmed teacher profile
 
@@ -40,7 +42,9 @@ Updated public logos, page titles, account and certificate screens, footer, PDF 
 
 Owner confirmed one mentorship program with two semesters at 3,000 ETB each, 6,000 ETB total. Added a shared pricing configuration and visible semester breakdown; removed the previous separate course prices. Package navigation, course dialogs, FAQ and enrollment call link use the confirmed offer. Production build and pnpm typecheck passed. Browser checks at 390/768/1440px passed without horizontal overflow or console errors/warnings. [Desktop](qa/package-1440.png), [mobile](qa/package-390.png), [pricing checks](qa/package-pricing.json). Semester dates, duration, topic allocation and payment/refund terms remain to be supplied.
 
-## Light and dark themes
+## Historical light and dark theme checks — superseded
+
+These checks describe the earlier theme-switching build. The owner has since requested a single light appearance, so dark-mode controls and saved-theme behavior are no longer part of the current interface.
 
 The sun/moon header control switches the homepage, account dialogs, student workspace, mentor studio and public certificate pages. Shared semantic colors keep fields, highlighted text, buttons and status messages readable in both themes. Video/code surfaces remain dark and the example phone app retains its own light design.
 
@@ -86,7 +90,7 @@ The actual HTTPS homepage, teacher portrait, authentication/status, stats, publi
 
 The first owner recording has not been uploaded to production. The full upload/playback/approval/resource/certificate flow was verified against the separate development cloud deployment as recorded above. Public recording uploads should not be described as already tested. Uploading lesson content through Mentor Studio does not require another deployment.
 
-## Hosted rendering and dark-theme corrections
+## Hosted rendering compatibility and historical theme corrections
 
 The first public visual run caught a React 418 hydration recovery caused by a newline Netlify inserts immediately before its hosting comment in `<head>`. Browser isolation showed that removing only this whitespace fixes hydration; removing the HUD or hosting comment while retaining the whitespace does not. The compatibility bootstrap removes only that adjacent blank text node before hydration and preserves both the hosting comment and badge. Fresh normal/reduced-motion diagnostic contexts passed without errors or font warnings. [Diagnosis](qa/netlify-hydration-diagnosis.json).
 

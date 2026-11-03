@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "deployId": "6aea4c056f369d7ba0b7e2e8",
+  "url": "https://yo-tech-academy.netlify.app",
+  "checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "themeBootstrap": false,
+      "themeSwitch": false,
+      "hostingCompatibility": true
+    },
+    {
+      "path": "/api/auth/me",
+      "status": 200
+    },
+    {
+      "path": "/api/stats",
+      "status": 200
+    },
+    {
+      "path": "/api/lessons",
+      "status": 200
+    },
+    {
+      "path": "/api/enrollment",
+      "status": 200
+    }
+  ],
+  "readOnly": true
+}

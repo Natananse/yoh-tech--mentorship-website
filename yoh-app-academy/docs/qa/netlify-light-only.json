@@ -1,0 +1,145 @@
+{
+  "passed": true,
+  "url": "https://yo-tech-academy.netlify.app",
+  "deployId": "6aea4c056f369d7ba0b7e2e8",
+  "readOnly": true,
+  "checks": [
+    "OS dark preference and earlier saved dark choice still render the single light homepage and auth dialogs",
+    "Theme controls and earlier theme bootstrap are absent",
+    "Certificate not-found route stays light and fits both widths with the expected404 response",
+    "Netlify hosting comment and badge remain after the compatibility head bootstrap"
+  ],
+  "states": [
+    {
+      "screen": "home",
+      "width": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 1440,
+      "document": 1440,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "auth",
+      "width": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 1440,
+      "document": 1440,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "home",
+      "width": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 390,
+      "document": 390,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "auth",
+      "width": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 390,
+      "document": 390,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "certificate-not-found",
+      "width": 1440,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 1440,
+      "document": 1440,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "certificate-not-found",
+      "width": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 390,
+      "document": 390,
+      "themeBootstrap": 0,
+      "switches": 0
+    },
+    {
+      "screen": "home-after-document-navigation",
+      "width": 390,
+      "osDark": true,
+      "savedTheme": "dark",
+      "themeAttribute": null,
+      "colorScheme": "light",
+      "paper": "#fafaf7",
+      "bodyBackground": "rgb(250, 250, 247)",
+      "viewport": 390,
+      "document": 390,
+      "themeBootstrap": 0,
+      "switches": 0
+    }
+  ],
+  "captures": [
+    "netlify-light-only-home-1440.png",
+    "netlify-light-only-full-1440.png",
+    "netlify-light-only-auth-1440.png",
+    "netlify-light-only-home-390.png",
+    "netlify-light-only-full-390.png",
+    "netlify-light-only-auth-390.png",
+    "netlify-light-only-certificate-missing-1440.png",
+    "netlify-light-only-certificate-missing-390.png"
+  ],
+  "errors": [],
+  "warnings": [
+    "The resource https://yo-tech-academy.netlify.app/fonts/bricolage-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource https://yo-tech-academy.netlify.app/fonts/inter-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "expectedNotFound": [
+    "Failed to load resource: the server responded with a status of 404 ()"
+  ],
+  "writes": [],
+  "knownWarnings": [
+    "The resource https://yo-tech-academy.netlify.app/fonts/bricolage-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.",
+    "The resource https://yo-tech-academy.netlify.app/fonts/inter-0.woff2 was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally."
+  ],
+  "unexpectedWarnings": [],
+  "warningClassification": "Two existing warm-cache font-preload warnings after full document navigation to certificate verification; unchanged baseline documented in verification.md. No font source change is part of theme removal.",
+  "passCriteria": {
+    "lightOnlyStates": 7,
+    "noJavaScriptErrors": true,
+    "noUnexpectedWarnings": true,
+    "knownBaselineWarnings": 2,
+    "noApplicationWrites": true,
+    "certificate404Expected": true
+  }
+}

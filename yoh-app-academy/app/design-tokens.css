@@ -35,18 +35,3 @@
   --blue: var(--cobalt);
   --green: var(--success);
 }
-
-:root[data-theme='dark'] {
-  color-scheme: dark;
-  --paper: #10131a;
-  --surface: #191e28;
-  --ink: #f2f2ee;
-  --muted: #b7bfce;
-  --border: #353e4e;
-  --cobalt: #8ca5ff;
-  --cobalt-hover: #a1b5ff;
-  --success: #58d991;
-  --danger: #ff8c82;
-  --on-accent: #101728;
-  --on-danger: #220906;
-}

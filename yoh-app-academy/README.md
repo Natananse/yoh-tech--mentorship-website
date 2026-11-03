@@ -2,7 +2,7 @@
 
 The YO Tech LLC academy application uses Next.js 15, React 19, TypeScript and pnpm. It includes the academy page, a chapter-based player, mentor uploads, saved progress, private timestamped notes, lesson Q&A and verifiable completion certificates. Convex stores production account and learning records and uploaded files. Local development without a Convex URL retains the existing SQLite and disk storage. The current design uses Bricolage Grotesque, Inter and JetBrains Mono with cobalt actions, paper surfaces and limited yellow highlights.
 
-Use the sun/moon button in the header to switch between light and dark themes. The site follows the device setting until a choice is made, then remembers that choice in the browser and synchronizes it across tabs. The preference applies before the first paint, including on account and certificate pages. When browser storage is unavailable, switching still works for the current tab.
+The site uses one light theme across the homepage, account screens and certificate pages. Device dark-mode settings and saved preferences from the earlier theme switcher do not change the appearance. Video/code panels and other intentionally dark sections keep their fixed design colors.
 
 ## Requirements and local setup
 

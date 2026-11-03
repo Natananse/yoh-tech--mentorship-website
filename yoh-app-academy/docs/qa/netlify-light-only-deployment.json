@@ -1,0 +1,11 @@
+{
+  "site_url": "https://yo-tech-academy.netlify.app",
+  "site_id": "cb462df0-39d2-4330-9884-8adade779ce6",
+  "deploy_id": "6aea4c056f369d7ba0b7e2e8",
+  "state": "ready",
+  "published_at": "2026-11-03T21:03:44.075Z",
+  "revision": "light-only",
+  "http_checks": "netlify-light-only-http.json",
+  "browser_checks": "light-only behavior passed across seven states; two documented warm-cache font preload warnings retained",
+  "browser_evidence": "netlify-light-only.json"
+}

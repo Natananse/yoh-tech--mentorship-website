@@ -8,7 +8,6 @@ import type { Course } from '../lib/academy-data';
 import type { Lesson, PlatformStats, User } from '../lib/platform-types';
 import { Count } from './academy-upgrade';
 import { AcademyPackage } from './academy-package';
-import { ThemeToggle } from './theme-toggle';
 import { HeroLessonPreview, LessonWorkspace } from './lesson-player';
 import { AcademyFAQ, AcademyFooter, AcademyMentors, AcademyHowItWorks, AcademyProjects } from './academy-sections';
 
@@ -93,7 +92,7 @@ export function AcademyHomepage({ courses, user = null, onAuth, onLogout, onWork
     <header className="academy-header"><div className="academy-container academy-header-inner">
       <a className="academy-brand" href="#home" aria-label="YO Tech Academy home"><span className="academy-brand-mark"><Code2 size={26} /></span><span><b>yo<span>.</span></b><small>App Academy</small></span></a>
       <nav className="academy-nav" aria-label="Main navigation">{nav()}</nav>
-      <div className="academy-header-actions">{user ? <><button className="academy-login-link" onClick={onWorkspace}>My learning <ArrowUpRight size={16} /></button><button className="academy-logout" onClick={onLogout} aria-label="Log out"><LogOut size={19} /></button></> : <button className="academy-login-link" onClick={onAuth}>Log in <ArrowUpRight size={17} /></button>}<ThemeToggle /><button ref={menuButton} className="academy-menu-toggle" aria-expanded={menuOpen} aria-controls="academy-mobile-menu" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X /> : <Menu />}</button></div>
+      <div className="academy-header-actions">{user ? <><button className="academy-login-link" onClick={onWorkspace}>My learning <ArrowUpRight size={16} /></button><button className="academy-logout" onClick={onLogout} aria-label="Log out"><LogOut size={19} /></button></> : <button className="academy-login-link" onClick={onAuth}>Log in <ArrowUpRight size={17} /></button>}<button ref={menuButton} className="academy-menu-toggle" aria-expanded={menuOpen} aria-controls="academy-mobile-menu" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} onClick={() => setMenuOpen(v => !v)}>{menuOpen ? <X /> : <Menu />}</button></div>
     </div></header>
     <AnimatePresence>{menuOpen && <><motion.button className="academy-menu-backdrop" aria-label="Close navigation overlay" onClick={() => setMenuOpen(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} /><motion.nav id="academy-mobile-menu" className="academy-mobile-nav" aria-label="Mobile navigation" initial={reduce ? false : { x: '100%' }} animate={{ x: 0 }} exit={reduce ? { opacity: 0 } : { x: '100%' }} transition={{ duration: .22 }}><span className="academy-kicker">Your next step</span>{nav(true)}<p>Watch a lesson. Write the code. Run it on your phone.</p></motion.nav></>}</AnimatePresence>
     <main id="academy-main">

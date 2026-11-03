@@ -230,7 +230,6 @@
 .lp-compact .lp-grid { grid-template-columns: minmax(0, 1fr); }
 .lp-compact .lp-sidebar { border-left: 0; border-top: 1px solid var(--lp-border); }
 .lp-compact .lp-chapters { grid-template-columns: 1fr 1fr; }
-html[data-theme='dark'] :is(.lp-workspace, .lp-hero) { --lp-success: #7dd3a1; --lp-danger: #ffb4ab; }
 /* Media stays dark and the example app stays light in either site theme. */
 .lp-video-viewport, .lp-hero-video { color-scheme: dark; }
 .lp-video-viewport .lp-media-missing p, .lp-hero .lp-media-missing p { color: #f2f2ee; }

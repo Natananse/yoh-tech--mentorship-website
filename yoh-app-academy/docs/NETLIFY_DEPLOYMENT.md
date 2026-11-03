@@ -1,6 +1,6 @@
 # Netlify Free + Convex Free deployment
 
-The selected launch budget is $0. Use the verified **Free** Netlify account and **Free** Convex project, the supplied `netlify.app` domain, and no paid add-ons, upgrades, domain purchases, or auto recharge. Convex production is deployed at https://proficient-squirrel-944.eu-west-1.convex.cloud; development uses zealous-weasel-162. The Netlify production deploy `6aea45d8c3b16e2ee0800818` is ready at https://yo-tech-academy.netlify.app (site ID `cb462df0-39d2-4330-9884-8adade779ce6`). Production visibility is public and previews remain private. **Hosted API/admin and public browser verification passed.**
+The selected launch budget is $0. Use the verified **Free** Netlify account and **Free** Convex project, the supplied `netlify.app` domain, and no paid add-ons, upgrades, domain purchases, or auto recharge. Convex production is deployed at https://proficient-squirrel-944.eu-west-1.convex.cloud; development uses zealous-weasel-162. The Netlify production deploy `6aea4c056f369d7ba0b7e2e8` is ready at https://yo-tech-academy.netlify.app (site ID `cb462df0-39d2-4330-9884-8adade779ce6`). Production visibility is public and previews remain private. **Hosted API/admin and public browser verification passed.**
 
 ## Repository and site settings
 
@@ -130,3 +130,7 @@ Hosted verification: the public homepage, portrait and backend endpoints return 
 The app includes a narrow pre-hydration compatibility bootstrap for the blank head text node inserted before Netlify’s hosting comment. It preserves the promotion comment and badge and is a no-op when the provider does not insert that whitespace. Keep it ahead of hydration while this provider behavior persists; see [diagnostic evidence](qa/netlify-hydration-diagnosis.json).
 
 Final live visual checks on the ready deployment passed desktop/mobile light and dark themes, normal/reduced motion, the translucent header and auth dialogs, with no browser errors, warnings or failed responses. [Browser evidence](qa/netlify-public.json), [contrast evidence](qa/netlify-contrast.json).
+
+The current published appearance is light-only; the theme switch and saved/device preference logic have been removed. The replacement build and live backend endpoints passed. See [light-only build](qa/netlify-light-only-build.json) and [live HTTP checks](qa/netlify-light-only-http.json). Earlier light/dark visual reports describe the launch revision.
+
+Live [light-only browser checks](qa/netlify-light-only.json) confirm the light appearance even with an OS dark preference and a saved dark choice. Homepage/auth/certificate layouts fit390/1440px; the only console warnings are the previously documented warm-cache font preloads during certificate navigation.
